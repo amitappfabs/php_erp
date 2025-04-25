@@ -24,7 +24,7 @@
                             <td><?php echo $row['phone'];?></td>
                             <td><?php echo $row['email'];?></td>
                             <td><?php echo $row['sex'];?></td>
-                          
+                           
                         </tr>
                     <?php endforeach; ?>
                     <?php if (empty($classmates)): ?>

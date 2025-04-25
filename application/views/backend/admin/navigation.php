@@ -43,15 +43,10 @@
 
 
      <!---  Permission for Admin Dashboard starts here ------>
-        
-        
             <li> <a href="<?php echo base_url();?>admin/dashboard" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('Dashboard') ;?></span></a> </li>
-         
     <!---  Permission for Admin Dashboard ends here ------>
                     
      <!---  Permission for Admin Manage Academics starts here ------>
-     
-        
         <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-mortar-board" data-icon="7"></i> <span class="hide-menu"> <?php echo get_phrase('Manage Academics');?> <span class="fa arrow"></span></span></a>
                         <ul class=" nav nav-second-level<?php
             if (    $page_name == 'enquiry_category'||
@@ -102,17 +97,14 @@
                            
         </ul>
     </li>
-     <!---  Permission for Admin Manage Academics ends here ------>
+    <!---  Permission for Admin Manage Academics ends here ------>
                    
 
 
 
 
     <!---  Permission for Admin Manage Employee starts here ------>
-    
-     
-
-        <li class="staff"> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-angle-double-right p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('Manage Employees');?></span><span class="fa arrow"></span></a>
+    <li class="staff"> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-angle-double-right p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('Manage Employees');?><span class="fa arrow"></span></span></a>
         
                         <ul class=" nav nav-second-level<?php
             if ($page_name == 'teacher' ||
@@ -174,17 +166,15 @@
      
                  </ul>
     </li>
-     <!---  Permission for Admin Manage Employee ends here ------>
+    <!---  Permission for Admin Manage Employee ends here ------>
+
 
 
 
 
 
     <!---  Permission for Admin Manage Student starts here ------>
-    
-               
-                
-        <li class="student"> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-users p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_students');?></span><span class="fa arrow"></span></a>
+        <li class="student"> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-users p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_students');?><span class="fa arrow"></span></span></a>
         
                         <ul class=" nav nav-second-level<?php
             if ($page_name == 'new_student' ||
@@ -245,19 +235,18 @@
      
                  </ul>
     </li>
-     <!---  Permission for Admin Manage Student ends here ------>
+    <!---  Permission for Admin Manage Student ends here ------>
 
 
 
 
 
     <!---  Permission for Admin Manage Attendance starts here ------>
-     
-     
-        <li class="attendance"> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-hospital-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_attendance');?><span class="fa arrow"></span></span></a>
+    <li class="attendance"> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-hospital-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_attendance');?><span class="fa arrow"></span></span></a>
         
                         <ul class=" nav nav-second-level<?php
-            if ($page_name == 'manage_attendance' || $page_name == 'attendance_report')
+            if ($page_name == 'manage_attendance' || $page_name == 'staff_attendance' ||
+                    $page_name == 'attendance_report')
                 echo 'opened active';
             ?>">
                         
@@ -286,79 +275,166 @@
 
 
 
-    <!---  Permission for Admin Download Page starts here ------>
-     
-     
-                    <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-download p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('download_page');?><span class="fa arrow"></span></span></a>
+    <!---  Permission for Admin Manage Download Page starts here ------>
+    <li> <a href="<?php echo base_url(); ?>admin/download_page" class="waves-effect"><i class="fa fa-download p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('download_page');?> </span></a> </li>
+                                   
 
-                    <ul class=" nav nav-second-level<?php
-        if ($page_name == 'assignment' ||
-                $page_name == 'study_material')
-            echo 'opened active';
-        ?> ">
 
-        <li class="<?php if ($page_name == 'assignment') echo 'active'; ?>">
-            <a href="<?php echo base_url(); ?>assignment/assignment">
-            <i class="fa fa-angle-double-right p-r-10"></i>
-                <span class="hide-menu"><?php echo get_phrase('assignments'); ?></span>
-            </a>
+    <!---  Permission for Admin Download Parent Page starts here ------>
+    <li class=" <?php if($page_name == 'parent')echo 'active';?>">
+                    <a href="<?php echo base_url();?>admin/parent" >
+                    <i class="fa fa-users p-r-10"></i>
+                    <span class="hide-menu"><?php echo get_phrase('manage_parents');?></span>
+                    </a>    
         </li>
 
-        <li class="<?php if ($page_name == 'study_material') echo 'active'; ?> ">
-            <a href="<?php echo base_url(); ?>studymaterial/study_material">
-            <i class="fa fa-angle-double-right p-r-10"></i>
-                  <span class="hide-menu"><?php echo get_phrase('study_materials'); ?></span>
-            </a>
-        </li>
-
-    </ul>
-    </li>
-     <!---  Permission for Admin Download Page ends here ------>
 
 
+    <!---  Permission for Admin Manage Alumni starts here ------>
+    <li class="<?php if($page_name == 'alumni')echo 'active';?>">
+                <a href="<?php echo base_url();?>admin/alumni" >
+                    <i class="fa fa-users p-r-10"></i>
+                    <span class="hide-menu"><?php echo get_phrase('manage_alumni');?></span>
+                </a>    
+            </li>
 
-    <!---  Permission for Admin Manage Parent starts here ------>
-     
-     
-                     <li class="manage_parent"> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_parents');?><span class="fa arrow"></span></span></a>
-
-                        <ul class=" nav nav-second-level<?php
-            if ($page_name == 'parent' ||
-                $page_name == 'parent_add' ||
-                $page_name == 'parent_edit')
+                
+        <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-university p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('class_information');?><span class="fa arrow"></span></span></a>
+        
+            <ul class=" nav nav-second-level<?php
+            if ($page_name == 'class' ||
+                    $page_name == 'section' ||
+                    $page_name == 'class_routine')
                 echo 'opened active';
             ?>">
 
-                 <li class="<?php if ($page_name == 'parent') echo 'active'; ?> ">
-                        <a href="<?php echo base_url(); ?>admin/parent">
+
+                        
+                         <li class="<?php if ($page_name == 'class') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/classes">
                         <i class="fa fa-angle-double-right p-r-10"></i>
-                             <span class="hide-menu"><?php echo get_phrase('parent_list'); ?></span>
+                           <span class="hide-menu"><?php echo get_phrase('manage_classes'); ?></span>
                         </a>
                     </li>
 
 
-                    <li class="<?php if ($page_name == 'parent_add') echo 'active'; ?> ">
-                        <a href="<?php echo base_url(); ?>admin/parent_add">
+                    <li class="<?php if ($page_name == 'section') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/section">
                         <i class="fa fa-angle-double-right p-r-10"></i>
-                             <span class="hide-menu"><?php echo get_phrase('add_parent'); ?></span>
+                            <span class="hide-menu"><?php echo get_phrase('manage_sections'); ?></span>
+                        </a>
+                    </li>   
+                    
+                    
+                    <li class="<?php if ($page_name == 'class_routine_add' ) echo 'active'; ?>">
+                        <a href="<?php echo base_url(); ?>admin/class_routine_add/">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('Add Timetable'); ?> </span>
                         </a>
                     </li>
-
+                    
+                     <li class="<?php if ($page_name == 'class_routine_view' ) echo 'active'; ?>">
+                        <a href="<?php echo base_url(); ?>admin/listStudentTimetable/">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('List Timetable'); ?> </span>
+                        </a>
+                    </li>
+             
+           
                  </ul>
                 </li>
-     <!---  Permission for Admin Manage Parent ends here ------>
+
+                
 
 
-     <!---  Permission for Admin Manage Alumni starts here ------>
-      
+
+                         <li class="<?php if ($page_name == 'subject') echo 'active'; ?>">
+                            <a href="<?php echo base_url(); ?>subject/subject/">
+                            <i class="fa fa-book p-r-10"></i>
+                                 <span class="hide-menu"><?php echo get_phrase('manage_subjects'); ?></span>
+                            </a>
+                        </li>
+
+         
+         <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-medkit p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_exams');?><span class="fa arrow"></span></span></a>
+        
+        <ul class=" nav nav-second-level<?php
+        if ($page_name == 'submit_exam' || $page_name == 'grade' ||  $page_name == 'createExamination' || 
+            $page_name == 'examQuestion') echo 'opened active';
+        ?>">
+                    
+    
+                    <li class="<?php if ($page_name == 'examQuestion') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/examQuestion">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                           <span class="hide-menu"><?php echo get_phrase('question_paper'); ?></span>
+                        </a>
+                    </li>
+
+                    <!--<li class="<?php if ($page_name == 'grade') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/grade">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                           <span class="hide-menu"><?php echo get_phrase('exam_grades'); ?></span>
+                        </a>
+                    </li>-->
+
+                    <li class="<?php if ($page_name == 'createExamination') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/createExamination">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                           <span class="hide-menu"><?php echo get_phrase('Add Examination'); ?></span>
+                        </a>
+                    </li>
+
      
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-graduation-cap p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_alumni');?></span></a> </li>
+                 </ul>
+                </li>
 
-     <!---  Permission for Admin Manage Alumni ends here ------>
+
+           <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-bar-chart-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('report_cards');?><span class="fa arrow"></span></span></a>
+        
+                        <ul class=" nav nav-second-level<?php
+            if ($page_name == 'marks' ||
+                    $page_name == 'exam_marks_sms'||
+                    $page_name == 'tabulation_sheet')
+                echo 'opened active';
+            ?>">
+    
+                    <li class="<?php if ($page_name == 'marks') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/marks">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                           <span class="hide-menu"><?php echo get_phrase('class_teacher'); ?></span>
+                        </a>
+                    </li>
+            
+                    <li class="<?php if ($page_name == 'student_marksheet_subject') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/student_marksheet_subject">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                           <span class="hide-menu"><?php echo get_phrase('subject_teacher'); ?></span>
+                        </a>
+                    </li>
 
 
-                     <li class="collect_fee"> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-paypal p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('fee_collection');?><span class="fa arrow"></span></span></a>
-                        
+                    <li class="<?php if ($page_name == 'exam_marks_sms') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/exam_marks_sms">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('scores_by_sms'); ?></span>
+                        </a>
+                    </li>
+
+
+                    <li class="<?php if ($page_name == 'tabulation_sheet') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/tabulation_sheet">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('Terminal Report'); ?></span>
+                        </a>
+                    </li>
+     
+                 </ul>
+                </li>
+                    
+                    
+        <li class="collect_fee"> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-paypal p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('fee_collection');?><span class="fa arrow"></span></span></a>
+        
                         <ul class=" nav nav-second-level<?php
             if ($page_name == 'income' ||
                         $page_name == 'student_payment'||
@@ -389,7 +465,89 @@
                 
                 
                     
-                    <li> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-credit-card p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('expenditure');?><span class="fa arrow"></span></span></a>
+                    <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-credit-card p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('human_resources');?><span class="fa arrow"></span></span></a>
+        
+                        <ul class=" nav nav-second-level<?php
+            if ($page_name == 'department' ||
+                    $page_name == 'vacancy'|| $page_name == 'award'||
+                     $page_name == 'application'||
+                      $page_name == 'leave'||
+                      $page_name == 'create_payslip'||
+                    $page_name == 'payroll_list')
+                echo 'opened active';
+            ?>">
+   
+                    <li class="<?php if ($page_name == 'department') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>department/department">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('department'); ?></span>
+                        </a>
+                    </li>
+   
+                    
+<li> <a href="#" class="waves-effect"<i data-icon="&#xe006;"></i> <span class="hide-menu"><i class="fa fa-university p-r-10"></i><?php echo get_phrase('recruitment');?><span class="fa arrow"></span></span></a>
+                                <ul class=" nav nav-second-level">
+              
+                    <li class="<?php if ($page_name == 'vacancy') echo 'active'; ?>">
+                        <a href="<?php echo base_url(); ?>admin/vacancy">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('vacancies'); ?></span>
+                        </a>
+                    </li>
+                    
+                     <li class="<?php if ($page_name == 'application') echo 'active'; ?>">
+                        <a href="<?php echo base_url(); ?>admin/application">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('applications'); ?></span>
+                        </a>
+                    </li>
+                
+                    </ul>
+                     </li>
+
+                    
+                    <li class="<?php if ($page_name == 'leave') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/leave">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('leave'); ?></span>
+                        </a>
+                    </li>
+                    
+
+<li> <a href="#" class="waves-effect"<i data-icon="&#xe006;"></i> <span class="hide-menu"><i class="fa fa-university p-r-10"></i><?php echo get_phrase('payroll');?><span class="fa arrow"></span></span></a>
+                                <ul class=" nav nav-second-level">
+              
+                    <li class="<?php if ($page_name == 'create_payslip') echo 'active'; ?>">
+                        <a href="<?php echo base_url(); ?>admin/payroll">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('add_payslip'); ?></span>
+                        </a>
+                    </li>
+                    
+                     <li class="<?php if ($page_name == 'payroll_list') echo 'active'; ?>">
+                        <a href="<?php echo base_url(); ?>admin/payroll_list">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('list_payroll'); ?></span>
+                        </a>
+                    </li>
+                
+                    </ul>
+                     </li>
+
+
+                    
+                     <li class="<?php if ($page_name == 'award') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/award">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                             <span class="hide-menu"><?php echo get_phrase('manage_award'); ?></span>
+                        </a>
+                    </li>
+
+                 </ul>
+                </li>
+                
+                                    
+                    <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-fax p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('expenses');?><span class="fa arrow"></span></span></a>
         
                         <ul class=" nav nav-second-level<?php
             if ($page_name == 'expense' ||
@@ -417,10 +575,128 @@
                 </li>
                 
 
-        <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-envelope p-r-10"></i> <span class="hide-menu"> <?php echo get_phrase('manage_messages');?> <span class="fa arrow"></span></span></a>   
+        <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-book p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_library');?><span class="fa arrow"></span></span></a>
+        
+                        <ul class=" nav nav-second-level<?php
+            if ($page_name == 'book' ||
+                    $page_name == 'publisher' ||
+                    $page_name == 'search_student' ||
+                    $page_name == 'book_category' || $page_name == 'request_book' ||
+                    $page_name == 'author' )
+                echo 'opened active';
+            ?>">
+
+
+        
+                 <li class="<?php if ($page_name == 'book') echo 'active'; ?> ">
+                <a href="<?php echo base_url(); ?>admin/book">
+                <i class="fa fa-angle-double-right p-r-10"></i>
+                   <span class="hide-menu"><?php echo get_phrase('master_data'); ?></span>
+                </a>
+            </li>
+
+
+                    <li class="<?php if ($page_name == 'publisher') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/publisher">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('book_publisher'); ?></span>
+                        </a>
+                    </li>
+
+                    
+                    <li class="<?php if ($page_name == 'book_category') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/book_category">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('book_category'); ?></span>
+                        </a>
+                    </li>
+
+                    
+                    <li class="<?php if ($page_name == 'author') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/author">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('book_author'); ?></span>
+                        </a>
+                    </li>
+ 
+<!--
+                    <li class="<?php if ($page_name == 'search_student') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/search_student">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('register_student'); ?></span>
+                        </a>
+                    </li>
+
+                    <li class="<?php if ($page_name == 'request_book') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/request_book">
+                            <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('request_book'); ?></span>
+                        </a>
+                    </li>
+-->
+
+                 </ul>
+                </li>
+                
+        <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-university p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('hostel_information');?><span class="fa arrow"></span></span></a>
             <ul class=" nav nav-second-level<?php
-            if ($page_name == 'message') echo 'opened active';
-            ?> \">
+            if ($page_name == 'dormitory' ||
+                    $page_name == 'hostel_category' ||
+                    $page_name == 'room_type' ||
+                    $page_name == 'hostel_room' )
+                echo 'opened active';
+            ?>">
+
+                <li class="<?php if ($page_name == 'dormitory') echo 'active'; ?> ">
+                <a href="<?php echo base_url(); ?>admin/dormitory">
+                <i class="fa fa-angle-double-right p-r-10"></i>
+                   <span class="hide-menu"><?php echo get_phrase('manage_hostel'); ?></span>
+                </a>
+            </li>
+
+
+                    <li class="<?php if ($page_name == 'hostel_category') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/hostel_category">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('hostel_category'); ?></span>
+                        </a>
+                    </li>
+
+                    
+                    <li class="<?php if ($page_name == 'hostel_room') echo 'active'; ?> ">
+                        <a href="<?php echo base_url(); ?>admin/hostel_room">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                            <span class="hide-menu"><?php echo get_phrase('hostel_room'); ?></span>
+                        </a>
+                    </li>
+     
+                 </ul>
+                </li>
+                
+                
+           <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-envelope p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('communications');?><span class="fa arrow"></span></span></a>
+        
+                        <ul class=" nav nav-second-level<?php
+            if ($page_name == 'noticeboard' ||
+                    $page_name == 'message')
+                echo 'opened active';
+            ?>">
+        
+                <li class="<?php if ($page_name == 'noticeboard') echo 'active'; ?> ">
+                <a href="<?php echo base_url(); ?>admin/noticeboard">
+                <i class="fa fa-angle-double-right p-r-10"></i>
+                   <span class="hide-menu"><?php echo get_phrase('manage_events'); ?></span>
+                </a>
+            </li>
+
+<!--
+            <li class="<?php if ($page_name == 'message') echo 'active'; ?> ">
+                <a href="<?php echo base_url(); ?>admin/message">
+                <i class="fa fa-angle-double-right p-r-10"></i>
+                    <span class="hide-menu"><?php echo get_phrase('private_messages'); ?></span>
+                </a>
+            </li>
+-->
 
 
         <li class="<?php if ($page_name == 'sendEmailMessage') echo 'active'; ?> ">
@@ -429,12 +705,20 @@
                    <span class="hide-menu"><?php echo get_phrase('Send Email Message'); ?></span>
                 </a>
         </li>
-
+ <!--           
+        <li class="<?php if ($page_name == 'sendSMSMessage') echo 'active'; ?> ">
+                <a href="<?php echo base_url(); ?>smsmessage/sendSMSMessage">
+                <i class="fa fa-angle-double-right p-r-10"></i>
+                   <span class="hide-menu"><?php echo get_phrase('Send SMS Message'); ?></span>
+                </a>
+        </li>
+-->
+     
                  </ul>
                 </li>
                 
                 
-            <li> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-car p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_transport');?><span class="fa arrow"></span></span></a>
+            <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-car p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('transportation');?><span class="fa arrow"></span></span></a>
         
                         <ul class=" nav nav-second-level<?php
             if ($page_name == 'transport' ||
@@ -474,7 +758,7 @@
                 </li>
 
         
-        <li> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-gears p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('system_settings');?> <span class="fa arrow"></span></span></a>
+        <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-gears p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('system_settings');?><span class="fa arrow"></span></span></a>
         
         <ul class=" nav nav-second-level<?php
                 if ($page_name == 'system_settings' ||
@@ -522,7 +806,7 @@
                 </li>
                 
                 
-        <li> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-bar-chart-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('generate_reports');?><span class="fa arrow"></span></span></a>
+        <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-bar-chart-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('generate_reports');?><span class="fa arrow"></span></span></a>
         
                         <ul class=" nav nav-second-level">  
    
@@ -554,8 +838,8 @@
 
 
         <?php $checking_level = $this->db->get_where('admin', array('admin_id' => $this->session->userdata('login_user_id')))->row()->level;?>
-
-        <li> <a href="javascript:void(0);" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-cubes p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('role_managements');?><span class="fa arrow"></span></span></a>
+        <?php if($checking_level == '1'):?>
+        <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-cubes p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('role_managements');?><span class="fa arrow"></span></span></a>
         
             <ul class=" nav nav-second-level<?php
                         if ($page_name == 'newAdministrator') echo 'opened active'; ?>">
@@ -570,10 +854,10 @@
      
                  </ul>
             </li>
-
+        <?php endif;?>
 
         <?php $checking_level = $this->db->get_where('admin', array('admin_id' => $this->session->userdata('login_user_id')))->row()->level;?>
-
+        <?php if($checking_level == '2'):?>
        
 
                         <li class="<?php if ($page_name == 'manage_profile') echo 'active'; ?> ">
@@ -582,7 +866,7 @@
                                  <span class="hide-menu"><?php echo get_phrase('manage_profile'); ?></span>
                             </a>
                         </li>
-
+        <?php endif;?>
 
 
                 <li class="">
@@ -596,4 +880,4 @@
                 </ul>
             </div>
         </div>
-        <!-- Left navbar-header end -->
+<!-- Left navbar-header end -->
