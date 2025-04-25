@@ -75,15 +75,6 @@ CREATE TABLE IF NOT EXISTS `accountant` (
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `accountant`
---
-
-INSERT INTO `accountant` (`accountant_id`, `name`, `accountant_number`, `birthday`, `sex`, `religion`, `blood_group`, `address`, `phone`, `email`, `facebook`, `twitter`, `googleplus`, `linkedin`, `qualification`, `marital_status`, `file_name`, `password`, `login_status`) VALUES
-(16, 'Accountant', '09f94645c8', '2019-08-27', 'Male', 'Muslim', 'o+', 'Address Accountant', '+912345667', 'accountant@accountant.com', 'facebook', 'twitter', 'googleplu', 'linkedin', 'PhD', 'Married', 'Terms of Service.docx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `activity`
 --
 
@@ -122,8 +113,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `name`, `email`, `phone`, `password`, `level`, `login_status`) VALUES
-(1, 'Administrator', 'admin@admin.com', '07133445656', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '1', '0'),
-(9, 'Udemy Instructor', 'udemy@udemy.com', '+1564783934', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '2', '0');
+(1, 'Administrator', 'admin@admin.com', '07133445656', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '1', '0');
 
 -- Force super admin entry
 INSERT IGNORE INTO `admin` (`name`, `email`, `phone`, `password`, `level`, `login_status`) VALUES
@@ -155,8 +145,7 @@ CREATE TABLE IF NOT EXISTS `admin_role` (
 --
 
 INSERT INTO `admin_role` (`admin_role_id`, `admin_id`, `dashboard`, `manage_academics`, `manage_employee`, `manage_student`, `manage_attendance`, `download_page`, `manage_parent`, `manage_alumni`) VALUES
-(4, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-(7, 9, 1, 1, 1, 1, 1, 1, 1, 1);
+(4, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -180,13 +169,6 @@ CREATE TABLE IF NOT EXISTS `alumni` (
   PRIMARY KEY (`alumni_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `alumni`
---
-
-INSERT INTO `alumni` (`alumni_id`, `name`, `sex`, `phone`, `email`, `address`, `profession`, `marital_status`, `g_year`, `club_id`, `interest`) VALUES
-(4, 'Alumni Learner', 'Male', '09066021052', 'd@d.com', 'Address', 'Engineer', 'married', '2019-09-04', 1, 'Reading');
-
 -- --------------------------------------------------------
 
 --
@@ -202,13 +184,6 @@ CREATE TABLE IF NOT EXISTS `application` (
   `status` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`application_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `application`
---
-
-INSERT INTO `application` (`application_id`, `applicant_name`, `vacancy_id`, `apply_date`, `status`) VALUES
-(2, 'Udemy Application', 3, '1567965600', 'interviewed');
 
 -- --------------------------------------------------------
 
@@ -230,13 +205,6 @@ CREATE TABLE IF NOT EXISTS `assignment` (
   PRIMARY KEY (`assignment_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `assignment`
---
-
-INSERT INTO `assignment` (`assignment_id`, `name`, `subject_id`, `class_id`, `teacher_id`, `description`, `file_name`, `file_type`, `timestamp`) VALUES
-(1, 'Assignment for Nursery One', 4, 2, 1, 'DESC', 'invoice.docx', 'pdf', '2018-08-19');
-
 -- --------------------------------------------------------
 
 --
@@ -252,14 +220,6 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `session` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`attendance_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `attendance`
---
-
-INSERT INTO `attendance` (`attendance_id`, `status`, `student_id`, `date`, `session`) VALUES
-(39, 1, 45, '2019-12-20', ''),
-(40, 1, 45, '2019-12-22', '');
 
 -- --------------------------------------------------------
 
@@ -300,13 +260,6 @@ CREATE TABLE IF NOT EXISTS `award` (
   PRIMARY KEY (`award_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `award`
---
-
-INSERT INTO `award` (`award_id`, `award_code`, `name`, `gift`, `amount`, `date`, `user_id`) VALUES
-(2, '4675HD', 'Most Dedicated', 'Award', '1000', '2019-09-19', 'hrm-15');
-
 -- --------------------------------------------------------
 
 --
@@ -322,15 +275,6 @@ CREATE TABLE IF NOT EXISTS `bank` (
   `branch` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`bank_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `bank`
---
-
-INSERT INTO `bank` (`bank_id`, `account_holder_name`, `account_number`, `bank_name`, `branch`) VALUES
-(2, 'Udemy Instructor', '1234567', 'Payoneer or paypal', 'USA'),
-(3, 'Udemy Instructor', '1234567', 'Payoneer or paypal', 'USA'),
-(4, 'Udemy Instructor', '1234567', 'Payoneer or paypal', 'USA');
 
 -- --------------------------------------------------------
 
@@ -425,26 +369,6 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
   KEY `ci_sessions_timestamp` (`timestamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `ci_sessions`
---
-
-INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
-('0o55lsviqm8i8evg7i1164p53mkp4vup', '127.0.0.1', 1576400835, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363430303833353b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('5k29uj9otbufutr4sl6sm1sgqajns7q3', '127.0.0.1', 1576401225, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363430313232353b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('6qlbqi95gm56km49cioacibnpl1d6qap', '127.0.0.1', 1575989622, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537353938393632323b),
-('7k1ho15mjeg7u9lbsua6a6f0fl3okgf5', '127.0.0.1', 1575989675, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537353938393637353b),
-('8esqiumpgo03rthcimbnehv3b2e9bc2p', '127.0.0.1', 1575989062, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537353938393036323b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('ea738lb5ik6v0kmm7dm2pbud27k02glr', '127.0.0.1', 1576397281, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363339373238313b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('fofehi7eaeqj2bk5eit5ekp41gd147hi', '127.0.0.1', 1576397948, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363339373934383b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('jjgc5umr0p2np4aneuua2t7tm89v1voj', '127.0.0.1', 1576239186, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363233393138363b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('l1e17mk7cdg71do9qouos1q5249fetn7', '127.0.0.1', 1576239187, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363233393138373b),
-('l46es3qrhtcgi7kcc8daopocsam1knfg', '127.0.0.1', 1576401563, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363430313536333b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('m9sj7su5id61c0rfj53c718pqrbt4hq6', '127.0.0.1', 1576396972, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363339363937323b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b666c6173685f6d6573736167657c733a31383a225375636365737366756c6c79204c6f67696e223b5f5f63695f766172737c613a313a7b733a31333a22666c6173685f6d657373616765223b733a333a226f6c64223b7d),
-('ndto2l4cv384prfveod69n5duullmo4o', '127.0.0.1', 1576401722, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537363430313732323b),
-('pk4m8lpu6igmqgieqnm547i4q2h99gud', '127.0.0.1', 1575988659, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537353938383635393b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b),
-('qhcrmmb8gppl38vmtu8jd806a7l0oksa', '127.0.0.1', 1575989414, 0x5f5f63695f6c6173745f726567656e65726174657c693a313537353938393431343b6c6f67696e5f747970657c733a353a2261646d696e223b61646d696e5f6c6f67696e7c733a313a2231223b61646d696e5f69647c733a313a2238223b6c6f67696e5f757365725f69647c733a313a2238223b6e616d657c733a31333a2241646d696e6973747261746f72223b);
-
 -- --------------------------------------------------------
 
 --
@@ -487,13 +411,6 @@ CREATE TABLE IF NOT EXISTS `class_routine` (
   `year` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`class_routine_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `class_routine`
---
-
-INSERT INTO `class_routine` (`class_routine_id`, `class_id`, `section_id`, `subject_id`, `time_start`, `time_end`, `time_start_min`, `time_end_min`, `day`, `year`) VALUES
-(5, 2, 3, 4, '3', '17', '20', '20', 'monday', '2019-2020');
 
 -- --------------------------------------------------------
 
@@ -558,7 +475,6 @@ CREATE TABLE IF NOT EXISTS `designation` (
 
 INSERT INTO `designation` (`designation_id`, `name`, `department_id`) VALUES
 (5, 'Tutorial', 2),
-(4, 'Udemy', 2),
 (6, 'Student', 2);
 
 -- --------------------------------------------------------
@@ -626,8 +542,7 @@ CREATE TABLE IF NOT EXISTS `enquiry_category` (
 --
 
 INSERT INTO `enquiry_category` (`enquiry_category_id`, `category`, `purpose`, `whom`) VALUES
-(3, 'This is for ID 3 information.', 'Payment', 'Tutorial'),
-(4, 'This is Udemy Information', 'School fees information', 'Just edited now');
+(3, 'This is for ID 3 information.', 'Payment', 'Tutorial');
 
 -- --------------------------------------------------------
 
@@ -722,13 +637,6 @@ CREATE TABLE IF NOT EXISTS `hostel` (
   PRIMARY KEY (`hostel_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `hostel`
---
-
-INSERT INTO `hostel` (`hostel_id`, `name`, `hostel_number`, `birthday`, `sex`, `religion`, `blood_group`, `address`, `phone`, `email`, `facebook`, `twitter`, `googleplus`, `linkedin`, `qualification`, `marital_status`, `file_name`, `password`, `login_status`) VALUES
-(15, 'Hostel Udemy', '78e39debb4', '2019-08-27', 'Male', 'Muslim', 'o+', 'This is the new address for the new hostel manager.', '+912345667', 'hostel@hostel.com', 'facebook', 'twitter', 'googleplus', 'linkedin', 'PhD', 'Married', 'Welcome to Optimum Linkup.docx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0');
-
 -- --------------------------------------------------------
 
 --
@@ -799,199 +707,6 @@ INSERT INTO `house` (`house_id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hrm`
---
-
-DROP TABLE IF EXISTS `hrm`;
-CREATE TABLE IF NOT EXISTS `hrm` (
-  `hrm_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `hrm_number` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `birthday` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `sex` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `religion` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `blood_group` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `address` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `phone` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `email` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `facebook` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `twitter` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `googleplus` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `linkedin` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `qualification` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `marital_status` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `file_name` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `password` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `login_status` longtext COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`hrm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `hrm`
---
-
-INSERT INTO `hrm` (`hrm_id`, `name`, `hrm_number`, `birthday`, `sex`, `religion`, `blood_group`, `address`, `phone`, `email`, `facebook`, `twitter`, `googleplus`, `linkedin`, `qualification`, `marital_status`, `file_name`, `password`, `login_status`) VALUES
-(15, 'Human Udemy', '414bbf2d2a', '2019-08-27', 'Male', 'Christianity', 'B+', 'This is the newly added human resources manager address', '+912345667', 'hrm@hrm.com', 'facebook', 'twitter', 'googleplus', 'linkedin', 'PhD', 'Married', 'index.html', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice`
---
-
-DROP TABLE IF EXISTS `invoice`;
-CREATE TABLE IF NOT EXISTS `invoice` (
-  `invoice_id` int(11) NOT NULL AUTO_INCREMENT,
-  `invoice_number` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `student_id` int(11) NOT NULL,
-  `title` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `amount` int(11) NOT NULL,
-  `discount` int(11) NOT NULL,
-  `amount_paid` int(11) NOT NULL,
-  `due` int(11) NOT NULL,
-  `creation_timestamp` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `payment_method` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL,
-  `year` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`invoice_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `invoice`
---
-
-INSERT INTO `invoice` (`invoice_id`, `invoice_number`, `student_id`, `title`, `description`, `amount`, `discount`, `amount_paid`, `due`, `creation_timestamp`, `payment_method`, `status`, `year`) VALUES
-(2, '742593INV2019', 45, 'Another Part payment for eLibrary', 'Another Part payment for eLibrary.', 7000, 0, 6200, 800, '2019-11-12', '1', 2, '2019-2020');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `language`
---
-
-DROP TABLE IF EXISTS `language`;
-CREATE TABLE IF NOT EXISTS `language` (
-  `phrase_id` int(11) NOT NULL AUTO_INCREMENT,
-  `phrase` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `english` longtext COLLATE utf8_unicode_ci,
-  `arabic` longtext COLLATE utf8_unicode_ci,
-  `french` longtext COLLATE utf8_unicode_ci,
-  `korea` longtext COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`phrase_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=40558 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `language`
---
-
-INSERT INTO `language` (`phrase_id`, `phrase`, `english`, `arabic`, `french`, `korea`) VALUES
-(1, 'Manage Language', 'Manage Language', 'إدارة اللغة', NULL, NULL),
-(2, 'active language', 'Active Language', 'اللغة النشطة', NULL, NULL),
-(40557, 'add', NULL, NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `language_list`
---
-
-DROP TABLE IF EXISTS `language_list`;
-CREATE TABLE IF NOT EXISTS `language_list` (
-  `language_list_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `db_field` varchar(300) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`language_list_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `leave`
---
-
-DROP TABLE IF EXISTS `leave`;
-CREATE TABLE IF NOT EXISTS `leave` (
-  `leave_id` int(11) NOT NULL AUTO_INCREMENT,
-  `leave_code` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `teacher_id` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `start_date` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `end_date` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `reason` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `status` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`leave_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `librarian`
---
-
-DROP TABLE IF EXISTS `librarian`;
-CREATE TABLE IF NOT EXISTS `librarian` (
-  `librarian_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `librarian_number` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `birthday` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `sex` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `religion` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `blood_group` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `address` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `phone` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `email` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `facebook` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `twitter` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `googleplus` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `linkedin` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `qualification` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `marital_status` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `file_name` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `password` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `login_status` longtext COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`librarian_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `librarian`
---
-
-INSERT INTO `librarian` (`librarian_id`, `name`, `librarian_number`, `birthday`, `sex`, `religion`, `blood_group`, `address`, `phone`, `email`, `facebook`, `twitter`, `googleplus`, `linkedin`, `qualification`, `marital_status`, `file_name`, `password`, `login_status`) VALUES
-(13, 'Udemy Librarian', '42ed75d802', '2019-08-26', 'Male', 'Muslim', 'O-', 'Address', '+912345667', 'librarian@librarian.com', 'facebook', 'twitter', 'googleplus', 'linkedin', 'PhD', 'Married', 'invoice.docx', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '0');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mark`
---
-
-DROP TABLE IF EXISTS `mark`;
-CREATE TABLE IF NOT EXISTS `mark` (
-  `mark_id` int(11) NOT NULL AUTO_INCREMENT,
-  `student_id` int(11) NOT NULL,
-  `subject_id` int(11) NOT NULL,
-  `exam_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  `class_score1` int(11) NOT NULL,
-  `class_score2` int(11) NOT NULL,
-  `class_score3` int(11) NOT NULL,
-  `exam_score` int(11) NOT NULL,
-  `comment` longtext NOT NULL,
-  PRIMARY KEY (`mark_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `mark`
---
-
-INSERT INTO `mark` (`mark_id`, `student_id`, `subject_id`, `exam_id`, `class_id`, `class_score1`, `class_score2`, `class_score3`, `exam_score`, `comment`) VALUES
-(1, 45, 5, 1, 2, 10, 9, 8, 70, 'Good performance.'),
-(2, 45, 4, 1, 2, 10, 7, 9, 69, 'Excellent performance.');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `material`
 --
 
@@ -1008,13 +723,6 @@ CREATE TABLE IF NOT EXISTS `material` (
   `timestamp` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`material_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `material`
---
-
-INSERT INTO `material` (`material_id`, `name`, `class_id`, `subject_id`, `teacher_id`, `description`, `file_name`, `file_type`, `timestamp`) VALUES
-(1, 'Study material for Nursery One', 2, 5, 1, 'This is for class only.', 'profile.png', 'docx', '2018-08-19');
 
 -- --------------------------------------------------------
 
@@ -1037,7 +745,6 @@ CREATE TABLE IF NOT EXISTS `noticeboard` (
 --
 
 INSERT INTO `noticeboard` (`noticeboard_id`, `title`, `location`, `timestamp`, `description`) VALUES
-(3, 'Second meeting coming up soon', 'Udemy Forum', 1575136800, 'The meeting is coming up soon. Ensure you are fully prepared.'),
 (4, 'Parent Teacher Association Meeting.', 'Ontario Location', 1575050400, 'This is the new updated information as regards the meeting.');
 
 -- --------------------------------------------------------
@@ -1058,13 +765,6 @@ CREATE TABLE IF NOT EXISTS `parent` (
   `login_status` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`parent_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `parent`
---
-
-INSERT INTO `parent` (`parent_id`, `name`, `email`, `password`, `phone`, `address`, `profession`, `login_status`) VALUES
-(4, 'Mr. Parent', 'parent@parent.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '+912345667', 'Udemy Address', 'Learners', '0');
 
 -- --------------------------------------------------------
 
@@ -1096,11 +796,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
 INSERT INTO `payment` (`payment_id`, `expense_category_id`, `title`, `payment_type`, `invoice_id`, `student_id`, `method`, `description`, `amount`, `discount`, `timestamp`, `year`) VALUES
 (2, '5', 'Purchase of school reading', 'expense', '', '', '2', 'This was purchase by the school administrator for the purpose of having reading books in the school.<br>', '5000', '', 556644564, '2019-2020'),
 (5, '5', 'Purchase of school chalks', 'expense', '', '', '1', 'Purchase of school chalks<br>', '3000', '', 556644564, '2019-2020'),
-(6, '', 'Part payment for eLibrary', '', '2', '45', '1', 'income', '5000', '0', 556644564, ''),
-(7, '', 'Another payment for eLibrary', 'income', '3', '45', '1', 'Another payment for eLibrary', '2000', '0', 445667865, ''),
-(8, '', 'Part payment for eLibrary', 'income', '2', '45', '1', 'Part payment for eLibrary', '1200', '', 556644564, ''),
-(9, '5', 'New chalk purchased', 'expense', '', '', '3', 'New chalk purchased<br>', '1000', '', 556644564, '2019-2020'),
-(10, '', 'Another Part payment for eLibrary.', 'income', '2', '45', '1', 'Another Part payment for eLibrary.', '5000', '', 1576951200, '2019-2020');
+(9, '5', 'New chalk purchased', 'expense', '', '', '3', 'New chalk purchased<br>', '1000', '', 556644564, '2019-2020');
 
 -- --------------------------------------------------------
 
@@ -1119,15 +815,6 @@ CREATE TABLE IF NOT EXISTS `payroll` (
   `status` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`payroll_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `payroll`
---
-
-INSERT INTO `payroll` (`payroll_id`, `payroll_code`, `user_id`, `allowances`, `deductions`, `date`, `status`) VALUES
-(4, 'c94d9d7', '1', '[{\"type\":\"A\",\"amount\":\"1000\"},{\"type\":\"B\",\"amount\":\"1000\"}]', '[{\"type\":\"A\",\"amount\":\"200\"},{\"type\":\"B\",\"amount\":\"700\"}]', '10,2019', '0'),
-(3, 'a8c4ae9', '1', '[{\"type\":\"Food\",\"amount\":\"5000\"},{\"type\":\"House\",\"amount\":\"2000\"}]', '[{\"type\":\"Tax1\",\"amount\":\"1000\"},{\"type\":\"Tax2\",\"amount\":\"500\"}]', '9,2019', '1'),
-(5, '75c1f3d', '1', '[{\"type\":\"A\",\"amount\":\"2000\"},{\"type\":\"B\",\"amount\":\"1000\"}]', '[{\"type\":\"A\",\"amount\":\"500\"},{\"type\":\"B\",\"amount\":\"500\"}]', '12,2019', '1');
 
 -- --------------------------------------------------------
 
@@ -1204,7 +891,7 @@ INSERT INTO `settings` (`settings_id`, `type`, `description`) VALUES
 (16, 'skin_colour', 'purple'),
 (21, 'session', '2025-26'),
 (22, 'footer', 'Developed By Ruhil Future Technology'),
-(116, 'paypal_email', 'optimumproblemsolver@gmail.com'),
+(116, 'paypal_email', 'paypal@example.com'),
 (119, 'stripe_setting', '[{"stripe_active":"1","testmode":"off","secret_key":"test secret key","public_key":"test public key","secret_live_key":"live secret key","public_live_key":"live public key"}]'),
 (122, 'paypal_setting', '[{"paypal_active":"1","paypal_mode":"sandbox","sandbox_client_id":"client id sandbox","production_client_id":"client - production"}]');
 
@@ -1315,13 +1002,6 @@ CREATE TABLE IF NOT EXISTS `student` (
   PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `student`
---
-
-INSERT INTO `student` (`student_id`, `name`, `birthday`, `age`, `place_birth`, `sex`, `m_tongue`, `religion`, `blood_group`, `address`, `city`, `state`, `nationality`, `phone`, `email`, `ps_attended`, `ps_address`, `ps_purpose`, `class_study`, `date_of_leaving`, `am_date`, `tran_cert`, `dob_cert`, `mark_join`, `physical_h`, `password`, `father_name`, `mother_name`, `class_id`, `section_id`, `parent_id`, `roll`, `transport_id`, `dormitory_id`, `house_id`, `student_category_id`, `club_id`, `session`, `card_number`, `issue_date`, `expire_date`, `dormitory_room_number`, `more_entries`, `login_status`) VALUES
-(45, 'Udemy Student II', '09/30/2003', '16', 'Lagos', 'female', 'Mother Tongue', 'Muslim', 'B+', 'Address', 'City', 'Lagos', 'Canadian', '+912345667', 'student@student.com', 'Previous school attended', 'Previous school address', 'Purpose Of Leaving', 'Class In Which Was Studying', '2011-08-10', '2011-08-19', 'Yes', 'Yes', 'Yes', 'No', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '', '', '2', 3, 4, '5bf8161', 0, 2, 1, 2, 1, '2019-2020', '', '', '', '', '', '0');
-
 -- --------------------------------------------------------
 
 --
@@ -1403,13 +1083,6 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `login_status` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`teacher_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `teacher`
---
-
-INSERT INTO `teacher` (`teacher_id`, `name`, `role`, `teacher_number`, `birthday`, `sex`, `religion`, `blood_group`, `address`, `phone`, `email`, `facebook`, `twitter`, `googleplus`, `linkedin`, `qualification`, `marital_status`, `file_name`, `password`, `department_id`, `designation_id`, `date_of_joining`, `joining_salary`, `status`, `date_of_leaving`, `bank_id`, `login_status`) VALUES
-(1, 'Udemy Teacher', '1', 'f82e5cc', '2018-08-19', 'male', 'Christianity', 'B+', '546787, Kertz shopping complext, Silicon Valley, United State of America, New York city.', '+912345667', 'teacher@teacher.com', 'facebook', 'twitter', 'googleplus', 'linkedin', 'PhD', 'Married', 'profile.png', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, 4, '2019-09-15', '5000', 1, '2019-09-18', 3, '0');
 
 -- --------------------------------------------------------
 
@@ -1499,7 +1172,7 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
 --
 
 INSERT INTO `vehicle` (`vehicle_id`, `name`, `vehicle_number`, `vehicle_model`, `vehicle_quantity`, `year_made`, `driver_name`, `driver_license`, `driver_contact`, `description`, `status`) VALUES
-(2, 'Toyota', '423', 'Camry', '2', '2019', 'Udemy Sheg', 'License', 'Contact address here', 'description here', 'available');
+(2, 'Toyota', '423', 'Camry', '2', '2019', 'School Driver', 'License', 'Contact address here', 'description here', 'available');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
