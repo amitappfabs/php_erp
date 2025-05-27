@@ -8,7 +8,7 @@ class Admin extends CI_Controller {
         
         // Load required models and libraries
         $this->load->database();
-        $this->load->library(array('session', 'role_based_access'));
+        $this->load->library('session');
         $this->load->helper(array('url', 'form'));
         
         // Load all required models
@@ -38,13 +38,15 @@ class Admin extends CI_Controller {
             'transfer_certificate_model'
         ));
         
-        // Check admin login status
-        if ($this->session->userdata('admin_login') != 1) {
-            redirect(base_url('login'));
-        }
+        // Check admin login status for most methods
+        $current_method = $this->router->fetch_method();
+        $allowed_without_login = array('index');
         
-        // Check role access
-        $this->role_based_access->check_access('admin');
+        if (!in_array($current_method, $allowed_without_login)) {
+            if ($this->session->userdata('admin_login') != 1) {
+                redirect(base_url('login'));
+            }
+        }
         
         // Ensure timetable table exists with proper structure
         $this->ensure_timetable_table();
@@ -1846,10 +1848,53 @@ class Admin extends CI_Controller {
             redirect(base_url() . 'admin/teacher_attendance/', 'refresh');
         }
         
-        if ($param1 == '') {
+        // Determine the date to use
+        if ($param1 == '' || $param1 == 'take_attendance') {
             $page_data['date'] = $this->input->post('date');
         } else {
+            // If param1 is not empty and not 'take_attendance', treat it as a date
             $page_data['date'] = $param1;
+        }
+        
+        // If date is set, fetch teachers and attendance data
+        if (isset($page_data['date']) && !empty($page_data['date'])) {
+            // Validate date format
+            if (strtotime($page_data['date']) === false) {
+                $this->session->set_flashdata('error_message', get_phrase('Invalid date format'));
+                redirect(base_url() . 'admin/teacher_attendance', 'refresh');
+                return;
+            }
+            
+            try {
+                // Ensure teacher_attendance table exists
+                if (!$this->db->table_exists('teacher_attendance')) {
+                    $this->db->query("CREATE TABLE IF NOT EXISTS `teacher_attendance` (
+                        `attendance_id` int(11) NOT NULL AUTO_INCREMENT,
+                        `teacher_id` int(11) NOT NULL,
+                        `status` int(11) NOT NULL DEFAULT '0' COMMENT '0=undefined, 1=present, 2=absent, 3=late, 4=half day',
+                        `date` date NOT NULL,
+                        `year` varchar(10) NOT NULL,
+                        `month` varchar(10) NOT NULL,
+                        `day` varchar(10) NOT NULL,
+                        PRIMARY KEY (`attendance_id`)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+                }
+                
+                // Fetch all teachers
+                $teachers = $this->db->get('teacher')->result_array();
+                
+                // Fetch attendance data for the selected date
+                $attendance_data = $this->db->get_where('teacher_attendance', array('date' => $page_data['date']))->result_array();
+                
+                $page_data['teachers'] = $teachers;
+                $page_data['attendance_data'] = $attendance_data;
+                
+            } catch (Exception $e) {
+                log_message('error', 'Error in teacher_attendance: ' . $e->getMessage());
+                $this->session->set_flashdata('error_message', get_phrase('Database error occurred. Please contact administrator.'));
+                redirect(base_url() . 'admin/dashboard', 'refresh');
+                return;
+            }
         }
         
         $page_data['page_name'] = 'teacher_attendance';
@@ -1867,7 +1912,15 @@ class Admin extends CI_Controller {
             redirect(base_url(), 'refresh');
         }
         
+        // Fetch all teachers
+        $teachers = $this->db->get('teacher')->result_array();
+        
+        // Fetch attendance data for the selected date
+        $attendance_data = $this->db->get_where('teacher_attendance', array('date' => $date))->result_array();
+        
         $page_data['date'] = $date;
+        $page_data['teachers'] = $teachers;
+        $page_data['attendance_data'] = $attendance_data;
         $this->load->view('backend/admin/teacher_attendance_list', $page_data);
     }
 
@@ -1888,9 +1941,22 @@ class Admin extends CI_Controller {
             redirect(base_url(), 'refresh');
         }
         
+        // Fetch all teachers
+        $teachers = $this->db->get('teacher')->result_array();
+        
+        // Fetch attendance data for the selected month and year
+        $this->db->where('year', $year);
+        $this->db->where('month', $month);
+        if($teacher_id != 'all' && !empty($teacher_id)) {
+            $this->db->where('teacher_id', $teacher_id);
+        }
+        $attendance_data = $this->db->get('teacher_attendance')->result_array();
+        
         $page_data['teacher_id'] = $teacher_id;
         $page_data['month'] = $month;
         $page_data['year'] = $year;
+        $page_data['teachers'] = $teachers;
+        $page_data['attendance_data'] = $attendance_data;
         $this->load->view('backend/admin/teacher_attendance_report_view', $page_data);
     }
     /* End of Teacher Attendance functions */

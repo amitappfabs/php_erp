@@ -63,19 +63,18 @@
                         </thead>
                         <tbody>
                             <?php
-                            $teachers = $this->db->get('teacher')->result_array();
-                            $i = 1;
-                            foreach($teachers as $teacher):
-                                // Check if attendance record exists
-                                $attendance_query = $this->db->get_where('teacher_attendance', array(
-                                    'teacher_id' => $teacher['teacher_id'],
-                                    'date' => $date
-                                ));
-                                
-                                $status = 0; // Default status
-                                if ($attendance_query->num_rows() > 0) {
-                                    $status = $attendance_query->row()->status;
+                            if (isset($teachers) && !empty($teachers)):
+                                // Create attendance status array for quick lookup
+                                $attendance_status = array();
+                                if (isset($attendance_data) && !empty($attendance_data)) {
+                                    foreach($attendance_data as $row) {
+                                        $attendance_status[$row['teacher_id']] = $row['status'];
+                                    }
                                 }
+                                
+                                $i = 1;
+                                foreach($teachers as $teacher):
+                                    $status = isset($attendance_status[$teacher['teacher_id']]) ? $attendance_status[$teacher['teacher_id']] : 0;
                             ?>
                             <tr>
                                 <td><?php echo $i++;?></td>
@@ -83,8 +82,9 @@
                                 <td><?php echo $teacher['name'];?></td>
                                 <td>
                                     <?php 
-                                    if ($teacher['department_id'] != '') {
-                                        echo $this->db->get_where('department', array('department_id' => $teacher['department_id']))->row()->name;
+                                    if (isset($teacher['department_id']) && $teacher['department_id'] != '') {
+                                        $department = $this->db->get_where('department', array('department_id' => $teacher['department_id']))->row();
+                                        echo $department ? $department->name : '-';
                                     } else {
                                         echo '-';
                                     }
@@ -101,13 +101,26 @@
                                     </select>
                                 </td>
                             </tr>
-                            <?php endforeach;?>
+                            <?php 
+                                endforeach;
+                            else:
+                            ?>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div class="alert alert-warning">
+                                            <?php echo get_phrase('no_teachers_found'); ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
 
+                    <?php if (isset($teachers) && !empty($teachers)): ?>
                     <div class="form-group">
                         <button type="submit" class="btn btn-info btn-block btn-rounded btn-sm"><i class="fa fa-plus"></i>&nbsp;<?php echo get_phrase('save');?></button>
                     </div>
+                    <?php endif; ?>
                 </form>
 
                 <!-- <hr>

@@ -138,7 +138,7 @@
             if (empty($attendance_report)) {
                 echo '<tr><td colspan="' . ($number_of_days + 5) . '" style="text-align:center;">' . get_phrase('no_data_available') . '</td></tr>';
             } else {
-                foreach ($attendance_report as $teacher_id => $report) : 
+                foreach ($attendance_report as $report) : 
                     // Skip if essential data is missing
                     if (!isset($report['teacher_name']) || !isset($report['attendance_data']) || !is_array($report['attendance_data'])) {
                         continue;
@@ -174,25 +174,16 @@
                         </td>
                     <?php endforeach; ?>
                     <td class="present">
-                        <?php echo isset($report['stats']['present']) ? $report['stats']['present'] : '0'; ?>
+                        <?php echo isset($report['present_count']) ? $report['present_count'] : '0'; ?>
                     </td>
                     <td class="absent">
-                        <?php echo isset($report['stats']['absent']) ? $report['stats']['absent'] : '0'; ?>
+                        <?php echo isset($report['absent_count']) ? $report['absent_count'] : '0'; ?>
                     </td>
                     <td class="late">
-                        <?php echo isset($report['stats']['late']) ? $report['stats']['late'] : '0'; ?>
+                        <?php echo isset($report['late_count']) ? $report['late_count'] : '0'; ?>
                     </td>
                     <td class="halfday">
-                        <?php 
-                        // Half day status is 4
-                        $half_day_count = 0;
-                        if (isset($report['attendance_data']) && is_array($report['attendance_data'])) {
-                            foreach ($report['attendance_data'] as $status) {
-                                if ($status == 4) $half_day_count++;
-                            }
-                        }
-                        echo $half_day_count;
-                        ?>
+                        <?php echo isset($report['half_day_count']) ? $report['half_day_count'] : '0'; ?>
                     </td>
                 </tr>
             <?php 

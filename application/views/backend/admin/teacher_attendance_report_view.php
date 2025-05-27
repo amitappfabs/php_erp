@@ -1,20 +1,12 @@
 <?php
 $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-$attendance_query = $this->db->get_where('teacher_attendance', array(
-    'year' => $year,
-    'month' => $month
-));
 
-if($teacher_id != 'all') {
-    $this->db->where('teacher_id', $teacher_id);
-}
-
-$attendance_data = $attendance_query->result_array();
-$teachers = $this->db->get('teacher')->result_array();
-
+// Create attendance array for quick lookup
 $attendance_array = array();
-foreach($attendance_data as $row) {
-    $attendance_array[$row['teacher_id']][$row['day']] = $row['status'];
+if (isset($attendance_data) && !empty($attendance_data)) {
+    foreach($attendance_data as $row) {
+        $attendance_array[$row['teacher_id']][$row['day']] = $row['status'];
+    }
 }
 ?>
 
@@ -33,8 +25,9 @@ foreach($attendance_data as $row) {
             </thead>
             <tbody>
                 <?php
-                foreach($teachers as $row):
-                    if($teacher_id == 'all' || $teacher_id == $row['teacher_id']):
+                if (isset($teachers) && !empty($teachers)):
+                    foreach($teachers as $row):
+                        if($teacher_id == 'all' || $teacher_id == $row['teacher_id']):
                 ?>
                 <tr>
                     <td><?php echo $row['name'];?></td>
@@ -63,9 +56,18 @@ foreach($attendance_data as $row) {
                     ?>
                 </tr>
                 <?php
-                    endif;
-                endforeach;
+                        endif;
+                    endforeach;
+                else:
                 ?>
+                    <tr>
+                        <td colspan="<?php echo ($days + 1); ?>" class="text-center">
+                            <div class="alert alert-warning">
+                                <?php echo get_phrase('no_teachers_found'); ?>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
         

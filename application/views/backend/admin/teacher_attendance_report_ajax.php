@@ -58,19 +58,20 @@ error_log('Number of attendance records: ' . (isset($attendance_report) && is_ar
                         <th class="text-center bg-success"><?php echo get_phrase('present'); ?></th>
                         <th class="text-center bg-danger"><?php echo get_phrase('absent'); ?></th>
                         <th class="text-center bg-warning"><?php echo get_phrase('late'); ?></th>
+                        <th class="text-center bg-info"><?php echo get_phrase('half_day'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($attendance_report)) : ?>
                         <tr>
-                            <td colspan="<?php echo $number_of_days + 4; ?>" class="text-center">
+                            <td colspan="<?php echo $number_of_days + 5; ?>" class="text-center">
                                 <?php echo get_phrase('no_data_found'); ?>
                             </td>
                         </tr>
                     <?php else : ?>
                         <?php 
                         try {
-                            foreach ($attendance_report as $teacher_id => $teacher_data) : 
+                            foreach ($attendance_report as $teacher_data) : 
                                 if (!isset($teacher_data['teacher_name']) || !isset($teacher_data['attendance_data']) || !is_array($teacher_data['attendance_data'])) {
                                     continue; // Skip invalid entries
                                 }
@@ -88,6 +89,8 @@ error_log('Number of attendance records: ' . (isset($attendance_report) && is_ar
                                                 echo '<span class="label label-danger">A</span>';
                                             } else if ($status == 3) {
                                                 echo '<span class="label label-warning">L</span>';
+                                            } else if ($status == 4) {
+                                                echo '<span class="label label-info">H</span>';
                                             } else {
                                                 echo '<span class="label label-default">-</span>';
                                             }
@@ -97,15 +100,16 @@ error_log('Number of attendance records: ' . (isset($attendance_report) && is_ar
                                         ?>
                                     </td>
                                 <?php endforeach; ?>
-                                <td class="text-center bg-success"><?php echo isset($teacher_data['stats']['present']) ? $teacher_data['stats']['present'] : '0'; ?></td>
-                                <td class="text-center bg-danger"><?php echo isset($teacher_data['stats']['absent']) ? $teacher_data['stats']['absent'] : '0'; ?></td>
-                                <td class="text-center bg-warning"><?php echo isset($teacher_data['stats']['late']) ? $teacher_data['stats']['late'] : '0'; ?></td>
+                                <td class="text-center bg-success"><strong><?php echo isset($teacher_data['present_count']) ? $teacher_data['present_count'] : '0'; ?></strong></td>
+                                <td class="text-center bg-danger"><strong><?php echo isset($teacher_data['absent_count']) ? $teacher_data['absent_count'] : '0'; ?></strong></td>
+                                <td class="text-center bg-warning"><strong><?php echo isset($teacher_data['late_count']) ? $teacher_data['late_count'] : '0'; ?></strong></td>
+                                <td class="text-center bg-info"><strong><?php echo isset($teacher_data['half_day_count']) ? $teacher_data['half_day_count'] : '0'; ?></strong></td>
                             </tr>
                         <?php 
                             endforeach; 
                         } catch (Exception $e) {
                             error_log('Error in rendering attendance table: ' . $e->getMessage());
-                            echo '<tr><td colspan="' . ($number_of_days + 4) . '" class="text-center text-danger">';
+                            echo '<tr><td colspan="' . ($number_of_days + 5) . '" class="text-center text-danger">';
                             echo 'Error rendering data: ' . $e->getMessage();
                             echo '</td></tr>';
                         }
