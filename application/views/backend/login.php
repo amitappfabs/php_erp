@@ -86,6 +86,18 @@ $system_title = $this->db->get_where('settings', array('type' => 'system_title')
             margin-bottom: 3rem; /* Added margin below cards */
         }
 
+        /* Hide parent card completely */
+        .role-card.parent-card {
+            display: none;
+        }
+
+        /* Student card positioning - center it in the bottom row */
+        .role-card.student-card {
+            grid-column: 1 / -1; /* Span full width */
+            max-width: 550px; /* Half the container width to maintain same size */
+            justify-self: center; /* Center horizontally */
+        }
+
         .role-card {
             background-color: white;
             border-radius: 1.25rem; /* Slightly reduced radius */
@@ -421,7 +433,7 @@ $system_title = $this->db->get_where('settings', array('type' => 'system_title')
             </div>
 
             <!-- Parent Card -->
-            <div class="role-card">
+            <div class="role-card parent-card">
                 <div class="role-content">
                     <div class="role-header">
                         <div class="role-icon parent-icon">
@@ -437,7 +449,7 @@ $system_title = $this->db->get_where('settings', array('type' => 'system_title')
             </div>
 
             <!-- Student Card -->
-            <div class="role-card">
+            <div class="role-card student-card">
                 <div class="role-content">
                     <div class="role-header">
                         <div class="role-icon student-icon">

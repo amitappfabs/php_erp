@@ -1083,4 +1083,69 @@ class Teacher extends CI_Controller {
         $this->load->view('backend/timetable_print_view', $data);
     }
 
+    // Teacher attendance view - shows teacher's own attendance history
+    function teacher_attendance_view($month = '', $year = '') {
+        if ($this->session->userdata('teacher_login') != 1)
+            redirect(base_url(), 'refresh');
+        
+        // Set default month and year if not provided
+        if (empty($month)) $month = date('m');
+        if (empty($year)) $year = date('Y');
+        
+        $teacher_id = $this->session->userdata('teacher_id');
+        $teacher_details = $this->db->get_where('teacher', array('teacher_id' => $teacher_id))->row();
+        
+        if (!$teacher_details) {
+            $this->session->set_flashdata('error_message', get_phrase('Teacher information not found'));
+            redirect(base_url() . 'teacher/dashboard', 'refresh');
+        }
+        
+        // Load teacher attendance model if not already loaded
+        if (!class_exists('Teacher_attendance_model')) {
+            $this->load->model('teacher_attendance_model');
+        }
+        
+        // Get attendance data for the teacher
+        $page_data['teacher_id'] = $teacher_id;
+        $page_data['teacher_name'] = $teacher_details->name;
+        $page_data['month'] = $month;
+        $page_data['year'] = $year;
+        $page_data['page_name'] = 'teacher_attendance_view';
+        $page_data['page_title'] = get_phrase('my_attendance_report');
+        
+        // Get attendance statistics
+        if (method_exists($this->teacher_attendance_model, 'getTeacherAttendanceStats')) {
+            $page_data['attendance_stats'] = $this->teacher_attendance_model->getTeacherAttendanceStats($teacher_id, $month, $year);
+        } else {
+            // Fallback: calculate stats manually
+            $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+            $present_count = $this->db->where('teacher_id', $teacher_id)
+                                     ->where('status', 1)
+                                     ->where('month', $month)
+                                     ->where('year', $year)
+                                     ->get('teacher_attendance')->num_rows();
+            
+            $absent_count = $this->db->where('teacher_id', $teacher_id)
+                                    ->where('status', 2)
+                                    ->where('month', $month)
+                                    ->where('year', $year)
+                                    ->get('teacher_attendance')->num_rows();
+            
+            $late_count = $this->db->where('teacher_id', $teacher_id)
+                                  ->where('status', 3)
+                                  ->where('month', $month)
+                                  ->where('year', $year)
+                                  ->get('teacher_attendance')->num_rows();
+            
+            $page_data['attendance_stats'] = array(
+                'present_count' => $present_count,
+                'absent_count' => $absent_count,
+                'late_count' => $late_count,
+                'total_days' => $days_in_month
+            );
+        }
+        
+        $this->load->view('backend/index', $page_data);
+    }
+
 }
