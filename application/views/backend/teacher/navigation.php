@@ -11,7 +11,8 @@
                         <!-- /input-group -->
             </li>
             
-            <li class="user-pro">
+            <!-- Hide the complete user profile dropdown -->
+            <!-- <li class="user-pro">
                         <?php
                             $key = $this->session->userdata('login_type') . '_id';
                             $face_file = 'uploads/' . $this->session->userdata('login_type') . '_image/' . $this->session->userdata($key) . '.jpg';
@@ -38,36 +39,45 @@
                             <li><a href="javascript:void(0)"><i class="ti-settings"></i> Account Setting</a></li>
                             <li><a href="<?php echo base_url();?>login/logout"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
-                </li>
+                </li> -->
 
 
 
-    <li> <a href="<?php echo base_url();?>teacher/dashboard" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('Dashboard') ;?></span></a> </li>
+    <li class="enhanced-nav-item"> 
+        <a href="<?php echo base_url();?>teacher/dashboard" class="waves-effect enhanced-nav-link">
+            <i class="ti-dashboard p-r-10 enhanced-icon"></i> 
+            <span class="hide-menu enhanced-text"><?php echo get_phrase('Dashboard') ;?></span>
+        </a> 
+    </li>
 
     
 
-    <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-download p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('download_page');?><span class="fa arrow"></span></span></a>
+    <li class="enhanced-nav-item"> 
+        <a href="#" class="waves-effect enhanced-nav-link">
+            <i data-icon="&#xe006;" class="fa fa-graduation-cap p-r-10 enhanced-icon"></i> 
+            <span class="hide-menu enhanced-text"><?php echo get_phrase('assessment');?><span class="fa arrow"></span></span>
+        </a>
         
-                        <ul class=" nav nav-second-level<?php
+        <ul class=" nav nav-second-level<?php
             if ($page_name == 'assignment' ||
                     $page_name == 'study_material')
                 echo 'opened active';
             ?> ">
                                      
 
-            <li class="<?php if ($page_name == 'assignment') echo 'active'; ?>">
-                <a href="<?php echo base_url(); ?>assignment/assignment">
+            <li class="<?php if ($page_name == 'assignment') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>assignment/assignment" class="enhanced-sub-link">
                 <i class="fa fa-angle-double-right p-r-10"></i>
-                    <span class="hide-menu"><?php echo get_phrase('assignments'); ?></span>
+                    <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('assignments'); ?></span>
                 </a>
             </li>
 
    
 
-                <li class="<?php if ($page_name == 'study_material') echo 'active'; ?> ">
-                <a href="<?php echo base_url(); ?>studymaterial/study_material">
+                <li class="<?php if ($page_name == 'study_material') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>studymaterial/study_material" class="enhanced-sub-link">
                 <i class="fa fa-angle-double-right p-r-10"></i>
-                      <span class="hide-menu"><?php echo get_phrase('study_materials'); ?></span>
+                      <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('study_materials'); ?></span>
                 </a>
             </li>
 
@@ -75,7 +85,8 @@
                  </ul>
         </li>
 
-    <li class="attendance"> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-hospital-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_attendance');?><span class="fa arrow"></span></span></a>
+    <!-- Hide Manage Attendance Section -->
+    <!-- <li class="attendance"> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-hospital-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('manage_attendance');?><span class="fa arrow"></span></span></a>
         
         <ul class=" nav nav-second-level<?php
             if ($page_name == 'manage_attendance' || $page_name == 'staff_attendance' ||
@@ -101,9 +112,21 @@
 
 
         </ul>
+    </li> -->
+
+    <!-- New Attendance Report Section -->
+    <li class="<?php if ($page_name == 'teacher_attendance_report') echo 'active'; ?> enhanced-nav-item">
+        <a href="<?php echo base_url(); ?>teacher/teacher_attendance_report" class="waves-effect enhanced-nav-link">
+            <i class="fa fa-calendar-check-o p-r-10 enhanced-icon"></i>
+            <span class="hide-menu enhanced-text"><?php echo get_phrase('attendance_report'); ?></span>
+        </a>
     </li>
 
-    <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-bar-chart-o p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('report_cards');?><span class="fa arrow"></span></span></a>
+    <li class="enhanced-nav-item"> 
+        <a href="#" class="waves-effect enhanced-nav-link">
+            <i data-icon="&#xe006;" class="fa fa-bar-chart-o p-r-10 enhanced-icon"></i> 
+            <span class="hide-menu enhanced-text"><?php echo get_phrase('report_cards');?><span class="fa arrow"></span></span>
+        </a>
         
         <ul class=" nav nav-second-level<?php
             if ($page_name == 'marks' ||
@@ -114,54 +137,53 @@
 
         <?php $select_role = $this->db->get_where('teacher', array('teacher_id' => $this->session->userdata('teacher_id')))->row()->role;?>
         <?php if($select_role == '1'):?>
-                    <li class="<?php if ($page_name == 'marks') echo 'active'; ?> ">
-                        <a href="<?php echo base_url(); ?>teacher/marks">
+                    <li class="<?php if ($page_name == 'marks') echo 'active'; ?> enhanced-sub-item">
+                        <a href="<?php echo base_url(); ?>teacher/marks" class="enhanced-sub-link">
                         <i class="fa fa-angle-double-right p-r-10"></i>
-                           <span class="hide-menu"><?php echo get_phrase('class_teacher'); ?></span>
+                           <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('generate_report_card'); ?></span>
                         </a>
                     </li>
         <?php endif;?>
         
         <?php $select_role = $this->db->get_where('teacher', array('teacher_id' => $this->session->userdata('teacher_id')))->row()->role;?>
         <?php if($select_role == '2'):?>
-                    <li class="<?php if ($page_name == 'student_marksheet_subject') echo 'active'; ?> ">
-                        <a href="<?php echo base_url(); ?>teacher/student_marksheet_subject">
+                    <li class="<?php if ($page_name == 'student_marksheet_subject') echo 'active'; ?> enhanced-sub-item">
+                        <a href="<?php echo base_url(); ?>teacher/student_marksheet_subject" class="enhanced-sub-link">
                         <i class="fa fa-angle-double-right p-r-10"></i>
-                           <span class="hide-menu"><?php echo get_phrase('subject_teacher'); ?></span>
+                           <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('subject_teacher'); ?></span>
                         </a>
                     </li>
         <?php endif;?>
      
         </ul>
     </li>
+
+            <li class="<?php if($page_name == 'my_diaries' || $page_name == 'view_diary' || $page_name == 'edit_diary') echo 'active'; ?> enhanced-nav-item">
+                <a href="<?php echo base_url(); ?>teacher/my_diaries" class="enhanced-nav-link">
+                    <i class="fa fa-book p-r-10 enhanced-icon"></i>
+                    <span class="enhanced-text"><?php echo get_phrase('my_diaries'); ?></span>
+                </a>
+            </li>
+
+            <li class="<?php if ($page_name == 'my_timetable') echo 'active'; ?> enhanced-nav-item">
+                <a href="<?php echo base_url(); ?>teacher/my_timetable" class="enhanced-nav-link">
+                    <i class="fa fa-calendar p-r-10 enhanced-icon"></i>
+                    <span class="enhanced-text"><?php echo get_phrase('my_schedule'); ?></span>
+                </a>
+            </li>
                         
-                                
-            <li class="<?php if ($page_name == 'manage_profile') echo 'active'; ?> ">
-                <a href="<?php echo base_url(); ?>teacher/manage_profile">
-                    <i class="fa fa-gears p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('manage_profile'); ?></span>
+            <!-- Move Manage Profile above Logout -->                        
+            <li class="<?php if ($page_name == 'manage_profile') echo 'active'; ?> enhanced-nav-item enhanced-profile-item">
+                <a href="<?php echo base_url(); ?>teacher/manage_profile" class="enhanced-nav-link">
+                    <i class="fa fa-cog p-r-10 enhanced-icon"></i>
+                        <span class="hide-menu enhanced-text"><?php echo get_phrase('manage_profile'); ?></span>
                 </a>
             </li>
 
-
-            <li class="<?php if($page_name == 'my_diaries' || $page_name == 'view_diary' || $page_name == 'edit_diary') echo 'active'; ?>">
-                <a href="<?php echo base_url(); ?>teacher/my_diaries">
-                    <i class="fa fa-book"></i>
-                    <span><?php echo get_phrase('my_diaries'); ?></span>
-                </a>
-            </li>
-
-            <li class="<?php if ($page_name == 'my_timetable') echo 'active'; ?>">
-                <a href="<?php echo base_url(); ?>teacher/my_timetable">
-                    <i class="fa fa-calendar"></i>
-                    <span><?php echo get_phrase('my_schedule'); ?></span>
-                </a>
-            </li>
-
-            <li class="">
-                <a href="<?php echo base_url(); ?>login/logout">
-                    <i class="fa fa-sign-out p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Logout'); ?></span>
+            <li class="enhanced-nav-item enhanced-logout-item">
+                <a href="<?php echo base_url(); ?>login/logout" class="enhanced-nav-link">
+                    <i class="fa fa-sign-out p-r-10 enhanced-icon"></i>
+                        <span class="hide-menu enhanced-text"><?php echo get_phrase('Logout'); ?></span>
                 </a>
             </li>
                   

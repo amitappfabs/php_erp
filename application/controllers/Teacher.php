@@ -1148,4 +1148,31 @@ class Teacher extends CI_Controller {
         $this->load->view('backend/index', $page_data);
     }
 
+    // Teacher attendance report - shows detailed monthly attendance report
+    function teacher_attendance_report($month = '', $year = '') {
+        if ($this->session->userdata('teacher_login') != 1)
+            redirect(base_url(), 'refresh');
+        
+        // Set default month and year if not provided
+        if (empty($month)) $month = date('m');
+        if (empty($year)) $year = date('Y');
+        
+        $teacher_id = $this->session->userdata('teacher_id');
+        $teacher_details = $this->db->get_where('teacher', array('teacher_id' => $teacher_id))->row();
+        
+        if (!$teacher_details) {
+            $this->session->set_flashdata('error_message', get_phrase('Teacher information not found'));
+            redirect(base_url() . 'teacher/dashboard', 'refresh');
+        }
+        
+        $page_data['teacher_id'] = $teacher_id;
+        $page_data['teacher_name'] = $teacher_details->name;
+        $page_data['month'] = $month;
+        $page_data['year'] = $year;
+        $page_data['page_name'] = 'teacher_attendance_report';
+        $page_data['page_title'] = get_phrase('teacher_attendance_report');
+        
+        $this->load->view('backend/index', $page_data);
+    }
+
 }

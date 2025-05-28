@@ -102,6 +102,341 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+<!-- Custom Profile Image Styling -->
+<style>
+.profile-img-enhanced {
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.profile-img-enhanced:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.sidebar .user-pro img {
+    width: 60px !important;
+    height: 60px !important;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    margin-bottom: 10px;
+}
+
+.sidebar .user-pro .hide-menu {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.navbar-top-links .dropdown-toggle {
+    padding: 10px 15px;
+}
+
+.profile-pic b {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Enhanced Navigation Styling */
+.enhanced-nav-item {
+    margin-bottom: 5px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.enhanced-nav-item:hover {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(233, 213, 255, 0.4);
+    border-color: transparent;
+}
+
+.enhanced-nav-link {
+    padding: 12px 20px !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.enhanced-nav-link:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.enhanced-nav-link:hover:before {
+    left: 100%;
+}
+
+.enhanced-text {
+    font-size: 16px !important; /* 20% increase from typical 13px */
+    font-weight: 600;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.enhanced-nav-item:hover .enhanced-text {
+    color: #7c3aed;
+    text-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
+}
+
+.enhanced-icon {
+    font-size: 18px !important; /* 20% increase */
+    color: #6c757d;
+    transition: all 0.3s ease;
+    margin-right: 12px;
+}
+
+.enhanced-nav-item:hover .enhanced-icon {
+    color: #7c3aed;
+    transform: scale(1.1);
+}
+
+/* Remove special vibrant styling - all items now use white background */
+.enhanced-nav-item:nth-child(2),
+.enhanced-nav-item:nth-child(5) {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    color: inherit;
+}
+
+.enhanced-nav-item:nth-child(2) .enhanced-text,
+.enhanced-nav-item:nth-child(2) .enhanced-icon,
+.enhanced-nav-item:nth-child(5) .enhanced-text,
+.enhanced-nav-item:nth-child(5) .enhanced-icon {
+    color: #2c3e50 !important;
+}
+
+.enhanced-nav-item:nth-child(2):hover,
+.enhanced-nav-item:nth-child(5):hover {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    transform: translateX(8px) scale(1.02);
+    border-color: transparent;
+}
+
+.enhanced-nav-item:nth-child(2):hover .enhanced-text,
+.enhanced-nav-item:nth-child(2):hover .enhanced-icon,
+.enhanced-nav-item:nth-child(5):hover .enhanced-text,
+.enhanced-nav-item:nth-child(5):hover .enhanced-icon {
+    color: #7c3aed !important;
+}
+
+/* Special styling for Manage Profile - white with grey border */
+.enhanced-profile-item {
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.enhanced-profile-item:hover {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    border-color: transparent;
+    transform: translateX(8px) scale(1.02);
+}
+
+.enhanced-profile-item .enhanced-text,
+.enhanced-profile-item .enhanced-icon {
+    color: #495057 !important;
+    font-weight: 600;
+}
+
+.enhanced-profile-item:hover .enhanced-text,
+.enhanced-profile-item:hover .enhanced-icon {
+    color: #7c3aed !important;
+    font-weight: 700;
+}
+
+/* Special styling for Logout - white with grey border */
+.enhanced-logout-item {
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.enhanced-logout-item:hover {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    transform: translateX(8px);
+    border-color: transparent;
+}
+
+.enhanced-logout-item .enhanced-text,
+.enhanced-logout-item .enhanced-icon {
+    color: #6c757d !important;
+    font-weight: 600;
+}
+
+.enhanced-logout-item:hover .enhanced-text,
+.enhanced-logout-item:hover .enhanced-icon {
+    color: #7c3aed !important;
+}
+
+/* Sub-menu styling */
+.enhanced-sub-item {
+    margin: 3px 0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+.enhanced-sub-item:hover {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    transform: translateX(10px);
+    border-color: transparent;
+}
+
+.enhanced-sub-link {
+    padding: 10px 15px !important;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.enhanced-sub-text {
+    font-size: 14px !important; /* 20% increase */
+    font-weight: 500;
+    color: #495057;
+    transition: all 0.3s ease;
+}
+
+.enhanced-sub-item:hover .enhanced-sub-text {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+/* Active state styling */
+.enhanced-nav-item.active {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    box-shadow: 0 4px 15px rgba(233, 213, 255, 0.4);
+    border-color: transparent;
+}
+
+.enhanced-nav-item.active .enhanced-text,
+.enhanced-nav-item.active .enhanced-icon {
+    color: #7c3aed !important;
+}
+
+/* Sidebar overall improvements */
+.sidebar {
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-nav {
+    padding: 20px 10px;
+}
+
+/* Animation for menu items */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.enhanced-nav-item {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.enhanced-nav-item:nth-child(1) { animation-delay: 0.1s; }
+.enhanced-nav-item:nth-child(2) { animation-delay: 0.2s; }
+.enhanced-nav-item:nth-child(3) { animation-delay: 0.3s; }
+.enhanced-nav-item:nth-child(4) { animation-delay: 0.4s; }
+.enhanced-nav-item:nth-child(5) { animation-delay: 0.5s; }
+.enhanced-nav-item:nth-child(6) { animation-delay: 0.6s; }
+.enhanced-nav-item:nth-child(7) { animation-delay: 0.7s; }
+.enhanced-nav-item:nth-child(8) { animation-delay: 0.8s; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .enhanced-text {
+        font-size: 14px !important;
+    }
+    
+    .enhanced-icon {
+        font-size: 16px !important;
+    }
+    
+    .enhanced-sub-text {
+        font-size: 12px !important;
+    }
+}
+
+/* Fix diary modal form alignment */
+.modal-dialog .form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.modal-dialog .form-horizontal .control-label {
+    text-align: left;
+    padding-top: 7px;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #333;
+}
+
+.modal-dialog .form-horizontal .form-control {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-dialog .form-group .col-sm-3,
+.modal-dialog .form-group .col-sm-9 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.modal-dialog .help-block {
+    margin-top: 5px;
+    margin-bottom: 0;
+    color: #737373;
+    font-size: 12px;
+}
+
+.modal-dialog .modal-body {
+    padding: 20px;
+}
+
+.modal-dialog .form-group {
+    margin-bottom: 20px;
+}
+
+/* Ensure proper spacing in modal forms */
+@media (min-width: 768px) {
+    .modal-dialog .form-horizontal .control-label {
+        text-align: right;
+    }
+}
+
+@media (max-width: 767px) {
+    .modal-dialog .form-horizontal .control-label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    
+    .modal-dialog .form-group .col-sm-3,
+    .modal-dialog .form-group .col-sm-9 {
+        width: 100%;
+        float: none;
+    }
+}
+</style>
 </head>
 <body>
 

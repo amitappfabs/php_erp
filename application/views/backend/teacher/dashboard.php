@@ -92,10 +92,10 @@
                 </table>
                                 </div>
             <div class="text-right">
-                <a href="<?php echo base_url('teacher/teacher_attendance_view'); ?>" class="btn btn-primary btn-sm">
+                <a href="<?php echo base_url('teacher/teacher_attendance_report'); ?>" class="btn btn-primary btn-sm">
                     <i class="fa fa-eye"></i> <?php echo get_phrase('view_full_attendance'); ?>
                 </a>
-                            </div>
+            </div>
                         </div>
                     </div>
 
