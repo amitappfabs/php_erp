@@ -11,7 +11,8 @@
                         <!-- /input-group -->
             </li>
             
-            <li class="user-pro">
+            <!-- Hide the complete user profile dropdown -->
+            <!-- <li class="user-pro">
                         <?php
                             $key = $this->session->userdata('login_type') . '_id';
                             $face_file = 'uploads/' . $this->session->userdata('login_type') . '_image/' . $this->session->userdata($key) . '.jpg';
@@ -36,15 +37,20 @@
                             <li><a href="javascript:void(0)"><i class="ti-settings"></i> Account Setting</a></li>
                             <li><a href="<?php echo base_url();?>login/logout"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
-                </li>
+                </li> -->
 
+    <li class="enhanced-nav-item"> 
+        <a href="<?php echo base_url();?>student/dashboard" class="waves-effect enhanced-nav-link">
+            <i class="ti-dashboard p-r-10 enhanced-icon"></i> 
+            <span class="hide-menu enhanced-text"><?php echo get_phrase('Dashboard') ;?></span>
+        </a> 
+    </li>
 
-
-    <li> <a href="<?php echo base_url();?>student/dashboard" class="waves-effect"><i class="ti-dashboard p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('Dashboard') ;?></span></a> </li>
-
-    
-
-    <li> <a href="#" class="waves-effect"><i data-icon="&#xe006;" class="fa fa-book p-r-10"></i> <span class="hide-menu"><?php echo get_phrase('Academics');?><span class="fa arrow"></span></span></a>
+    <li class="enhanced-nav-item"> 
+        <a href="#" class="waves-effect enhanced-nav-link">
+            <i data-icon="&#xe006;" class="fa fa-book p-r-10 enhanced-icon"></i> 
+            <span class="hide-menu enhanced-text"><?php echo get_phrase('Academics');?><span class="fa arrow"></span></span>
+        </a>
         
         <ul class=" nav nav-second-level<?php
             if ($page_name == 'subject' ||
@@ -54,101 +60,87 @@
                 echo 'opened active';
             ?>">
 
+            <li class="<?php if ($page_name == 'subject') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>student/subject" class="enhanced-sub-link">
+                    <i class="fa fa-angle-double-right p-r-10"></i>
+                    <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('Subject'); ?></span>
+                </a>
+            </li>
 
-            
-                <li class="<?php if ($page_name == 'subject') echo 'active'; ?> ">
-                    <a href="<?php echo base_url(); ?>student/subject">
-                        <i class="fa fa-angle-double-right p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Subject'); ?></span>
-                    </a>
-                </li>
+            <li class="<?php if ($page_name == 'teacher') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>student/teacher" class="enhanced-sub-link">
+                    <i class="fa fa-angle-double-right p-r-10"></i>
+                    <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('Teacher'); ?></span>
+                </a>
+            </li>
 
-
-                <li class="<?php if ($page_name == 'teacher') echo 'active'; ?> ">
-                    <a href="<?php echo base_url(); ?>student/teacher">
-                        <i class="fa fa-angle-double-right p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Teacher'); ?></span>
-                    </a>
-                </li>
-
+            <!-- Hide Class Mate -->
+            <!-- <li class="<?php if ($page_name == 'class_mate') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>student/class_mate" class="enhanced-sub-link">
+                    <i class="fa fa-angle-double-right p-r-10"></i>
+                        <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('Class Mate'); ?></span>
+                </a>
+            </li> -->
                     
-                <li class="<?php if ($page_name == 'class_mate') echo 'active'; ?> ">
-                    <a href="<?php echo base_url(); ?>student/class_mate">
-                        <i class="fa fa-angle-double-right p-r-10"></i>
-                            <span class="hide-menu"><?php echo get_phrase('Class Mate'); ?></span>
-                    </a>
-                </li>
+            <li class="<?php if ($page_name == 'assignment') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>assignment/assignment" class="enhanced-sub-link">
+                    <i class="fa fa-angle-double-right p-r-10"></i>
+                        <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('Assignment'); ?></span>
+                </a>
+            </li>
 
-                    
-                <li class="<?php if ($page_name == 'assignment') echo 'active'; ?> ">
-                    <a href="<?php echo base_url(); ?>assignment/assignment">
-                        <i class="fa fa-angle-double-right p-r-10"></i>
-                            <span class="hide-menu"><?php echo get_phrase('Assignment'); ?></span>
-                    </a>
-                </li>
+            <li class="<?php if ($page_name == 'study_material') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>studymaterial/study_material" class="enhanced-sub-link">
+                    <i class="fa fa-angle-double-right p-r-10"></i>
+                        <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('Study Material'); ?></span>
+                </a>
+            </li>
 
-                <li class="<?php if ($page_name == 'study_material') echo 'active'; ?> ">
-                    <a href="<?php echo base_url(); ?>studymaterial/study_material">
-                        <i class="fa fa-angle-double-right p-r-10"></i>
-                            <span class="hide-menu"><?php echo get_phrase('Study Material'); ?></span>
-                    </a>
-                </li>
-
-                <!-- <li class="<?php if ($page_name == 'class_timetable') echo 'active'; ?>">
-                    <a href="<?php echo base_url(); ?>student/class_timetable">
-                        <i class="fa fa-clock-o p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Class Timetable'); ?></span>
-                    </a>
-                </li> -->
-
-                <li class="<?php if ($page_name == 'timetable') echo 'active'; ?>">
-                    <a href="<?php echo base_url(); ?>student/timetable">
-                        <i class="fa fa-calendar"></i>
-                        <span><?php echo get_phrase('class_timetable'); ?></span>
-                    </a>
-                </li>
- 
- 
+            <li class="<?php if ($page_name == 'timetable') echo 'active'; ?> enhanced-sub-item">
+                <a href="<?php echo base_url(); ?>student/timetable" class="enhanced-sub-link">
+                    <i class="fa fa-calendar p-r-10"></i>
+                    <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('class_timetable'); ?></span>
+                </a>
+            </li>
          </ul>
     </li>
 
-            <li class="<?php if ($page_name == 'attendance_report') echo 'active'; ?> ">
-                <a href="<?php echo base_url(); ?>student/attendance_report">
-                    <i class="fa fa-calendar-check-o p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Attendance Report'); ?></span>
-                </a>
-            </li> 
+    <li class="<?php if ($page_name == 'attendance_report') echo 'active'; ?> enhanced-nav-item">
+        <a href="<?php echo base_url(); ?>student/attendance_report" class="enhanced-nav-link">
+            <i class="fa fa-calendar-check-o p-r-10 enhanced-icon"></i>
+                <span class="hide-menu enhanced-text"><?php echo get_phrase('Attendance Report'); ?></span>
+        </a>
+    </li> 
 
-            <!-- Invoice Link Hidden 
-            <li class="<?php if ($page_name == 'invoice') echo 'active'; ?> ">
-                <a href="<?php echo base_url(); ?>student/invoice">
-                    <i class="fa fa-paypal p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Invoice'); ?></span>
-                </a>
-            </li> 
-            -->
+    <!-- Invoice Link Hidden 
+    <li class="<?php if ($page_name == 'invoice') echo 'active'; ?> enhanced-nav-item">
+        <a href="<?php echo base_url(); ?>student/invoice" class="enhanced-nav-link">
+            <i class="fa fa-paypal p-r-10 enhanced-icon"></i>
+                <span class="hide-menu enhanced-text"><?php echo get_phrase('Invoice'); ?></span>
+        </a>
+    </li> 
+    -->
 
-        <li class="<?php if ($page_name == 'payment_history') echo 'active'; ?> ">
-                <a href="<?php echo base_url(); ?>student/payment_history">
-                    <i class="fa fa-credit-card p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Payment History'); ?></span>
-                </a>
-        </li>               
-                                
-            <li class="<?php if ($page_name == 'manage_profile') echo 'active'; ?> ">
-                <a href="<?php echo base_url(); ?>student/manage_profile">
-                    <i class="fa fa-gears p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('manage_profile'); ?></span>
-                </a>
-            </li>
+    <li class="<?php if ($page_name == 'payment_history') echo 'active'; ?> enhanced-nav-item">
+        <a href="<?php echo base_url(); ?>student/payment_history" class="enhanced-nav-link">
+            <i class="fa fa-credit-card p-r-10 enhanced-icon"></i>
+                <span class="hide-menu enhanced-text"><?php echo get_phrase('Payment History'); ?></span>
+        </a>
+    </li>               
+                            
+    <li class="<?php if ($page_name == 'manage_profile') echo 'active'; ?> enhanced-nav-item enhanced-profile-item">
+        <a href="<?php echo base_url(); ?>student/manage_profile" class="enhanced-nav-link">
+            <i class="fa fa-cog p-r-10 enhanced-icon"></i>
+                <span class="hide-menu enhanced-text"><?php echo get_phrase('manage_profile'); ?></span>
+        </a>
+    </li>
 
-            <li class="">
-                <a href="<?php echo base_url(); ?>login/logout">
-                    <i class="fa fa-sign-out p-r-10"></i>
-                        <span class="hide-menu"><?php echo get_phrase('Logout'); ?></span>
-                </a>
-            </li>
-                  
+    <li class="enhanced-nav-item enhanced-logout-item">
+        <a href="<?php echo base_url(); ?>login/logout" class="enhanced-nav-link">
+            <i class="fa fa-sign-out p-r-10 enhanced-icon"></i>
+                <span class="hide-menu enhanced-text"><?php echo get_phrase('Logout'); ?></span>
+        </a>
+    </li>
                   
         </ul>
     </div>

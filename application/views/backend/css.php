@@ -145,13 +145,13 @@
     margin-bottom: 4.5px; /* Reduced from 5px */
     border-radius: 7.2px; /* Reduced from 8px */
     transition: all 0.3s ease;
-    background: #ffffff;
+    background: #ffffff !important; /* Force white background */
     border: 1px solid #e0e0e0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .enhanced-nav-item:hover {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     transform: translateX(4.5px); /* Reduced from 5px */
     box-shadow: 0 3.6px 13.5px rgba(233, 213, 255, 0.4); /* Reduced from 4px 15px */
     border-color: transparent;
@@ -163,12 +163,28 @@
     border: 1px solid #e0e0e0 !important;
 }
 
+/* Fix for clicked/visited state */
+.enhanced-nav-item:visited,
+.enhanced-nav-item:focus,
+.enhanced-nav-item:active {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
 .enhanced-nav-link {
     padding: 10.8px 18px !important; /* Reduced from 12px 20px */
     border-radius: 7.2px; /* Reduced from 8px */
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    background: transparent !important; /* Ensure no background color */
+}
+
+.enhanced-nav-link:visited,
+.enhanced-nav-link:focus,
+.enhanced-nav-link:active {
+    background: transparent !important;
+    color: inherit !important;
 }
 
 .enhanced-nav-link:before {
@@ -189,12 +205,12 @@
 .enhanced-text {
     font-size: 14.4px !important; /* Reduced from 16px (10% reduction) */
     font-weight: 600;
-    color: #2c3e50;
+    color: #2c3e50 !important; /* Force color */
     transition: all 0.3s ease;
 }
 
 .enhanced-nav-item:hover .enhanced-text {
-    color: #7c3aed;
+    color: #7c3aed !important;
     text-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
 }
 
@@ -206,13 +222,13 @@
 
 .enhanced-icon {
     font-size: 16.2px !important; /* Reduced from 18px (10% reduction) */
-    color: #6c757d;
+    color: #6c757d !important; /* Force color */
     transition: all 0.3s ease;
     margin-right: 10.8px; /* Reduced from 12px */
 }
 
 .enhanced-nav-item:hover .enhanced-icon {
-    color: #7c3aed;
+    color: #7c3aed !important;
     transform: scale(1.1);
 }
 
@@ -222,10 +238,33 @@
     transform: scale(1) !important;
 }
 
+/* Fix arrow icon alignment */
+.fa-arrow,
+.fa.arrow,
+span.fa.arrow {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
+    margin-left: 8px !important;
+    font-size: 12px !important;
+}
+
+/* Better arrow alignment for dropdown menus */
+.enhanced-nav-item .fa.arrow:before {
+    content: "\f105" !important; /* Right arrow */
+    vertical-align: middle !important;
+    line-height: 1 !important;
+}
+
+.enhanced-nav-item.opened .fa.arrow:before,
+.enhanced-nav-item.active .fa.arrow:before {
+    content: "\f107" !important; /* Down arrow */
+}
+
 /* Remove special vibrant styling - all items now use white background */
 .enhanced-nav-item:nth-child(2),
 .enhanced-nav-item:nth-child(5) {
-    background: #ffffff;
+    background: #ffffff !important;
     border: 1px solid #e0e0e0;
     color: inherit;
 }
@@ -239,7 +278,7 @@
 
 .enhanced-nav-item:nth-child(2):hover,
 .enhanced-nav-item:nth-child(5):hover {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     transform: translateX(7.2px) scale(1.02); /* Reduced from 8px */
     border-color: transparent;
 }
@@ -253,13 +292,13 @@
 
 /* Special styling for Manage Profile - white with grey border */
 .enhanced-profile-item {
-    background: #ffffff;
+    background: #ffffff !important;
     border: 1px solid #d0d0d0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .enhanced-profile-item:hover {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     border-color: transparent;
     transform: translateX(7.2px) scale(1.02); /* Reduced from 8px */
 }
@@ -278,13 +317,13 @@
 
 /* Special styling for Logout - white with grey border */
 .enhanced-logout-item {
-    background: #ffffff;
+    background: #ffffff !important;
     border: 1px solid #d0d0d0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .enhanced-logout-item:hover {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     transform: translateX(7.2px); /* Reduced from 8px */
     border-color: transparent;
 }
@@ -305,12 +344,12 @@
     margin: 2.7px 0; /* Reduced from 3px */
     border-radius: 5.4px; /* Reduced from 6px */
     transition: all 0.3s ease;
-    background: #f8f9fa;
+    background: #f8f9fa !important;
     border: 1px solid #e9ecef;
 }
 
 .enhanced-sub-item:hover {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     transform: translateX(9px); /* Reduced from 10px */
     border-color: transparent;
 }
@@ -319,23 +358,24 @@
     padding: 9px 13.5px !important; /* Reduced from 10px 15px */
     border-radius: 5.4px; /* Reduced from 6px */
     transition: all 0.3s ease;
+    background: transparent !important;
 }
 
 .enhanced-sub-text {
     font-size: 12.6px !important; /* Reduced from 14px (10% reduction) */
     font-weight: 500;
-    color: #495057;
+    color: #495057 !important;
     transition: all 0.3s ease;
 }
 
 .enhanced-sub-item:hover .enhanced-sub-text {
-    color: #7c3aed;
+    color: #7c3aed !important;
     font-weight: 600;
 }
 
 /* Active state styling */
 .enhanced-nav-item.active {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     box-shadow: 0 3.6px 13.5px rgba(233, 213, 255, 0.4); /* Reduced from 4px 15px */
     border-color: transparent;
 }
@@ -345,11 +385,11 @@
     color: #7c3aed !important;
 }
 
-/* Sidebar overall improvements */
+/* Sidebar overall improvements - INCREASED WIDTH */
 .sidebar {
     background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
     box-shadow: 2px 0 9px rgba(0,0,0,0.1); /* Reduced from 10px */
-    width: 252px !important; /* Reduced from 280px (10% reduction) */
+    width: 300px !important; /* INCREASED from 252px */
     /* Hide scrollbar but keep functionality */
     overflow-y: auto;
     scrollbar-width: none; /* Firefox */
@@ -362,7 +402,7 @@
 }
 
 .sidebar-nav {
-    padding: 18px 13.5px; /* Reduced from 20px 15px */
+    padding: 18px 16px; /* Increased horizontal padding for wider sidebar */
 }
 
 /* Animation for menu items */
@@ -549,14 +589,14 @@
     margin-bottom: 7.2px; /* Reduced from 8px */
     border-radius: 9px; /* Reduced from 10px */
     transition: all 0.3s ease;
-    background: #ffffff;
+    background: #ffffff !important;
     border: 1px solid #e0e0e0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 /* Ensure admin gets same hover effects as teacher */
 .sidebar .enhanced-nav-item:hover {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     transform: translateX(4.5px); /* Reduced from 5px */
     box-shadow: 0 3.6px 13.5px rgba(233, 213, 255, 0.4); /* Reduced from 4px 15px */
     border-color: transparent;
@@ -566,13 +606,13 @@
 .sidebar .enhanced-text {
     font-size: 15.3px !important; /* Reduced from 17px (10% reduction) */
     font-weight: 600;
-    color: #2c3e50;
+    color: #2c3e50 !important;
     transition: all 0.3s ease;
 }
 
 .sidebar .enhanced-icon {
     font-size: 17.1px !important; /* Reduced from 19px (10% reduction) */
-    color: #6c757d;
+    color: #6c757d !important;
     transition: all 0.3s ease;
     margin-right: 13.5px; /* Reduced from 15px */
 }
@@ -587,12 +627,12 @@
     margin: 3.6px 0; /* Reduced from 4px */
     border-radius: 7.2px; /* Reduced from 8px */
     transition: all 0.3s ease;
-    background: #f8f9fa;
+    background: #f8f9fa !important;
     border: 1px solid #e9ecef;
 }
 
 .sidebar .enhanced-sub-item:hover {
-    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%) !important;
     transform: translateX(9px); /* Reduced from 10px */
     border-color: transparent;
 }
@@ -600,23 +640,23 @@
 .sidebar .enhanced-sub-text {
     font-size: 13.5px !important; /* Reduced from 15px (10% reduction) */
     font-weight: 500;
-    color: #495057;
+    color: #495057 !important;
     transition: all 0.3s ease;
 }
 
 .sidebar .enhanced-sub-item:hover .enhanced-sub-text {
-    color: #7c3aed;
+    color: #7c3aed !important;
     font-weight: 600;
 }
 
 /* Adjust main content area to accommodate wider sidebar */
 .navbar-default .navbar-static-side {
-    width: 252px !important; /* Reduced from 280px */
+    width: 300px !important; /* INCREASED from 252px */
 }
 
 /* Adjust page wrapper for wider sidebar */
 #page-wrapper {
-    margin-left: 252px !important; /* Reduced from 280px */
+    margin-left: 300px !important; /* INCREASED from 252px */
     padding: 18px 13.5px; /* Reduced from 20px 15px */
 }
 
@@ -635,11 +675,11 @@
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 225px !important; /* Reduced from 250px */
+        width: 270px !important; /* Increased from 225px */
     }
     
     .navbar-default .navbar-static-side {
-        width: 225px !important; /* Reduced from 250px */
+        width: 270px !important; /* Increased from 225px */
     }
     
     #page-wrapper {
@@ -699,6 +739,125 @@
 .btn-lg {
     padding: 10.8px 18px; /* Reduced from 12px 20px */
     font-size: 14.4px; /* Reduced from 16px */
+}
+
+/* BETTER ICONS FOR CRUD OPERATIONS */
+/* Replace default edit/delete/download/print icons with better ones */
+
+/* Edit Icon - Use pencil-square-o instead of edit */
+.fa-edit:before,
+.btn .fa-edit:before,
+a .fa-edit:before {
+    content: "\f044" !important; /* pencil-square-o */
+}
+
+/* Delete Icon - Use trash-o instead of remove */
+.fa-remove:before,
+.fa-delete:before,
+.btn .fa-remove:before,
+a .fa-remove:before {
+    content: "\f014" !important; /* trash-o */
+}
+
+/* Download Icon - Use download instead of cloud-download */
+.fa-cloud-download:before,
+.btn .fa-cloud-download:before,
+a .fa-cloud-download:before {
+    content: "\f019" !important; /* download */
+}
+
+/* Print Icon - Use print */
+.fa-print:before,
+.btn .fa-print:before,
+a .fa-print:before {
+    content: "\f02f" !important; /* print */
+}
+
+/* View Icon - Use eye */
+.fa-view:before,
+.btn .fa-view:before,
+a .fa-view:before {
+    content: "\f06e" !important; /* eye */
+}
+
+/* Add Icon - Use plus-circle */
+.fa-add:before,
+.btn .fa-add:before,
+a .fa-add:before {
+    content: "\f055" !important; /* plus-circle */
+}
+
+/* Save Icon - Use floppy-o */
+.fa-save:before,
+.btn .fa-save:before,
+a .fa-save:before {
+    content: "\f0c7" !important; /* floppy-o */
+}
+
+/* Better styling for action buttons */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    border: none !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #218838 0%, #1ba085 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4) !important;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+    border: none !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #e0a800 0%, #e8650e 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4) !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%) !important;
+    border: none !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #c82333 0%, #d91a72 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4) !important;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%) !important;
+    border: none !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #138496 0%, #5a32a3 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.4) !important;
 }
 </style>
 </head>
