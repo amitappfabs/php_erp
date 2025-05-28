@@ -5,7 +5,7 @@
         <div class="student-welcome-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; padding: 20px 25px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
             <h2 style="margin: 0; font-weight: 600; font-size: 1.8em;">
                 <i class="fa fa-graduation-cap" style="margin-right: 12px;"></i>
-                <?php echo get_phrase('Student Dashboard'); ?>
+                <?php echo get_phrase(''); ?>
             </h2>
             <p style="font-size: 1em; opacity: 0.9; margin: 8px 0 0 0;">
                 <?php echo get_phrase('Welcome back'); ?>! <?php echo get_phrase('Here is your academic overview'); ?>.

@@ -25,7 +25,7 @@ class Teacher extends CI_Controller {
      function dashboard() {
         if ($this->session->userdata('teacher_login') != 1) redirect(base_url(), 'refresh');
        	$page_data['page_name'] = 'dashboard';
-        $page_data['page_title'] = get_phrase('Teacher Dashboard');
+        $page_data['page_title'] = get_phrase('');
         $this->load->view('backend/index', $page_data);
     }
 	/******************* / teacher dashboard code to redirect to teacher page if successfull login** */
