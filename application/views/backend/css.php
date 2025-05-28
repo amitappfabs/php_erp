@@ -384,11 +384,12 @@
 }
 
 .modal-dialog .form-horizontal .control-label {
-    text-align: left;
+    text-align: left !important;
     padding-top: 7px;
     margin-bottom: 0;
     font-weight: 600;
     color: #333;
+    padding-left: 15px !important;
 }
 
 .modal-dialog .form-horizontal .form-control {
@@ -407,6 +408,7 @@
     margin-bottom: 0;
     color: #737373;
     font-size: 12px;
+    margin-left: 0 !important;
 }
 
 .modal-dialog .modal-body {
@@ -417,24 +419,57 @@
     margin-bottom: 20px;
 }
 
-/* Ensure proper spacing in modal forms */
+/* Hide "Diary Entry Not Found" error messages in modal */
+.modal .alert-danger {
+    display: none !important;
+}
+
+/* Force left alignment for all form labels in modals */
+.modal .form-horizontal .control-label {
+    text-align: left !important;
+    padding-left: 15px !important;
+    margin-left: 0 !important;
+}
+
+/* Override Bootstrap's form-horizontal right alignment */
 @media (min-width: 768px) {
     .modal-dialog .form-horizontal .control-label {
-        text-align: right;
+        text-align: left !important;
+        padding-left: 15px !important;
     }
 }
 
+/* Ensure proper spacing in modal forms */
 @media (max-width: 767px) {
     .modal-dialog .form-horizontal .control-label {
-        text-align: left;
+        text-align: left !important;
         margin-bottom: 5px;
+        padding-left: 15px !important;
     }
     
     .modal-dialog .form-group .col-sm-3,
     .modal-dialog .form-group .col-sm-9 {
         width: 100%;
         float: none;
+        padding-left: 15px;
+        padding-right: 15px;
     }
+}
+
+/* Additional fixes for form alignment */
+.modal .form-group .col-sm-3 {
+    padding-left: 15px !important;
+    margin-left: 0 !important;
+}
+
+.modal .form-group .col-sm-9 {
+    padding-left: 15px !important;
+    margin-left: 0 !important;
+}
+
+/* Fix any potential inline style overrides */
+.modal .control-label[style*="text-align"] {
+    text-align: left !important;
 }
 </style>
 </head>
