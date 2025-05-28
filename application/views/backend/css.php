@@ -142,8 +142,8 @@
 
 /* Enhanced Navigation Styling */
 .enhanced-nav-item {
-    margin-bottom: 5px;
-    border-radius: 8px;
+    margin-bottom: 4.5px; /* Reduced from 5px */
+    border-radius: 7.2px; /* Reduced from 8px */
     transition: all 0.3s ease;
     background: #ffffff;
     border: 1px solid #e0e0e0;
@@ -152,14 +152,20 @@
 
 .enhanced-nav-item:hover {
     background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
-    transform: translateX(5px);
-    box-shadow: 0 4px 15px rgba(233, 213, 255, 0.4);
+    transform: translateX(4.5px); /* Reduced from 5px */
+    box-shadow: 0 3.6px 13.5px rgba(233, 213, 255, 0.4); /* Reduced from 4px 15px */
     border-color: transparent;
 }
 
+/* Fix persistent greyish color - ensure items return to white when not hovered */
+.enhanced-nav-item:not(:hover):not(.active) {
+    background: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
 .enhanced-nav-link {
-    padding: 12px 20px !important;
-    border-radius: 8px;
+    padding: 10.8px 18px !important; /* Reduced from 12px 20px */
+    border-radius: 7.2px; /* Reduced from 8px */
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -181,7 +187,7 @@
 }
 
 .enhanced-text {
-    font-size: 16px !important; /* 20% increase from typical 13px */
+    font-size: 14.4px !important; /* Reduced from 16px (10% reduction) */
     font-weight: 600;
     color: #2c3e50;
     transition: all 0.3s ease;
@@ -192,16 +198,28 @@
     text-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
 }
 
+/* Fix text color when not hovered */
+.enhanced-nav-item:not(:hover) .enhanced-text {
+    color: #2c3e50 !important;
+    text-shadow: none !important;
+}
+
 .enhanced-icon {
-    font-size: 18px !important; /* 20% increase */
+    font-size: 16.2px !important; /* Reduced from 18px (10% reduction) */
     color: #6c757d;
     transition: all 0.3s ease;
-    margin-right: 12px;
+    margin-right: 10.8px; /* Reduced from 12px */
 }
 
 .enhanced-nav-item:hover .enhanced-icon {
     color: #7c3aed;
     transform: scale(1.1);
+}
+
+/* Fix icon color when not hovered */
+.enhanced-nav-item:not(:hover) .enhanced-icon {
+    color: #6c757d !important;
+    transform: scale(1) !important;
 }
 
 /* Remove special vibrant styling - all items now use white background */
@@ -222,7 +240,7 @@
 .enhanced-nav-item:nth-child(2):hover,
 .enhanced-nav-item:nth-child(5):hover {
     background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
-    transform: translateX(8px) scale(1.02);
+    transform: translateX(7.2px) scale(1.02); /* Reduced from 8px */
     border-color: transparent;
 }
 
@@ -243,7 +261,7 @@
 .enhanced-profile-item:hover {
     background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
     border-color: transparent;
-    transform: translateX(8px) scale(1.02);
+    transform: translateX(7.2px) scale(1.02); /* Reduced from 8px */
 }
 
 .enhanced-profile-item .enhanced-text,
@@ -267,7 +285,7 @@
 
 .enhanced-logout-item:hover {
     background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
-    transform: translateX(8px);
+    transform: translateX(7.2px); /* Reduced from 8px */
     border-color: transparent;
 }
 
@@ -284,8 +302,8 @@
 
 /* Sub-menu styling */
 .enhanced-sub-item {
-    margin: 3px 0;
-    border-radius: 6px;
+    margin: 2.7px 0; /* Reduced from 3px */
+    border-radius: 5.4px; /* Reduced from 6px */
     transition: all 0.3s ease;
     background: #f8f9fa;
     border: 1px solid #e9ecef;
@@ -293,18 +311,18 @@
 
 .enhanced-sub-item:hover {
     background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
-    transform: translateX(10px);
+    transform: translateX(9px); /* Reduced from 10px */
     border-color: transparent;
 }
 
 .enhanced-sub-link {
-    padding: 10px 15px !important;
-    border-radius: 6px;
+    padding: 9px 13.5px !important; /* Reduced from 10px 15px */
+    border-radius: 5.4px; /* Reduced from 6px */
     transition: all 0.3s ease;
 }
 
 .enhanced-sub-text {
-    font-size: 14px !important; /* 20% increase */
+    font-size: 12.6px !important; /* Reduced from 14px (10% reduction) */
     font-weight: 500;
     color: #495057;
     transition: all 0.3s ease;
@@ -318,7 +336,7 @@
 /* Active state styling */
 .enhanced-nav-item.active {
     background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
-    box-shadow: 0 4px 15px rgba(233, 213, 255, 0.4);
+    box-shadow: 0 3.6px 13.5px rgba(233, 213, 255, 0.4); /* Reduced from 4px 15px */
     border-color: transparent;
 }
 
@@ -330,18 +348,28 @@
 /* Sidebar overall improvements */
 .sidebar {
     background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 9px rgba(0,0,0,0.1); /* Reduced from 10px */
+    width: 252px !important; /* Reduced from 280px (10% reduction) */
+    /* Hide scrollbar but keep functionality */
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebar::-webkit-scrollbar {
+    display: none;
 }
 
 .sidebar-nav {
-    padding: 20px 10px;
+    padding: 18px 13.5px; /* Reduced from 20px 15px */
 }
 
 /* Animation for menu items */
 @keyframes slideInLeft {
     from {
         opacity: 0;
-        transform: translateX(-30px);
+        transform: translateX(-27px); /* Reduced from -30px */
     }
     to {
         opacity: 1;
@@ -365,15 +393,15 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .enhanced-text {
-        font-size: 14px !important;
+        font-size: 12.6px !important; /* Reduced from 14px */
     }
     
     .enhanced-icon {
-        font-size: 16px !important;
+        font-size: 14.4px !important; /* Reduced from 16px */
     }
     
     .enhanced-sub-text {
-        font-size: 12px !important;
+        font-size: 10.8px !important; /* Reduced from 12px */
     }
 }
 
@@ -385,11 +413,11 @@
 
 .modal-dialog .form-horizontal .control-label {
     text-align: left !important;
-    padding-top: 7px;
+    padding-top: 6.3px; /* Reduced from 7px */
     margin-bottom: 0;
     font-weight: 600;
     color: #333;
-    padding-left: 15px !important;
+    padding-left: 13.5px !important; /* Reduced from 15px */
 }
 
 .modal-dialog .form-horizontal .form-control {
@@ -399,24 +427,24 @@
 
 .modal-dialog .form-group .col-sm-3,
 .modal-dialog .form-group .col-sm-9 {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 13.5px; /* Reduced from 15px */
+    padding-right: 13.5px; /* Reduced from 15px */
 }
 
 .modal-dialog .help-block {
-    margin-top: 5px;
+    margin-top: 4.5px; /* Reduced from 5px */
     margin-bottom: 0;
     color: #737373;
-    font-size: 12px;
+    font-size: 10.8px; /* Reduced from 12px */
     margin-left: 0 !important;
 }
 
 .modal-dialog .modal-body {
-    padding: 20px;
+    padding: 18px; /* Reduced from 20px */
 }
 
 .modal-dialog .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 18px; /* Reduced from 20px */
 }
 
 /* Hide "Diary Entry Not Found" error messages in modal */
@@ -427,7 +455,7 @@
 /* Force left alignment for all form labels in modals */
 .modal .form-horizontal .control-label {
     text-align: left !important;
-    padding-left: 15px !important;
+    padding-left: 13.5px !important; /* Reduced from 15px */
     margin-left: 0 !important;
 }
 
@@ -435,7 +463,7 @@
 @media (min-width: 768px) {
     .modal-dialog .form-horizontal .control-label {
         text-align: left !important;
-        padding-left: 15px !important;
+        padding-left: 13.5px !important; /* Reduced from 15px */
     }
 }
 
@@ -443,33 +471,234 @@
 @media (max-width: 767px) {
     .modal-dialog .form-horizontal .control-label {
         text-align: left !important;
-        margin-bottom: 5px;
-        padding-left: 15px !important;
+        margin-bottom: 4.5px; /* Reduced from 5px */
+        padding-left: 13.5px !important; /* Reduced from 15px */
     }
     
     .modal-dialog .form-group .col-sm-3,
     .modal-dialog .form-group .col-sm-9 {
         width: 100%;
         float: none;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 13.5px; /* Reduced from 15px */
+        padding-right: 13.5px; /* Reduced from 15px */
     }
 }
 
 /* Additional fixes for form alignment */
 .modal .form-group .col-sm-3 {
-    padding-left: 15px !important;
+    padding-left: 13.5px !important; /* Reduced from 15px */
     margin-left: 0 !important;
 }
 
 .modal .form-group .col-sm-9 {
-    padding-left: 15px !important;
+    padding-left: 13.5px !important; /* Reduced from 15px */
     margin-left: 0 !important;
 }
 
 /* Fix any potential inline style overrides */
 .modal .control-label[style*="text-align"] {
     text-align: left !important;
+}
+
+/* Perfect circular profile image styling */
+.profile-pic img,
+.navbar-top-links img,
+.dropdown img {
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 1.8px solid #fff; /* Reduced from 2px */
+    box-shadow: 0 1.8px 7.2px rgba(0,0,0,0.15); /* Reduced from 2px 8px */
+}
+
+/* Default profile image when no image exists */
+.profile-pic img[src*="default.jpg"],
+.navbar-top-links img[src*="default.jpg"],
+.dropdown img[src*="default.jpg"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2.7px solid #fff; /* Reduced from 3px */
+    box-shadow: 0 3.6px 10.8px rgba(0,0,0,0.2); /* Reduced from 4px 12px */
+    padding: 1.8px; /* Reduced from 2px */
+}
+
+/* Ensure circular shape for all profile images */
+.img-circle {
+    border-radius: 50% !important;
+    width: 45px !important; /* Reduced from 50px */
+    height: 45px !important; /* Reduced from 50px */
+    object-fit: cover !important;
+    border: 1.8px solid #fff !important; /* Reduced from 2px */
+    box-shadow: 0 1.8px 7.2px rgba(0,0,0,0.15) !important; /* Reduced from 2px 8px */
+}
+
+/* Enhanced styling for header profile */
+.navbar-top-links .profile-pic {
+    display: flex;
+    align-items: center;
+    padding: 4.5px 9px; /* Reduced from 5px 10px */
+    border-radius: 22.5px; /* Reduced from 25px */
+    transition: all 0.3s ease;
+}
+
+.navbar-top-links .profile-pic:hover {
+    background: rgba(255,255,255,0.1);
+    transform: scale(1.02);
+}
+
+/* Admin navigation specific enhancements */
+.sidebar .enhanced-nav-item {
+    margin-bottom: 7.2px; /* Reduced from 8px */
+    border-radius: 9px; /* Reduced from 10px */
+    transition: all 0.3s ease;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Ensure admin gets same hover effects as teacher */
+.sidebar .enhanced-nav-item:hover {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    transform: translateX(4.5px); /* Reduced from 5px */
+    box-shadow: 0 3.6px 13.5px rgba(233, 213, 255, 0.4); /* Reduced from 4px 15px */
+    border-color: transparent;
+}
+
+/* Admin text and icon styling */
+.sidebar .enhanced-text {
+    font-size: 15.3px !important; /* Reduced from 17px (10% reduction) */
+    font-weight: 600;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.sidebar .enhanced-icon {
+    font-size: 17.1px !important; /* Reduced from 19px (10% reduction) */
+    color: #6c757d;
+    transition: all 0.3s ease;
+    margin-right: 13.5px; /* Reduced from 15px */
+}
+
+.sidebar .enhanced-nav-item:hover .enhanced-text,
+.sidebar .enhanced-nav-item:hover .enhanced-icon {
+    color: #7c3aed !important;
+}
+
+/* Admin sub-menu styling */
+.sidebar .enhanced-sub-item {
+    margin: 3.6px 0; /* Reduced from 4px */
+    border-radius: 7.2px; /* Reduced from 8px */
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+.sidebar .enhanced-sub-item:hover {
+    background: linear-gradient(135deg, #e9d5ff 0%, #faf5ff 100%);
+    transform: translateX(9px); /* Reduced from 10px */
+    border-color: transparent;
+}
+
+.sidebar .enhanced-sub-text {
+    font-size: 13.5px !important; /* Reduced from 15px (10% reduction) */
+    font-weight: 500;
+    color: #495057;
+    transition: all 0.3s ease;
+}
+
+.sidebar .enhanced-sub-item:hover .enhanced-sub-text {
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+/* Adjust main content area to accommodate wider sidebar */
+.navbar-default .navbar-static-side {
+    width: 252px !important; /* Reduced from 280px */
+}
+
+/* Adjust page wrapper for wider sidebar */
+#page-wrapper {
+    margin-left: 252px !important; /* Reduced from 280px */
+    padding: 18px 13.5px; /* Reduced from 20px 15px */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+    #page-wrapper {
+        padding: 13.5px 9px; /* Reduced from 15px 10px */
+    }
+}
+
+@media (max-width: 992px) {
+    #page-wrapper {
+        padding: 9px 7.2px; /* Reduced from 10px 8px */
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 225px !important; /* Reduced from 250px */
+    }
+    
+    .navbar-default .navbar-static-side {
+        width: 225px !important; /* Reduced from 250px */
+    }
+    
+    #page-wrapper {
+        margin-left: 0 !important;
+        padding: 9px 4.5px; /* Reduced from 10px 5px */
+    }
+}
+
+/* Ensure proper content scaling */
+.container-fluid {
+    padding-left: 9px !important; /* Reduced from 10px */
+    padding-right: 9px !important; /* Reduced from 10px */
+}
+
+.row {
+    margin-left: -9px !important; /* Reduced from -10px */
+    margin-right: -9px !important; /* Reduced from -10px */
+}
+
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6,
+.col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+    padding-left: 9px !important; /* Reduced from 10px */
+    padding-right: 9px !important; /* Reduced from 10px */
+}
+
+/* Table responsiveness improvements */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    font-size: 12.6px; /* Reduced from 14px (10% reduction) */
+}
+
+/* Panel and card adjustments */
+.panel {
+    margin-bottom: 13.5px; /* Reduced from 15px */
+}
+
+.white-box {
+    padding: 13.5px; /* Reduced from 15px */
+    margin-bottom: 13.5px; /* Reduced from 15px */
+}
+
+/* Form adjustments */
+.form-group {
+    margin-bottom: 13.5px; /* Reduced from 15px */
+}
+
+/* Button adjustments */
+.btn {
+    padding: 7.2px 14.4px; /* Reduced from 8px 16px */
+    font-size: 12.6px; /* Reduced from 14px */
+}
+
+.btn-lg {
+    padding: 10.8px 18px; /* Reduced from 12px 20px */
+    font-size: 14.4px; /* Reduced from 16px */
 }
 </style>
 </head>

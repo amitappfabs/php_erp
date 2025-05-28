@@ -1,364 +1,455 @@
- <!--row -->
-            <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class="ti-user bg-inverse"></i>
-                                <div class="bodystate">
-                                    <h4><?php echo $this->db->count_all_results('student');?></h4>
-                                    <span class="text-muted"><?php echo get_phrase('Students');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class="ti-blackboard bg-inverse"></i>
-                                <div class="bodystate">
-                                    <h4><?php echo $this->db->count_all_results('teacher');?></h4>
-                                    <span class="text-muted"><?php echo get_phrase('Teachers');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class="ti-home bg-inverse"></i>
-                                <div class="bodystate">
-                                    <h4><?php echo $this->db->count_all_results('parent');?></h4>
-                                    <span class="text-muted"><?php echo get_phrase('parents');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class="ti-wallet bg-inverse"></i>
-                                <div class="bodystate">
-                                    <h4><?php echo $this->db->count_all_results('accountant');?></h4>
-                                    <span class="text-muted"><?php echo get_phrase('Accontants');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class="bg-inverse">₹</i>
-                                <div class="bodystate">
-                                <?php 
-                                $this->db->select_sum('amount');
-                                $this->db->from('payment');
-                                $this->db->where('payment_type', 'expense');
-                                $query = $this->db->get();
-                                $expense_amount = $query->row()->amount;
-                                ?>
-                                    <h4><?php echo $this->db->get_where('settings', array('type' => 'currency'))->row()->description;?> <?php echo $expense_amount;?></h4>
-                                    <span class="text-muted"><?php echo get_phrase('Expense');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class=" bg-inverse"> ₹</i>
-                                <div class="bodystate">
-
-                                <?php 
-                                $this->db->select_sum('amount');
-                                $this->db->from('payment');
-                                $this->db->where('payment_type', 'income');
-                                $query = $this->db->get();
-                                $income_amount = $query->row()->amount; ?>
-                                    <h4>
-                                    <?php echo $this->db->get_where('settings', array('type' => 'currency'))->row()->description;?> <?php echo $income_amount;?>
-                                    </h4>
-                                    <span class="text-muted"><?php echo get_phrase('Income');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class="ti-id-badge bg-inverse"></i>
-                                <div class="bodystate">
-                                    <h4><?php echo $this->db->count_all_results('admin');?></h4>
-                                    <span class="text-muted"><?php echo get_phrase('Admin');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="white-box">
-                            <div class="r-icon-stats">
-                                <i class="ti-bar-chart bg-inverse"></i>
-                                <div class="bodystate">
-                                    <h4>
-                                    <?php 
-
-                                    $check_daily_attendance = array('date' => date('Y-m-d'), 'status' => '1');
-                                    $get_attendance_information = $this->db->get_where('attendance', $check_daily_attendance);
-                                    $display_attendance_here = $get_attendance_information->num_rows();
-                                    echo $display_attendance_here;
-                                    ?>
-                                    
-                                    </h4>
-                                    <span class="text-muted"><?php echo get_phrase('Attendance');?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+<!--Enhanced Admin Dashboard -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; margin-bottom: 30px;">
+                <div class="text-center">
+                    <h2 style="margin: 20px 0; font-weight: 300; font-size: 2.5em;">
+                        <i class="fa fa-dashboard" style="margin-right: 15px;"></i>
+                        <?php echo get_phrase('Admin Dashboard'); ?>
+                    </h2>
+                    <p style="font-size: 1.2em; opacity: 0.9; margin-bottom: 20px;">
+                        <?php echo get_phrase('Welcome back'); ?>! <?php echo get_phrase('Here is your school overview'); ?>.
+                    </p>
+                </div>
             </div>
-                <!--/row -->
+        </div>
+    </div>
+</div>
 
-                <!-- ADD NEW FEES TABLE ROW START -->
-                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title m-b-0" style="font-size: 2em; color: #7F7F7F;"><?php echo get_phrase('Recent Fee Payments');?></h3><br><br>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th><?php echo get_phrase('Student Name');?></th>
-                                            <th><?php echo get_phrase('Class');?></th>
-                                            <th><?php echo get_phrase('Title');?></th>
-                                            <th><?php echo get_phrase('Total Amount');?></th>
-                                            <th><?php echo get_phrase('Paid Amount');?></th>
-                                            <th><?php echo get_phrase('Description');?></th>
-                                            <th><?php echo get_phrase('Phone No');?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        $currency_symbol = $this->db->get_where('settings', array('type' => 'currency'))->row()->description;
-                                        
-                                        // --- Modified Query with Joins (including invoice) ---
-                                        $this->db->select('payment.*, student.name as student_name, student.phone, class.name as class_name, invoice.amount as total_invoice_amount');
-                                        $this->db->from('payment');
-                                        $this->db->join('student', 'student.student_id = payment.student_id', 'left');
-                                        $this->db->join('class', 'class.class_id = student.class_id', 'left');
-                                        $this->db->join('invoice', 'invoice.invoice_id = payment.invoice_id', 'left'); // Added join to invoice
-                                        $this->db->where('payment.payment_type', 'income');
-                                        $this->db->order_by('payment.timestamp', 'desc'); 
-                                        $this->db->limit(5); 
-                                        $recent_payments = $this->db->get()->result_array();
-                                        // --- End Modified Query ---
-
-                                        $payment_count = 0; // Counter for loop limit
-                                        foreach ($recent_payments as $payment):
-                                            if ($payment_count >= 3) break; // Limit to 3 entries
-                                        ?>
-                                        <tr>
-                                            <td><?php echo isset($payment['student_name']) ? $payment['student_name'] : 'N/A';?></td>
-                                            <td><?php echo isset($payment['class_name']) ? $payment['class_name'] : 'N/A';?></td>
-                                            <td><?php echo $payment['title'];?></td>
-                                            <td><?php echo $currency_symbol . (isset($payment['total_invoice_amount']) ? $payment['total_invoice_amount'] : 'N/A');?></td>
-                                            <td><?php echo $currency_symbol . $payment['amount'];?></td>
-                                            <td><?php echo $payment['description'];?></td>
-                                            <td><?php echo isset($payment['phone']) ? $payment['phone'] : 'N/A';?></td>
-                                        </tr>
-                                        <?php 
-                                            $payment_count++; // Increment counter
-                                            endforeach;
-                                        ?>
-                                        <?php if (count($recent_payments) == 0): ?>
-                                            <tr>
-                                                <td colspan="7" style="text-align: center;"><?php echo get_phrase('No recent payments found');?></td>
-                                            </tr>
-                                        <?php endif; ?>
-                                        <!-- View All Button Row -->
-                                        <tr>
-                                            <td colspan="7" style="text-align: right;">
-                                                <a href="<?php echo base_url('admin/student_invoice');?>" class="btn btn-info"><?php echo get_phrase('View All Payments');?></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+<!-- Enhanced Statistics Cards -->
+<div class="row">
+    <!-- Students Card -->
+    <div class="col-md-4 col-sm-6">
+        <div class="enhanced-stat-card students-card">
+            <div class="card-content">
+                <div class="icon-section">
+                    <i class="fa fa-graduation-cap"></i>
+                </div>
+                <div class="stats-section">
+                    <h3 class="stat-number"><?php echo $this->db->count_all_results('student');?></h3>
+                    <p class="stat-label"><?php echo get_phrase('Students');?></p>
+                    <div class="stat-progress">
+                        <div class="progress-bar students-progress"></div>
                     </div>
                 </div>
-                <!-- ADD NEW FEES TABLE ROW END -->
+            </div>
+            <div class="card-footer">
+                <a href="<?php echo base_url('admin/student_information'); ?>" class="view-details">
+                    <i class="fa fa-eye"></i> <?php echo get_phrase('View Details'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
 
-                <!-- ADD BUS & ATTENDANCE INFO ROW START -->
-                <div class="row">
-                    <!-- Bus Information Table -->
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title m-b-0" style="font-size: 2em; color: #7F7F7F;"><?php echo get_phrase('Bus Information');?></h3><br><br>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th><?php echo get_phrase('Bus Name');?></th>
-                                            <th><?php echo get_phrase('Route');?></th>
-                                            <th><?php echo get_phrase('Vehicle');?></th>
-                                            <th><?php echo get_phrase('Route Fee');?></th>
-                                            <th><?php echo get_phrase('Description');?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        $currency_symbol = $this->db->get_where('settings', array('type' => 'currency'))->row()->description;
-                                        
-                                        // --- Modified Query with Joins ---
-                                        $this->db->select('transport.*, transport_route.name as route_actual_name, vehicle.name as vehicle_actual_name, vehicle.vehicle_number');
-                                        $this->db->from('transport');
-                                        $this->db->join('transport_route', 'transport_route.transport_route_id = transport.transport_route_id', 'left');
-                                        $this->db->join('vehicle', 'vehicle.vehicle_id = transport.vehicle_id', 'left');
-                                        $transports = $this->db->get()->result_array();
-                                        // --- End Modified Query ---
-
-                                        $transport_count = 0; // Counter for loop limit
-                                        foreach ($transports as $transport):
-                                            if ($transport_count >= 3) break; // Limit to 3 entries
-                                            $vehicle_display = isset($transport['vehicle_actual_name']) ? $transport['vehicle_actual_name'] . ' (' . $transport['vehicle_number'] . ')' : 'N/A';
-                                            $route_display = isset($transport['route_actual_name']) ? $transport['route_actual_name'] : 'N/A';
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $transport['name'];?></td>
-                                            <td><?php echo $route_display; ?></td>
-                                            <td><?php echo $vehicle_display; ?></td>
-                                            <td><?php echo $currency_symbol . $transport['route_fare'];?></td>
-                                            <td><?php echo $transport['description'];?></td>
-                                        </tr>
-                                        <?php 
-                                            $transport_count++; // Increment counter
-                                            endforeach;
-                                        ?>
-                                        <?php if (count($transports) == 0): ?>
-                                            <tr>
-                                                <td colspan="5" style="text-align: center;"><?php echo get_phrase('No transport information found');?></td>
-                                            </tr>
-                                        <?php endif; ?>
-                                        <!-- View All Button Row -->
-                                        <tr>
-                                            <td colspan="5" style="text-align: right;">
-                                                <a href="<?php echo base_url('transportation/transport');?>" class="btn btn-info"><?php echo get_phrase('View All Transport');?></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
+    <!-- Teachers Card -->
+    <div class="col-md-4 col-sm-6">
+        <div class="enhanced-stat-card teachers-card">
+            <div class="card-content">
+                <div class="icon-section">
+                    <i class="fa fa-users"></i>
                 </div>
-                <!-- ADD BUS & ATTENDANCE INFO ROW END -->
-
-                <!-- .row -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title m-b-0" style="font-size: 2em; color: #7F7F7F;"><?php echo get_phrase('Recently Added Teachers');?></h3><br><br>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th><?php echo get_phrase('Image');?></th>
-                                            <th><?php echo get_phrase('Name');?></th>
-                                            <th><?php echo get_phrase('Email');?></th>
-                                            <th><?php echo get_phrase('Phone');?></th>
-                                            <th><?php echo get_phrase('Role');?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    <tr>
-                            <?php 
-                            $teacher_count = 0; // Counter for loop limit
-                            $get_teacher_from_model = $this->crud_model->list_all_teacher_and_order_with_teacher_id();
-                                    foreach ($get_teacher_from_model as $key => $teacher):
-                                            if ($teacher_count >= 3) break; // Limit to 3 entries
-                                            // Basic role mapping (adjust if needed)
-                                            $role_display = ($teacher['role'] == '1') ? get_phrase('Admin') : (($teacher['role'] == '2') ? get_phrase('Teacher') : get_phrase('Staff')); 
-                                    ?>
-                                            <td><img src="<?php echo $teacher['face_file'];?>" class="img-circle" width="40px"></td>
-                                            <td><?php echo $teacher['name'];?></td>
-                                            <td><?php echo $teacher['email'];?></td>
-                                            <td><?php echo $teacher['phone'];?></td>
-                                            <td><?php echo $role_display;?></td>
-                                        </tr>
-                                    <?php 
-                                        $teacher_count++; // Increment counter
-                                        endforeach;
-                                    ?>
-                                    <?php if (count($get_teacher_from_model) == 0): ?>
-                                            <tr>
-                                                <td colspan="5" style="text-align: center;"><?php echo get_phrase('No teachers found');?></td>
-                                            </tr>
-                                    <?php endif; ?> 
-                                    <!-- View All Button Row -->
-                                    <tr>
-                                        <td colspan="5" style="text-align: right;">
-                                            <a href="<?php echo base_url();?>admin/teacher" class="btn btn-info"><?php echo get_phrase('View All Teachers');?></a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title m-b-0" style="font-size: 2em; color: #7F7F7F;"><?php echo get_phrase('Recently Added Students');?></h3><br><br>
-                            <div class="table-responsive">
-                            <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th><?php echo get_phrase('Image');?></th>
-                                            <th><?php echo get_phrase('Roll No');?></th>
-                                            <th><?php echo get_phrase('Name');?></th>
-                                            <th><?php echo get_phrase('Class');?></th>
-                                            <th><?php echo get_phrase('Phone');?></th>
-                                            <th><?php echo get_phrase('Email');?></th>
-                                            <th><?php echo get_phrase('Parent');?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                            <?php 
-                            $student_count = 0; // Counter for loop limit
-                            $get_student_from_model = $this->crud_model->list_all_student_and_order_with_student_id();
-                                    foreach ($get_student_from_model as $key => $student):
-                                            if ($student_count >= 3) break; // Limit to 3 entries
-                                            $parent_name = $this->crud_model->get_type_name_by_id('parent', $student['parent_id']);
-                                    ?>
-                                            <td><img src="<?php echo $student['face_file'];?>" class="img-circle" width="40px"></td>
-                                            <td><?php echo $student['roll'];?></td>
-                                            <td><?php echo $student['name'];?></td>
-                                            <td><?php echo $this->crud_model->get_type_name_by_id('class', $student['class_id']);?></td>
-                                            <td><?php echo $student['phone'];?></td>
-                                            <td><?php echo $student['email'];?></td>
-                                            <td><?php echo $parent_name ? $parent_name : get_phrase('N/A');?></td>
-                                        </tr>
-                                    <?php 
-                                        $student_count++; // Increment counter
-                                        endforeach;
-                                    ?>
-                                       <?php if (count($get_student_from_model) == 0): ?>
-                                            <tr>
-                                                <td colspan="7" style="text-align: center;"><?php echo get_phrase('No students found');?></td>
-                                            </tr>
-                                        <?php endif; ?> 
-                                    <!-- View All Button Row -->
-                                    <tr>
-                                        <td colspan="7" style="text-align: right;">
-                                            <a href="<?php echo base_url();?>admin/student_information" class="btn btn-info"><?php echo get_phrase('View All Students');?></a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                <div class="stats-section">
+                    <h3 class="stat-number"><?php echo $this->db->count_all_results('teacher');?></h3>
+                    <p class="stat-label"><?php echo get_phrase('Teachers');?></p>
+                    <div class="stat-progress">
+                        <div class="progress-bar teachers-progress"></div>
                     </div>
                 </div>
-                <!-- /.row -->
+            </div>
+            <div class="card-footer">
+                <a href="<?php echo base_url('admin/teacher'); ?>" class="view-details">
+                    <i class="fa fa-eye"></i> <?php echo get_phrase('View Details'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admins Card -->
+    <div class="col-md-4 col-sm-6">
+        <div class="enhanced-stat-card admins-card">
+            <div class="card-content">
+                <div class="icon-section">
+                    <i class="fa fa-user-secret"></i>
+                </div>
+                <div class="stats-section">
+                    <h3 class="stat-number"><?php echo $this->db->count_all_results('admin');?></h3>
+                    <p class="stat-label"><?php echo get_phrase('Admins');?></p>
+                    <div class="stat-progress">
+                        <div class="progress-bar admins-progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="<?php echo base_url('admin/newAdministrator'); ?>" class="view-details">
+                    <i class="fa fa-eye"></i> <?php echo get_phrase('View Details'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions Section -->
+<div class="row" style="margin-top: 36px;">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-header" style="background: #f8f9fa; padding: 18px; border-radius: 9px 9px 0 0;">
+                <h3 style="margin: 0; color: #2c3e50; font-weight: 600;">
+                    <i class="fa fa-bolt" style="color: #f39c12; margin-right: 9px;"></i>
+                    <?php echo get_phrase('Quick Actions'); ?>
+                </h3>
+            </div>
+            <div class="panel-body" style="padding: 27px;">
+                <div class="quick-actions-container">
+                    <div class="col-md-2-4">
+                        <a href="<?php echo base_url('admin/new_student'); ?>" class="quick-action-btn student-action">
+                            <i class="fa fa-user-plus"></i>
+                            <span><?php echo get_phrase('Add Student'); ?></span>
+                        </a>
+                    </div>
+                    <div class="col-md-2-4">
+                        <a href="<?php echo base_url('admin/teacher'); ?>" class="quick-action-btn teacher-action">
+                            <i class="fa fa-plus-circle"></i>
+                            <span><?php echo get_phrase('Add Teacher'); ?></span>
+                        </a>
+                    </div>
+                    <div class="col-md-2-4">
+                        <a href="<?php echo base_url('admin/manage_attendance/' . date('d/m/Y')); ?>" class="quick-action-btn attendance-action">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span><?php echo get_phrase('Mark Student Attendance'); ?></span>
+                        </a>
+                    </div>
+                    <div class="col-md-2-4">
+                        <a href="<?php echo base_url('admin/teacher_attendance'); ?>" class="quick-action-btn teacher-attendance-action">
+                            <i class="fa fa-calendar-plus-o"></i>
+                            <span><?php echo get_phrase('Teacher Attendance'); ?></span>
+                        </a>
+                    </div>
+                    <div class="col-md-2-4">
+                        <a href="<?php echo base_url('admin/student_payment'); ?>" class="quick-action-btn payment-action">
+                            <i class="fa fa-money"></i>
+                            <span><?php echo get_phrase('Collect Fees'); ?></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced CSS Styling -->
+<style>
+.enhanced-stat-card {
+    background: #fff;
+    border-radius: 13.5px;
+    box-shadow: 0 9px 27px rgba(0,0,0,0.1);
+    margin-bottom: 27px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.enhanced-stat-card:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.15);
+}
+
+.card-content {
+    padding: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon-section {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.25em;
+    color: white;
+    margin-right: 18px;
+}
+
+.students-card .icon-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.teachers-card .icon-section {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.admins-card .icon-section {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.stats-section {
+    flex: 1;
+    text-align: right;
+}
+
+.stat-number {
+    font-size: 2.7em;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3e50;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 1.08em;
+    color: #7f8c8d;
+    margin: 4.5px 0 13.5px 0;
+    font-weight: 500;
+}
+
+.stat-progress {
+    width: 100%;
+    height: 3.6px;
+    background: #ecf0f1;
+    border-radius: 1.8px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 1.8px;
+    animation: progressAnimation 2s ease-in-out;
+}
+
+.students-progress {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 85%;
+}
+
+.teachers-progress {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    width: 70%;
+}
+
+.admins-progress {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    width: 60%;
+}
+
+@keyframes progressAnimation {
+    from { width: 0%; }
+}
+
+.card-footer {
+    background: #f8f9fa;
+    padding: 13.5px 27px;
+    border-top: 1px solid #ecf0f1;
+}
+
+.view-details {
+    color: #7f8c8d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-details:hover {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.view-details i {
+    margin-right: 7.2px;
+}
+
+/* Quick Actions Styling */
+.quick-action-btn {
+    display: block;
+    background: #fff;
+    border: 2px solid #ecf0f1;
+    border-radius: 9px;
+    padding: 22.5px 18px;
+    text-align: center;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    margin-bottom: 18px;
+    box-shadow: 0 4.5px 13.5px rgba(0,0,0,0.05);
+}
+
+.quick-action-btn:hover {
+    text-decoration: none;
+    transform: translateY(-4.5px);
+    box-shadow: 0 9px 22.5px rgba(0,0,0,0.1);
+}
+
+.quick-action-btn i {
+    font-size: 1.8em;
+    margin-bottom: 10.8px;
+    display: block;
+}
+
+.quick-action-btn span {
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.student-action:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.teacher-action:hover {
+    border-color: #f093fb;
+    color: #f093fb;
+}
+
+.attendance-action:hover {
+    border-color: #4facfe;
+    color: #4facfe;
+}
+
+.teacher-attendance-action:hover {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.payment-action:hover {
+    border-color: #f39c12;
+    color: #f39c12;
+}
+
+/* Custom 5-column layout - FIXED to ensure all 5 in one row */
+.col-md-2-4 {
+    width: 20% !important;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-left: 9px;
+    padding-right: 9px;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments for 5 columns - more conservative breakpoints */
+@media (min-width: 1200px) {
+    .col-md-2-4 {
+        width: 20% !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .col-md-2-4 {
+        width: 20% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .col-md-2-4 {
+        width: 33.333333% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .col-md-2-4 {
+        width: 50% !important;
+        margin-bottom: 13.5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .col-md-2-4 {
+        width: 100% !important;
+        margin-bottom: 13.5px;
+    }
+    
+    .quick-action-btn {
+        padding: 18px 13.5px;
+    }
+    
+    .quick-action-btn i {
+        font-size: 1.62em;
+    }
+    
+    /* Responsive design for stat cards */
+    .card-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .icon-section {
+        margin-right: 0;
+        margin-bottom: 18px;
+    }
+    
+    .stats-section {
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 2.25em;
+    }
+}
+
+/* Ensure proper clearfix for the row */
+.quick-actions-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Animation for cards */
+.enhanced-stat-card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.enhanced-stat-card:nth-child(1) { animation-delay: 0.1s; }
+.enhanced-stat-card:nth-child(2) { animation-delay: 0.2s; }
+.enhanced-stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(27px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Additional fixes for proper 5-column layout */
+.quick-actions-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -9px;
+}
+
+.quick-actions-container .col-md-2-4 {
+    flex: 0 0 20%;
+    max-width: 20%;
+    padding: 0 9px;
+}
+
+/* Responsive flex adjustments */
+@media (max-width: 991px) {
+    .quick-actions-container .col-md-2-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+}
+
+@media (max-width: 767px) {
+    .quick-actions-container .col-md-2-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-actions-container .col-md-2-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+</style>
