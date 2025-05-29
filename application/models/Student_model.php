@@ -188,7 +188,25 @@ class Student_model extends CI_Model {
                 'apaar_id' => html_escape($this->input->post('apaar_id')),
                 'admission_date' => html_escape($this->input->post('admission_date')),
                 'date_of_joining' => html_escape($this->input->post('date_of_joining')),
-                'adhar_no' => html_escape($this->input->post('adhar_no'))
+                'adhar_no' => html_escape($this->input->post('adhar_no')),
+
+                // Additional fields from the admission form
+                'admission_category' => html_escape($this->input->post('admission_category')),
+                'caste' => html_escape($this->input->post('caste')),
+                'ps_attended' => html_escape($this->input->post('ps_attended')),
+                'ps_address' => html_escape($this->input->post('ps_address')),
+                'ps_purpose' => html_escape($this->input->post('ps_purpose')),
+                'class_study' => html_escape($this->input->post('class_study')),
+                'tran_cert' => html_escape($this->input->post('tran_cert')),
+                'dob_cert' => html_escape($this->input->post('dob_cert')),
+                'mark_join' => html_escape($this->input->post('mark_join')),
+                'physical_h' => html_escape($this->input->post('physical_h')),
+                
+                // Guardian information
+                'guardian_name' => html_escape($this->input->post('guardian_name')),
+                'guardian_phone' => html_escape($this->input->post('guardian_phone')),
+                'guardian_email' => html_escape($this->input->post('guardian_email')),
+                'guardian_address' => html_escape($this->input->post('guardian_address'))
             );
             
             // Log the data for debugging
@@ -273,6 +291,54 @@ class Student_model extends CI_Model {
                     error_log('Failed to move mother\'s photo to: ' . $mother_file_path);
                     // Non-critical, so just log and continue
                 }
+            }
+
+            // Handle document uploads
+            $document_upload_path = 'uploads/student_documents/';
+            if (!is_dir($document_upload_path)) {
+                if (!mkdir($document_upload_path, 0777, true)) {
+                    error_log('Failed to create directory: ' . $document_upload_path);
+                    // Non-critical, so just log and continue
+                }
+            }
+
+            // Define document fields to upload
+            $document_fields = [
+                'signature' => 'signature',
+                'transfer_certificate_doc' => 'transfer_certificate_doc',
+                'father_adharcard_doc' => 'father_adharcard_doc',
+                'mother_adharcard_doc' => 'mother_adharcard_doc',
+                'income_certificate_doc' => 'income_certificate_doc',
+                'dob_proof_doc' => 'dob_proof_doc',
+                'migration_certificate_doc' => 'migration_certificate_doc',
+                'caste_certificate_doc' => 'caste_certificate_doc',
+                'aadhar_card_doc' => 'aadhar_card_doc',
+                'address_proof_doc' => 'address_proof_doc'
+            ];
+            
+            $document_updates = array();
+            
+            foreach ($document_fields as $field_name => $db_field) {
+                if (!empty($_FILES[$field_name]['name'])) {
+                    $file_extension = pathinfo($_FILES[$field_name]['name'], PATHINFO_EXTENSION);
+                    $filename = $student_id . '_' . $field_name . '.' . $file_extension;
+                    $file_path = $document_upload_path . $filename;
+                    
+                    if (move_uploaded_file($_FILES[$field_name]['tmp_name'], $file_path)) {
+                        $document_updates[$db_field] = $filename;
+                        error_log('Successfully uploaded document: ' . $field_name . ' to ' . $file_path);
+                    } else {
+                        error_log('Failed to move document file: ' . $field_name . ' to ' . $file_path);
+                        // Non-critical, so just log and continue
+                    }
+                }
+            }
+            
+            // Update database with document paths if any documents were uploaded
+            if (!empty($document_updates)) {
+                $this->db->where('student_id', $student_id);
+                $this->db->update('student', $document_updates);
+                error_log('Updated document fields in database: ' . json_encode($document_updates));
             }
 
             // Commit transaction
