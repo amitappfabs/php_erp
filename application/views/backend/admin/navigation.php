@@ -165,19 +165,21 @@
                 </a>
             </li>
 
-            <li class="<?php if ($page_name == 'librarian') echo 'active'; ?> enhanced-sub-item">
+            <!-- Hidden Librarian menu item -->
+            <!-- <li class="<?php if ($page_name == 'librarian') echo 'active'; ?> enhanced-sub-item">
                 <a href="<?php echo base_url(); ?>admin/librarian" class="enhanced-sub-link">
                 <i class="fa fa-angle-double-right p-r-10"></i>
                       <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('librarians'); ?></span>
                 </a>
-            </li>
+            </li> -->
 
-            <li class="<?php if ($page_name == 'accountant') echo 'active'; ?> enhanced-sub-item">
+            <!-- Hidden Accountant menu item -->
+            <!-- <li class="<?php if ($page_name == 'accountant') echo 'active'; ?> enhanced-sub-item">
                 <a href="<?php echo base_url(); ?>admin/accountant" class="enhanced-sub-link">
                 <i class="fa fa-angle-double-right p-r-10"></i>
                       <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('accountants'); ?></span>
                 </a>
-            </li>
+            </li> -->
 
             <!-- Move Teacher Attendance here from separate section -->
             <li class="<?php if ($page_name == 'teacher_attendance' || $page_name == 'teacher_attendance_report' || $page_name == 'teacher_attendance_report_view') echo 'active'; ?> enhanced-sub-item">

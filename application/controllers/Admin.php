@@ -3340,4 +3340,85 @@ class Admin extends CI_Controller {
         $this->load->view('backend/admin/student_attendance_report_print_view', $page_data);
     }
 
+    function update_teacher_database() {
+        // Security check - only allow admin access
+        if ($this->session->userdata('admin_login') != 1) {
+            redirect(base_url(), 'refresh');
+        }
+        
+        echo "<h2>Teacher Database Update</h2>";
+        echo "<pre>";
+        
+        try {
+            $this->load->database();
+            
+            echo "Connected to database successfully.\n\n";
+            
+            // Check current table structures
+            echo "Checking current table structures...\n";
+            echo "====================================\n";
+            
+            // Check teacher table columns
+            $teacher_columns = $this->db->list_fields('teacher');
+            echo "Current teacher table columns: " . implode(', ', $teacher_columns) . "\n\n";
+            
+            // Check bank table columns  
+            $bank_columns = $this->db->list_fields('bank');
+            echo "Current bank table columns: " . implode(', ', $bank_columns) . "\n\n";
+            
+            echo "Adding missing columns...\n";
+            echo "========================\n";
+            
+            $success_count = 0;
+            
+            // Add missing columns to teacher table
+            $new_teacher_columns = [
+                'aadhar_number' => "ALTER TABLE `teacher` ADD COLUMN `aadhar_number` VARCHAR(12) NULL",
+                'pan_number' => "ALTER TABLE `teacher` ADD COLUMN `pan_number` VARCHAR(10) NULL", 
+                'family_id' => "ALTER TABLE `teacher` ADD COLUMN `family_id` VARCHAR(50) NULL"
+            ];
+            
+            foreach ($new_teacher_columns as $column => $sql) {
+                if (!in_array($column, $teacher_columns)) {
+                    if ($this->db->query($sql)) {
+                        echo "✓ Added teacher.$column column\n";
+                        $success_count++;
+                    } else {
+                        echo "✗ Error adding teacher.$column\n";
+                    }
+                } else {
+                    echo "- teacher.$column already exists\n";
+                }
+            }
+            
+            // Add missing columns to bank table
+            $new_bank_columns = [
+                'ifsc_code' => "ALTER TABLE `bank` ADD COLUMN `ifsc_code` VARCHAR(11) NULL"
+            ];
+            
+            foreach ($new_bank_columns as $column => $sql) {
+                if (!in_array($column, $bank_columns)) {
+                    if ($this->db->query($sql)) {
+                        echo "✓ Added bank.$column column\n";
+                        $success_count++;
+                    } else {
+                        echo "✗ Error adding bank.$column\n";
+                    }
+                } else {
+                    echo "- bank.$column already exists\n";
+                }
+            }
+            
+            echo "\n🎉 Database update completed!\n";
+            echo "Added $success_count new columns.\n\n";
+            echo "Your teacher form is now ready to use with all new fields!\n";
+            
+        } catch (Exception $e) {
+            echo "❌ Error: " . $e->getMessage() . "\n";
+        }
+        
+        echo "</pre>";
+        echo '<p><a href="' . base_url() . 'admin/teacher" class="btn btn-primary">Go to Teacher Management</a></p>';
+    }
+
 }
