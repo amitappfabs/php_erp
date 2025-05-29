@@ -500,9 +500,17 @@ class Admin extends CI_Controller {
     function teacher ($param1 = null, $param2 = null, $param3 = null){
 
         if($param1 == 'insert'){
-            $this->teacher_model->insetTeacherFunction();
+            $this->teacher_model->insertTeacherFunction();
             $this->session->set_flashdata('flash_message', get_phrase('Data saved successfully'));
             redirect(base_url(). 'admin/teacher', 'refresh');
+        }
+
+        if($param1 == 'edit'){
+            $page_data['param2'] = $param2;
+            $page_data['page_name'] = 'edit_teacher';
+            $page_data['page_title'] = get_phrase('edit_teacher');
+            $this->load->view('backend/index', $page_data);
+            return;
         }
 
         if($param1 == 'update'){
@@ -510,7 +518,6 @@ class Admin extends CI_Controller {
             $this->session->set_flashdata('flash_message', get_phrase('Data updated successfully'));
             redirect(base_url(). 'admin/teacher', 'refresh');
         }
-
 
         if($param1 == 'delete'){
             $this->teacher_model->deleteTeacherFunction($param2);
