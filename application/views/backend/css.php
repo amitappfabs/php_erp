@@ -385,11 +385,11 @@ span.fa.arrow {
     color: #7c3aed !important;
 }
 
-/* Sidebar overall improvements - INCREASED WIDTH */
+/* Sidebar overall improvements - MODERATE WIDTH */
 .sidebar {
     background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-    box-shadow: 2px 0 9px rgba(0,0,0,0.1); /* Reduced from 10px */
-    width: 300px !important; /* INCREASED from 252px */
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    width: 270px !important; /* REDUCED from 300px */
     /* Hide scrollbar but keep functionality */
     overflow-y: auto;
     scrollbar-width: none; /* Firefox */
@@ -402,7 +402,7 @@ span.fa.arrow {
 }
 
 .sidebar-nav {
-    padding: 18px 16px; /* Increased horizontal padding for wider sidebar */
+    padding: 20px 15px; /* Standard padding */
 }
 
 /* Animation for menu items */
@@ -649,60 +649,60 @@ span.fa.arrow {
     font-weight: 600;
 }
 
-/* Adjust main content area to accommodate wider sidebar */
+/* Adjust main content area to accommodate moderate sidebar */
 .navbar-default .navbar-static-side {
-    width: 300px !important; /* INCREASED from 252px */
+    width: 270px !important; /* REDUCED from 300px */
 }
 
-/* Adjust page wrapper for wider sidebar */
+/* Adjust page wrapper for moderate sidebar */
 #page-wrapper {
-    margin-left: 300px !important; /* INCREASED from 252px */
-    padding: 18px 13.5px; /* Reduced from 20px 15px */
+    margin-left: 270px !important; /* REDUCED from 300px */
+    padding: 20px 15px; /* Standard padding */
 }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 1200px) {
     #page-wrapper {
-        padding: 13.5px 9px; /* Reduced from 15px 10px */
+        padding: 15px 10px;
     }
 }
 
 @media (max-width: 992px) {
     #page-wrapper {
-        padding: 9px 7.2px; /* Reduced from 10px 8px */
+        padding: 10px 8px;
     }
 }
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 270px !important; /* Increased from 225px */
+        width: 250px !important; /* Standard mobile width */
     }
     
     .navbar-default .navbar-static-side {
-        width: 270px !important; /* Increased from 225px */
+        width: 250px !important;
     }
     
     #page-wrapper {
         margin-left: 0 !important;
-        padding: 9px 4.5px; /* Reduced from 10px 5px */
+        padding: 10px 5px;
     }
 }
 
-/* Ensure proper content scaling */
+/* Ensure proper content scaling - STANDARD VALUES */
 .container-fluid {
-    padding-left: 9px !important; /* Reduced from 10px */
-    padding-right: 9px !important; /* Reduced from 10px */
+    padding-left: 15px !important; /* Standard Bootstrap value */
+    padding-right: 15px !important;
 }
 
 .row {
-    margin-left: -9px !important; /* Reduced from -10px */
-    margin-right: -9px !important; /* Reduced from -10px */
+    margin-left: -15px !important; /* Standard Bootstrap value */
+    margin-right: -15px !important;
 }
 
 .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6,
 .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
-    padding-left: 9px !important; /* Reduced from 10px */
-    padding-right: 9px !important; /* Reduced from 10px */
+    padding-left: 15px !important; /* Standard Bootstrap value */
+    padding-right: 15px !important;
 }
 
 /* Table responsiveness improvements */
@@ -712,33 +712,33 @@ span.fa.arrow {
 }
 
 .table {
-    font-size: 12.6px; /* Reduced from 14px (10% reduction) */
+    font-size: 14px; /* Standard size */
 }
 
-/* Panel and card adjustments */
+/* Panel and card adjustments - STANDARD VALUES */
 .panel {
-    margin-bottom: 13.5px; /* Reduced from 15px */
+    margin-bottom: 20px; /* Standard value */
 }
 
 .white-box {
-    padding: 13.5px; /* Reduced from 15px */
-    margin-bottom: 13.5px; /* Reduced from 15px */
+    padding: 20px; /* Standard value */
+    margin-bottom: 20px;
 }
 
-/* Form adjustments */
+/* Form adjustments - STANDARD VALUES */
 .form-group {
-    margin-bottom: 13.5px; /* Reduced from 15px */
+    margin-bottom: 15px; /* Standard value */
 }
 
-/* Button adjustments */
+/* Button adjustments - STANDARD VALUES */
 .btn {
-    padding: 7.2px 14.4px; /* Reduced from 8px 16px */
-    font-size: 12.6px; /* Reduced from 14px */
+    padding: 8px 16px; /* Standard value */
+    font-size: 14px; /* Standard value */
 }
 
 .btn-lg {
-    padding: 10.8px 18px; /* Reduced from 12px 20px */
-    font-size: 14.4px; /* Reduced from 16px */
+    padding: 12px 20px; /* Standard value */
+    font-size: 16px; /* Standard value */
 }
 
 /* BETTER ICONS FOR CRUD OPERATIONS */
@@ -858,6 +858,112 @@ a .fa-save:before {
     background: linear-gradient(135deg, #138496 0%, #5a32a3 100%) !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 4px 12px rgba(23, 162, 184, 0.4) !important;
+}
+
+/* MODERN ACTION BUTTONS STYLING */
+.btn-group-sm > .btn {
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    margin-right: 2px !important;
+    text-transform: capitalize !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.btn-group-sm > .btn:last-child {
+    margin-right: 0 !important;
+}
+
+.btn-group-sm > .btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+.btn-group-sm > .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-group-sm > .btn:hover::before {
+    left: 100%;
+}
+
+/* Specific modern colors for action buttons */
+.btn-group-sm > .btn-info {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-group-sm > .btn-info:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+}
+
+.btn-group-sm > .btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-group-sm > .btn-success:hover {
+    background: linear-gradient(135deg, #047857 0%, #064e3b 100%) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+}
+
+.btn-group-sm > .btn-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn-group-sm > .btn-danger:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Action button icons styling */
+.btn-group-sm > .btn i {
+    margin-right: 5px !important;
+    font-size: 12px !important;
+}
+
+/* Responsive adjustments for action buttons */
+@media (max-width: 768px) {
+    .btn-group-sm > .btn {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .btn-group-sm > .btn i {
+        margin-right: 3px !important;
+        font-size: 10px !important;
+    }
+}
+
+/* Table action column improvements */
+table td .btn-group {
+    white-space: nowrap !important;
+}
+
+/* Tooltip styling for action buttons */
+.tooltip {
+    font-size: 11px !important;
+}
+
+.tooltip-inner {
+    background-color: #333 !important;
+    border-radius: 4px !important;
+    padding: 5px 8px !important;
 }
 </style>
 </head>

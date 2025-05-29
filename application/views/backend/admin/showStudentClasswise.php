@@ -47,9 +47,17 @@
                             <td><?php echo $student['phone'];?></td>
 							<td>
 							
-				     <a href="<?php echo base_url();?>admin/edit_student/<?php echo $student['student_id'];?>" ><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
-					 <a href="#" onclick="confirm_modal('<?php echo base_url();?>admin/new_student/delete/<?php echo $student['student_id'];?>');"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-times"></i></button></a>
-                     <a onclick="showStudentView(<?php echo $student['student_id'];?>)" class="btn btn-success btn-circle btn-xs"><i class="fa fa-eye"></i></a>
+							<div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+								<a href="<?php echo base_url();?>admin/edit_student/<?php echo $student['student_id'];?>" class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit Student">
+									<i class="fa fa-edit"></i> Edit
+								</a>
+								<button type="button" class="btn btn-success btn-sm" onclick="showStudentView(<?php echo $student['student_id'];?>)" data-toggle="tooltip" title="View Student Details">
+									<i class="fa fa-eye"></i> View
+								</button>
+								<button type="button" class="btn btn-danger btn-sm" onclick="confirm_modal('<?php echo base_url();?>admin/new_student/delete/<?php echo $student['student_id'];?>');" data-toggle="tooltip" title="Delete Student">
+									<i class="fa fa-trash"></i> Delete
+								</button>
+							</div>
 
 			
                            
@@ -108,6 +116,9 @@ $(document).ready(function() {
             document.getElementById('searchButton').click();
         }
     });
+
+    // Initialize tooltips for action buttons
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 function sortStudents() {

@@ -374,7 +374,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                         <ul id="error-list"></ul>
                     </div>
 
-                    <?php echo form_open(base_url() . 'admin/student/update/' . $student_id, array('class' => 'form-horizontal form-groups-bordered validate', 'enctype' => 'multipart/form-data', 'id' => 'student-edit-form', 'novalidate' => 'novalidate')); ?>
+                    <?php echo form_open(base_url() . 'admin/student/update/' . $student_id, array('class' => 'form-horizontal form-groups-bordered validate', 'enctype' => 'multipart/form-data', 'id' => 'student-edit-form', 'onsubmit' => 'return validateForm();')); ?>
 
                     <!-- Progress Indicator -->
                     <div class="progress-indicator">
@@ -468,7 +468,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
 					<div class="form-group">
                                         <label class="col-md-12"><?php echo get_phrase('admission_no');?> <span class="text-danger">*</span></label>
                     <div class="col-sm-12">
-                                            <input type="text" class="form-control" name="admission_number" value="<?php echo $student['admission_number'];?>">
+                                            <input type="text" class="form-control" name="admission_number" value="<?php echo $student['admission_number'];?>" required>
                                             <small class="text-muted"><?php echo get_phrase('Enter admission number (Required)'); ?></small>
                                         </div>
 						</div>
@@ -478,7 +478,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     <div class="form-group">
                                         <label class="col-md-12"><?php echo get_phrase('full_name');?> <span class="text-danger">*</span></label>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" name="name" value="<?php echo $student['name'];?>">
+                                            <input type="text" class="form-control" name="name" value="<?php echo $student['name'];?>" required>
                                             <small class="text-muted"><?php echo get_phrase('(Required) Enter student\'s full name'); ?></small>
                                         </div>
                                     </div>
@@ -490,7 +490,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
 						<div class="form-group">
                                         <label class="col-md-12"><?php echo get_phrase('email');?> <span class="text-danger">*</span></label>
                     <div class="col-sm-12">
-                                            <input type="email" class="form-control" name="email" value="<?php echo $student['email'];?>">
+                                            <input type="email" class="form-control" name="email" value="<?php echo $student['email'];?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                             <small class="text-muted"><?php echo get_phrase('(Required) Enter student\'s email address'); ?></small>
                                         </div>
 						</div>
@@ -511,7 +511,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     <div class="form-group">
                                         <label class="col-md-12"><?php echo get_phrase('phone');?></label>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" name="phone" value="<?php echo $student['phone'];?>" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                            <input type="text" class="form-control" name="phone" value="<?php echo $student['phone'];?>" pattern="[0-9]{10}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                             <small class="text-muted"><?php echo get_phrase('(Optional) Enter 10-digit mobile number'); ?></small>
                                         </div>
                                     </div>
@@ -530,7 +530,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                     <div class="col-sm-12">
                                             <select name="class_id" class="form-control select2" style="width:100%" id="class_id" 
 								data-message-required="<?php echo get_phrase('value_required');?>"
-                                                    onchange="return get_class_sections(this.value)">
+                                                    onchange="return get_class_sections(this.value)" required>
                               <option value=""><?php echo get_phrase('select');?></option>
                               <?php 
 								$classes = $this->db->get('class')->result_array();
@@ -2222,70 +2222,42 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
         var overlay = $('<div id="form-loading-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;display:flex;justify-content:center;align-items:center;"><div style="background:white;padding:20px;border-radius:5px;text-align:center;box-shadow:0 0 20px rgba(0,0,0,0.3);"><i class="fa fa-spinner fa-spin fa-3x" style="color:#2196F3;margin-bottom:15px;display:block;"></i><div style="font-size:16px;font-weight:500;">Updating student information...</div><div style="font-size:13px;margin-top:10px;color:#666;">This may take a moment. Please do not close this page.</div></div></div>');
         $('body').append(overlay);
     }
-
-    // Initialize dropify
-    $('.dropify').dropify({
-        messages: {
-            default: '<?php echo get_phrase("Drag and drop a file here or click"); ?>',
-            replace: '<?php echo get_phrase("Drag and drop or click to replace"); ?>',
-            remove: '<?php echo get_phrase("Remove"); ?>',
-            error: '<?php echo get_phrase("Error occurred"); ?>'
-        },
-        error: {
-            fileSize: '<?php echo get_phrase("The file size is too big (5MB max)"); ?>',
-            imageFormat: '<?php echo get_phrase("The image format is not allowed (Allowed: jpg, jpeg, png)"); ?>'
-        }
-    });
-
-    // Simple form submission with loading overlay - let server handle validation
-    $('form').on('submit', function(e) {
-        // Show loading overlay when form is being submitted
-        showLoadingOverlay();
-        
-        // Let the form submit normally to server for validation
-        return true;
-    });
-    
-    // Show loading overlay when form is being submitted
-    function showLoadingOverlay() {
-        var overlay = $('<div id="form-loading-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;display:flex;justify-content:center;align-items:center;"><div style="background:white;padding:20px;border-radius:5px;text-align:center;box-shadow:0 0 20px rgba(0,0,0,0.3);"><i class="fa fa-spinner fa-spin fa-3x" style="color:#2196F3;margin-bottom:15px;display:block;"></i><div style="font-size:16px;font-weight:500;">Updating student information...</div><div style="font-size:13px;margin-top:10px;color:#666;">This may take a moment. Please do not close this page.</div></div></div>');
-        $('body').append(overlay);
-    }
 </script>
 
-<script>
+<!-- VALIDATION ERROR ALERT SCRIPT -->
+<?php if($this->session->flashdata('validation_errors')): ?>
+<script type="text/javascript">
 $(document).ready(function() {
-    // Initialize dropify for file uploads
-    $('.dropify').dropify({
-        messages: {
-            default: '<?php echo get_phrase("Drag and drop a file here or click"); ?>',
-            replace: '<?php echo get_phrase("Drag and drop or click to replace"); ?>',
-            remove: '<?php echo get_phrase("Remove"); ?>',
-            error: '<?php echo get_phrase("Error occurred"); ?>'
-        },
-        error: {
-            fileSize: '<?php echo get_phrase("The file size is too big (5MB max)"); ?>',
-            imageFormat: '<?php echo get_phrase("The image format is not allowed (Allowed: jpg, jpeg, png)"); ?>'
-        }
-    });
-
-    // Simple form submission with loading overlay - let server handle all validation
-    $('#student-edit-form').on('submit', function(e) {
-        console.log('Form is being submitted to server for validation...');
-        
-        // Show loading overlay when form is being submitted
-        showLoadingOverlay();
-        
-        // Let the form submit normally to server for validation
-        return true;
-    });
+    // Show validation error alert
+    var errorMessage = <?php echo json_encode($this->session->flashdata('validation_errors')); ?>;
     
-    // Show loading overlay when form is being submitted
-    function showLoadingOverlay() {
-        var overlay = $('<div id="form-loading-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;display:flex;justify-content:center;align-items:center;"><div style="background:white;padding:20px;border-radius:5px;text-align:center;box-shadow:0 0 20px rgba(0,0,0,0.3);"><i class="fa fa-spinner fa-spin fa-3x" style="color:#2196F3;margin-bottom:15px;display:block;"></i><div style="font-size:16px;font-weight:500;">Updating student information...</div><div style="font-size:13px;margin-top:10px;color:#666;">This may take a moment. Please do not close this page.</div></div></div>');
-        $('body').append(overlay);
-    }
+    // Show in a modern alert modal
+    var alertModal = '<div class="modal fade" id="validationErrorModal" tabindex="-1" role="dialog">' +
+        '<div class="modal-dialog modal-sm" role="document">' +
+            '<div class="modal-content">' +
+                '<div class="modal-header" style="background: #dc3545; color: white; border-bottom: none;">' +
+                    '<h4 class="modal-title" style="margin: 0;"><i class="fa fa-exclamation-triangle"></i> Validation Errors</h4>' +
+                '</div>' +
+                '<div class="modal-body" style="padding: 20px;">' +
+                    '<pre style="white-space: pre-wrap; background: none; border: none; color: #333; font-family: inherit; margin: 0;">' + errorMessage + '</pre>' +
+                '</div>' +
+                '<div class="modal-footer" style="text-align: center; padding: 15px; border-top: 1px solid #eee;">' +
+                    '<button type="button" class="btn btn-danger" onclick="$(\'#validationErrorModal\').modal(\'hide\');" style="padding: 8px 20px;"><i class="fa fa-times"></i> Close</button>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
+    
+    // Add modal to body and show it
+    $('body').append(alertModal);
+    $('#validationErrorModal').modal('show');
+    
+    // Remove modal from DOM when hidden
+    $('#validationErrorModal').on('hidden.bs.modal', function() {
+        $(this).remove();
+    });
 });
 </script>
+<?php endif; ?>
 
 <?php endforeach; ?>
