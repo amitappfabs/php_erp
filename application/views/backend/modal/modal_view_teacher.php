@@ -119,21 +119,33 @@ foreach($teacher_info as $row):
     </div>
     
     <div class="row">
-        <div class="col-md-4">
-            <?php if(!empty($row['facebook'])): ?>
-            <p><strong>Facebook:</strong> <a href="<?php echo $row['facebook'];?>" target="_blank"><?php echo $row['facebook'];?></a></p>
-            <?php endif; ?>
-        </div>
-        <div class="col-md-4">
-            <?php if(!empty($row['twitter'])): ?>
-            <p><strong>Twitter:</strong> <a href="<?php echo $row['twitter'];?>" target="_blank"><?php echo $row['twitter'];?></a></p>
-            <?php endif; ?>
-        </div>
-        <div class="col-md-4">
-            <?php if(!empty($row['linkedin'])): ?>
-            <p><strong>LinkedIn:</strong> <a href="<?php echo $row['linkedin'];?>" target="_blank"><?php echo $row['linkedin'];?></a></p>
-            <?php endif; ?>
-        </div>
+    <div class="col-md-4">
+    <?php if (!empty($row['facebook'])): ?>
+        <p>
+            <strong>Facebook:</strong>
+            <a href="<?php echo $row['facebook']; ?>" target="_blank">Click here</a>
+        </p>
+    <?php endif; ?>
+</div>
+
+<div class="col-md-4">
+    <?php if (!empty($row['twitter'])): ?>
+        <p>
+            <strong>Twitter:</strong>
+            <a href="<?php echo $row['twitter']; ?>" target="_blank">Click here</a>
+        </p>
+    <?php endif; ?>
+</div>
+
+<div class="col-md-4">
+    <?php if (!empty($row['linkedin'])): ?>
+        <p>
+            <strong>LinkedIn:</strong>
+            <a href="<?php echo $row['linkedin']; ?>" target="_blank">Click here</a>
+        </p>
+    <?php endif; ?>
+</div>
+
     </div>
     <?php endif; ?>
     

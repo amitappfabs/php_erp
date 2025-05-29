@@ -536,7 +536,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                                        maxlength="6" 
                                                        title="Student code must be up to 6 digits (Optional)"
                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                                <small class="text-muted">(Optional) Unique student code (up to 6 digits). Auto-suggested if calculated in controller.</small>
+                                                <small class="text-muted">(Optional) For Database Storage Please Dont Change</small>
                                             </div>
                                         </div>
                                     </div>
@@ -595,6 +595,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                                     <option value=""><?php echo get_phrase('select'); ?></option>
                                                     <option value="male"><?php echo get_phrase('male'); ?></option>
                                                     <option value="female"><?php echo get_phrase('female'); ?></option>
+                                                    <option value="other"><?php echo get_phrase('other'); ?></option>
                                                 </select>
                                                 <small class="text-muted">(Required) Select student's gender</small>
                                             </div>
@@ -724,7 +725,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('caste'); ?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('category'); ?></label>
                                             <div class="col-sm-12">
                                                 <select name="caste" class="form-control select2">
                                                     <option value=""><?php echo get_phrase('select'); ?></option>
@@ -732,6 +733,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                                     <option value="sc"><?php echo get_phrase('sc'); ?></option>
                                                     <option value="st"><?php echo get_phrase('st'); ?></option>
                                                     <option value="obc"><?php echo get_phrase('obc'); ?></option>
+                                                    <option value="bc"><?php echo get_phrase('bc'); ?></option>
                                                     <option value="other"><?php echo get_phrase('other'); ?></option>
                                                 </select>
                                             </div>
@@ -794,7 +796,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                             <label class="col-md-12"><?php echo get_phrase('session'); ?></label>
                                             <div class="col-sm-12">
                                                 <input type="text" class="form-control" name="session">
-                                                <small class="text-muted"><?php echo get_phrase('Enter academic session (e.g. 2023-2024)'); ?></small>
+                                                <small class="text-muted"><?php echo get_phrase('Enter academic session (e.g. 2025-2026)'); ?></small>
                                             </div>
                                         </div>
                                     </div>
@@ -811,12 +813,12 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     </div>
                                     
                                     <div class="col-md-6">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label class="col-md-12"><?php echo get_phrase('date_of_joining'); ?></label>
                                             <div class="col-sm-12">
                                                 <input type="date" class="form-control datepicker" name="date_of_joining" value="<?php echo date('Y-m-d'); ?>">
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 
@@ -940,13 +942,13 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                             <div class="tab-pane <?php echo $activeTab == 'parent' ? 'active' : ''; ?>" id="parent">
                                 <!-- Father Information Section -->
                                 <div class="form-section-title">
-                                    <i class="fa fa-male"></i> <?php echo get_phrase('Father Details'); ?>
+                                    <i class="fa fa-male"></i> <?php echo get_phrase('Father\'s Details'); ?>
                                 </div>
                                 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group required-field">
-                                            <label class="col-md-12"><?php echo get_phrase('father_name');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('father\'s_name');?></label>
                                             <div class="col-sm-12">
                                                 <input type="text" class="form-control" name="father_name" required>
                                                 <input type="hidden" name="father_id" value="<?php echo substr(md5(uniqid(rand(), true)), 0, 7); ?>">
@@ -957,7 +959,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     
                                     <div class="col-md-6">
                                         <div class="form-group required-field">
-                                            <label class="col-md-12"><?php echo get_phrase('father_phone');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('father\'s_phone');?></label>
                                             <div class="col-sm-12">
                                                 <input type="tel" class="form-control" name="father_phone" 
                                                        pattern="[0-9]{10}" 
@@ -974,7 +976,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group required-field">
-                                            <label class="col-md-12"><?php echo get_phrase('father_email');?> </label>
+                                            <label class="col-md-12"><?php echo get_phrase('father\'s_email');?> </label>
                                             <div class="col-sm-12">
                                                 <input type="email" class="form-control" name="father_email" 
                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -987,7 +989,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     
                                     <div class="col-md-6">
                                         <div class="form-group required-field">
-                                            <label class="col-md-12"><?php echo get_phrase('father_password');?> </label>
+                                            <label class="col-md-12"><?php echo get_phrase('father\'s_email_password');?> </label>
                                             <div class="col-sm-12">
                                                 <div class="input-group">
                                                     <input type="password" class="form-control" name="father_password" id="father_password" 
@@ -1009,7 +1011,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('father_photo');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('father\'s_photo');?></label>
                                             <div class="col-sm-12">
                                                 <input type="file" class="form-control" name="father_image">
                                             </div>
@@ -1100,13 +1102,13 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 
                                 <!-- Mother Information Section -->
                                 <div class="form-section-title">
-                                    <i class="fa fa-female"></i> <?php echo get_phrase('Mother Details'); ?>
+                                    <i class="fa fa-female"></i> <?php echo get_phrase('Mother\'s Details'); ?>
                                 </div>
                                 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('mother_name');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('mother\'s_name');?></label>
                                             <div class="col-sm-12">
                                                 <input type="text" class="form-control" name="mother_name">
                                                 <small class="text-muted">(Optional) Enter mother's full name</small>
@@ -1116,7 +1118,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('mother_phone');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('mother\'s_phone');?></label>
                                             <div class="col-sm-12">
                                                 <input type="tel" class="form-control" name="mother_phone" 
                                                        pattern="[0-9]{10}" 
@@ -1132,7 +1134,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('mother_email');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('mother\'s_email');?></label>
                                             <div class="col-sm-12">
                                                 <input type="email" class="form-control" name="mother_email" 
                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -1142,7 +1144,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-6">
+                                    <!-- <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="col-md-12"><?php echo get_phrase('mother_password');?></label>
                                             <div class="col-sm-12">
@@ -1157,13 +1159,13 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                                 <small class="text-muted">Password for parent login (at least 6 characters)</small>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('mother_photo');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('mother\'s_photo');?></label>
                                             <div class="col-sm-12">
                                                 <input type="file" class="form-control" name="mother_image">
                                             </div>
@@ -1254,13 +1256,13 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 
                                 <!-- Guardian Information Section -->
                                 <div class="form-section-title">
-                                    <i class="fa fa-user"></i> <?php echo get_phrase('Guardian Details'); ?>
+                                    <i class="fa fa-user"></i> <?php echo get_phrase('Guardian\'s Details'); ?>
                                 </div>
                                 
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('guardian_name');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('guardian\'s_name');?></label>
                                             <div class="col-sm-12">
                                                 <input type="text" class="form-control" name="guardian_name">
                                             </div>
@@ -1269,7 +1271,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('guardian_phone');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('guardian\'s_phone');?></label>
                                             <div class="col-sm-12">
                                                 <input type="tel" class="form-control" name="guardian_phone"
                                                        pattern="[0-9]{0,10}" 
@@ -1283,7 +1285,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                     
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('guardian_email');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('guardian\'s_email');?></label>
                                             <div class="col-sm-12">
                                                 <input type="email" class="form-control" name="guardian_email" 
                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -1297,7 +1299,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('guardian_address');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('guardian\'s_address');?></label>
                                             <div class="col-sm-12">
                                                 <textarea class="form-control" name="guardian_address" rows="3"></textarea>
                                             </div>
@@ -1332,7 +1334,8 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                             <div class="col-sm-12">
                                                 <select name="transport_mode" class="form-control select2" required>
                                                     <option value=""><?php echo get_phrase('select');?></option>
-                                                    <option value="Bus"><?php echo get_phrase('Bus');?></option>
+                                                    <option value="Bus"><?php echo get_phrase('Morning Bus');?></option>
+                                                    <option value="Bus"><?php echo get_phrase('Evening Bus');?></option>
                                                     <option value="Self"><?php echo get_phrase('Self');?></option>
                                                     <option value="Parent"><?php echo get_phrase('Parent');?></option>
                                                 </select>
@@ -1605,7 +1608,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('father_adharcard');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('father\'s_adharcard');?></label>
                                             <div class="col-sm-12">
                                                 <input type="file" class="form-control" name="father_adharcard_doc">
                                             </div>
@@ -1614,7 +1617,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('mother_adharcard');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('mother\'s_adharcard');?></label>
                                             <div class="col-sm-12">
                                                 <input type="file" class="form-control" name="mother_adharcard_doc">
                                             </div>
@@ -1634,7 +1637,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('date_of_birth_proof');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('birth_certificate');?></label>
                                             <div class="col-sm-12">
                                                 <input type="file" class="form-control" name="dob_proof_doc">
                                             </div>
@@ -1665,7 +1668,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-12"><?php echo get_phrase('aadhar_card');?></label>
+                                            <label class="col-md-12"><?php echo get_phrase('student\'s_aadhar_card');?></label>
                                             <div class="col-sm-12">
                                                 <input type="file" class="form-control" name="aadhar_card_doc">
                                             </div>

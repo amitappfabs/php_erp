@@ -328,14 +328,121 @@ class Student_model extends CI_Model {
             // Log the update operation
             error_log('Attempting to update student ID: ' . $param2);
             
-            // Check for email uniqueness (if email changed)
-            $new_email = $this->input->post('email');
-            if ($new_email != $student['email']) {
-                $email_exists = $this->db->get_where('student', array('email' => $new_email, 'student_id !=' => $param2))->num_rows() > 0;
-                if ($email_exists) {
-                    error_log('ERROR: Email ' . $new_email . ' already exists for another student');
-                    return 'Email address already exists for another student';
+            // TEMPORARY DEBUG: Force a validation error for testing
+            if ($this->input->post('name') == 'TEST') {
+                return "Please fix the following errors:\n\n• This is a test validation error\n• Student name cannot be 'TEST'\n• Please enter a valid name";
+            }
+            
+            // COMPREHENSIVE VALIDATION
+            $validation_errors = array();
+            
+            // Validate required fields
+            $required_fields = array(
+                'admission_number' => 'Admission number',
+                'name' => 'Student name',
+                'email' => 'Email address',
+                'class_id' => 'Class'
+            );
+            
+            foreach ($required_fields as $field => $label) {
+                if (empty($this->input->post($field))) {
+                    $validation_errors[] = $label . ' is required';
                 }
+            }
+            
+            // Validate email format
+            $email = $this->input->post('email');
+            if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $validation_errors[] = 'Please enter a valid email address';
+            }
+            
+            // Check for email uniqueness (if email changed)
+            if (!empty($email) && $email != $student['email']) {
+                $email_exists = $this->db->get_where('student', array('email' => $email, 'student_id !=' => $param2))->num_rows() > 0;
+                if ($email_exists) {
+                    $validation_errors[] = 'Email address already exists for another student';
+                }
+            }
+            
+            // Validate phone numbers (10 digits)
+            $phone_fields = array(
+                'phone' => 'Student phone',
+                'father_phone' => 'Father\'s phone', 
+                'mother_phone' => 'Mother\'s phone',
+                'guardian_phone' => 'Guardian phone'
+            );
+            
+            foreach ($phone_fields as $field => $label) {
+                $phone_value = $this->input->post($field);
+                if (!empty($phone_value) && !preg_match('/^[0-9]{10}$/', $phone_value)) {
+                    $validation_errors[] = $label . ' must be a 10-digit number';
+                }
+            }
+            
+            // Validate email addresses
+            $email_fields = array(
+                'father_email' => 'Father\'s email',
+                'mother_email' => 'Mother\'s email', 
+                'guardian_email' => 'Guardian email'
+            );
+            
+            foreach ($email_fields as $field => $label) {
+                $email_value = $this->input->post($field);
+                if (!empty($email_value) && !filter_var($email_value, FILTER_VALIDATE_EMAIL)) {
+                    $validation_errors[] = 'Please enter a valid ' . strtolower($label) . ' address';
+                }
+            }
+            
+            // Validate Aadhar numbers (12 digits)
+            $aadhar_fields = array(
+                'adhar_no' => 'Student Aadhar Card',
+                'father_adhar' => 'Father\'s Aadhar Card',
+                'mother_adhar' => 'Mother\'s Aadhar Card'
+            );
+            
+            foreach ($aadhar_fields as $field => $label) {
+                $aadhar_value = $this->input->post($field);
+                if (!empty($aadhar_value) && !preg_match('/^[0-9]{12}$/', $aadhar_value)) {
+                    $validation_errors[] = $label . ' Number must be exactly 12 digits';
+                }
+            }
+            
+            // Validate pincode (6 digits)
+            $pincode_fields = array(
+                'pincode' => 'Pincode',
+                'permanent_pincode' => 'Permanent address pincode'
+            );
+            
+            foreach ($pincode_fields as $field => $label) {
+                $pincode_value = $this->input->post($field);
+                if (!empty($pincode_value) && !preg_match('/^[0-9]{6}$/', $pincode_value)) {
+                    $validation_errors[] = $label . ' must be exactly 6 digits';
+                }
+            }
+            
+            // Validate password if provided (minimum 6 characters)
+            $password = $this->input->post('password');
+            if (!empty($password) && strlen($password) < 6) {
+                $validation_errors[] = 'Password must be at least 6 characters long';
+            }
+            
+            // Validate admission number format (1-6 digits)
+            $admission_number = $this->input->post('admission_number');
+            if (!empty($admission_number) && !preg_match('/^[0-9]{1,6}$/', $admission_number)) {
+                $validation_errors[] = 'Admission number must be 1-6 digits only';
+            }
+            
+            // Validate age (must be between 3 and 25)
+            $age = $this->input->post('age');
+            if (!empty($age) && (!is_numeric($age) || $age < 3 || $age > 25)) {
+                $validation_errors[] = 'Age must be between 3 and 25 years';
+            }
+            
+            // If there are validation errors, return them as a formatted message
+            if (!empty($validation_errors)) {
+                $error_message = "Please fix the following errors:\n\n• " . implode("\n• ", $validation_errors);
+                error_log('Validation errors for student ID ' . $param2 . ': ' . implode(', ', $validation_errors));
+                return $error_message;
             }
             
             // Create data array for update
@@ -429,23 +536,6 @@ class Student_model extends CI_Model {
                 'admission_date' => html_escape($this->input->post('admission_date')),
                 'date_of_joining' => html_escape($this->input->post('date_of_joining'))
             );
-            
-            // Check if we have required data
-            if (empty($page_data['admission_number'])) {
-                return 'Admission number is required';
-            }
-            
-            if (empty($page_data['name'])) {
-                return 'Student name is required';
-            }
-            
-            if (empty($page_data['email'])) {
-                return 'Email address is required';
-            }
-            
-            if (empty($page_data['class_id'])) {
-                return 'Class is required';
-            }
             
             // Log the update data for debugging
             error_log('Update data: ' . json_encode($page_data));

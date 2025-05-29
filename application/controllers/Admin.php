@@ -3248,25 +3248,14 @@ class Admin extends CI_Controller {
             $student_exists = $this->db->get_where('student', array('student_id' => $student_id))->num_rows() > 0;
             if (!$student_exists) {
                 error_log('Error: Student ID ' . $student_id . ' not found in database');
-                $this->session->set_flashdata('error_message', get_phrase('Student not found'));
+                
+                // Store error message for popup display using flashdata
+                $this->session->set_flashdata('popup_error', array(
+                    'type' => 'error',
+                    'title' => 'Student Not Found',
+                    'message' => 'The student record you are trying to update was not found in the database.'
+                ));
                 redirect(base_url() . 'admin/student_information', 'refresh');
-                return;
-            }
-            
-            // Check for required fields
-            $required_fields = array('admission_number', 'name', 'email', 'class_id');
-            $missing_fields = array();
-            
-            foreach ($required_fields as $field) {
-                if (empty($this->input->post($field))) {
-                    $missing_fields[] = ucfirst(str_replace('_', ' ', $field));
-                }
-            }
-            
-            if (!empty($missing_fields)) {
-                error_log('Missing required fields: ' . implode(', ', $missing_fields));
-                $this->session->set_flashdata('error_message', get_phrase('Missing required fields: ') . implode(', ', $missing_fields));
-                redirect(base_url() . 'admin/edit_student/' . $student_id, 'refresh');
                 return;
             }
             
@@ -3276,25 +3265,72 @@ class Admin extends CI_Controller {
                 $result = $this->student_model->updateNewStudent($student_id);
                 
                 if($result === true){
-                    $this->session->set_flashdata('flash_message', get_phrase('Student information updated successfully'));
+                    // Success - show success popup and redirect to student list
+                    $this->session->set_flashdata('popup_success', array(
+                        'type' => 'success',
+                        'title' => 'Student Updated Successfully',
+                        'message' => 'Student information has been updated successfully!'
+                    ));
+                    error_log('Student update successful, redirecting to student_information');
+                    redirect(base_url() . 'admin/student_information', 'refresh');
                 } else {
-                    // If result is a string, it's an error message
+                    // Validation or other errors - show detailed error popup
+                    error_log('Student update failed with result: ' . print_r($result, true));
+                    
                     if (is_string($result)) {
-                        $this->session->set_flashdata('error_message', $result);
+                        // Check if it's a validation error (contains line breaks)
+                        if (strpos($result, "\n") !== false) {
+                            // Format validation errors for better display
+                            $error_lines = explode("\n", $result);
+                            $formatted_message = '';
+                            foreach ($error_lines as $line) {
+                                if (!empty(trim($line))) {
+                                    $formatted_message .= trim($line) . "\n";
+                                }
+                            }
+                            $this->session->set_flashdata('popup_error', array(
+                                'type' => 'validation',
+                                'title' => 'Validation Errors',
+                                'message' => trim($formatted_message)
+                            ));
+                            error_log('Setting validation error popup: ' . trim($formatted_message));
+                        } else {
+                            // Single error message
+                            $this->session->set_flashdata('popup_error', array(
+                                'type' => 'error',
+                                'title' => 'Update Failed',
+                                'message' => $result
+                            ));
+                            error_log('Setting single error popup: ' . $result);
+                        }
                     } else {
-                        $this->session->set_flashdata('error_message', get_phrase('Error updating student information. Check server logs for details.'));
+                        $this->session->set_flashdata('popup_error', array(
+                            'type' => 'error',
+                            'title' => 'Update Failed',
+                            'message' => 'An error occurred while updating student information. Please check the server logs for details.'
+                        ));
+                        error_log('Setting generic error popup');
                     }
+                    
+                    // Redirect back to edit student page with the same active tab
+                    $activeTab = $this->input->get('tab');
+                    if(!$activeTab) $activeTab = 'student';
+                    error_log('Redirecting back to edit page with tab: ' . $activeTab);
+                    redirect(base_url() . 'admin/edit_student/' . $student_id . '?tab=' . $activeTab, 'refresh');
                 }
             } catch (Exception $e) {
                 error_log('Exception in Admin/student/update: ' . $e->getMessage());
-                $this->session->set_flashdata('error_message', get_phrase('Error: ') . $e->getMessage());
+                $this->session->set_flashdata('popup_error', array(
+                    'type' => 'error',
+                    'title' => 'System Error',
+                    'message' => 'A system error occurred: ' . $e->getMessage()
+                ));
+                
+                // Redirect back to edit student page with the same active tab
+                $activeTab = $this->input->get('tab');
+                if(!$activeTab) $activeTab = 'student';
+                redirect(base_url() . 'admin/edit_student/' . $student_id . '?tab=' . $activeTab, 'refresh');
             }
-            
-            // Redirect back to edit student page with the same active tab
-            $activeTab = $this->input->get('tab');
-            if(!$activeTab) $activeTab = 'student';
-            
-            redirect(base_url() . 'admin/edit_student/' . $student_id . '?tab=' . $activeTab, 'refresh');
         }
     }
 
@@ -3419,6 +3455,37 @@ class Admin extends CI_Controller {
         
         echo "</pre>";
         echo '<p><a href="' . base_url() . 'admin/teacher" class="btn btn-primary">Go to Teacher Management</a></p>';
+    }
+
+    // Test popup function for debugging
+    function test_popup() {
+        if ($this->session->userdata('admin_login') != 1) {
+            redirect(base_url(), 'refresh');
+        }
+        
+        $action = $this->input->get('action');
+        
+        if ($action == 'success') {
+            $this->session->set_flashdata('popup_success', array(
+                'type' => 'success',
+                'title' => 'Test Success',
+                'message' => 'This is a test success message!'
+            ));
+        } elseif ($action == 'error') {
+            $this->session->set_flashdata('popup_error', array(
+                'type' => 'error',
+                'title' => 'Test Error',
+                'message' => 'This is a test error message!'
+            ));
+        } elseif ($action == 'validation') {
+            $this->session->set_flashdata('popup_error', array(
+                'type' => 'validation',
+                'title' => 'Test Validation Error',
+                'message' => 'Please fix the following errors:\n\n• Field 1 is required\n• Field 2 must be 10 digits\n• Field 3 is invalid'
+            ));
+        }
+        
+        redirect(base_url() . 'admin/student_information', 'refresh');
     }
 
 }
