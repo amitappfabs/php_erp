@@ -6,9 +6,9 @@
                             <div class="panel-body">
 <div class="printableArea">
         <div align="center">
-        <img src="<?php echo base_url();?>uploads/logo.png" width="60px" height="60px" class="img-circle"><br/>
-        <span style="text-align:center; font-size:25px"><?php echo $system_name;?></span><br/>
-        <span style="text-align:center; font-size:15px"><?php echo $system_address;?></span>
+        <img src="<?php echo base_url();?>uploads/school_logo.png.png" width="350px" height="120px"><br/>
+        <span style="text-align:center; font-size:25px; font-weight: bold; color: #1a237e;">JP International</span><br/>
+        <span style="text-align:center; font-size:18px; font-weight: bold; margin: 15px 0; padding: 8px; background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%); color: white; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; display: inline-block;">Student Attendance Report</span>
         </div>
         <br>
                                 

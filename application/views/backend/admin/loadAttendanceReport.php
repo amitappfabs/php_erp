@@ -487,7 +487,7 @@ function printTableArea(divId) {
     printWindow.document.write(`
         <html>
         <head>
-            <title>Student Attendance Report</title>
+            <title>JP International - Student Attendance Report</title>
             <style>
                 @page {
                     size: A4 landscape;
@@ -501,10 +501,46 @@ function printTableArea(divId) {
                     font-size: 10px;
                 }
                 
-                h3, h4 { 
+                .print-header {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    border-bottom: 2px solid #1a237e;
+                    padding-bottom: 15px;
+                }
+                
+                .school-logo {
+                    width: 350px;
+                    height: 120px;
+                    margin: 0 auto 10px;
+                    display: block;
+                }
+                
+                .school-name {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #1a237e;
+                    margin: 10px 0;
+                    font-family: 'Georgia', serif;
+                }
+                
+                .report-title {
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin: 15px 0;
+                    padding: 8px;
+                    background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
+                    color: white;
+                    border-radius: 4px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    display: inline-block;
+                }
+                
+                h4 { 
                     text-align: center; 
                     color: #333; 
                     margin: 10px 0;
+                    font-size: 14px;
                 }
                 
                 table { 
@@ -619,7 +655,12 @@ function printTableArea(divId) {
             </style>
         </head>
         <body>
-            <h3>Student Attendance Report</h3>
+            <div class="print-header">
+                <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="JP International School Logo">
+                <div class="school-name">JP International</div>
+                <div class="report-title">Student Attendance Report</div>
+            </div>
+            
             <h4><?php echo isset($class_name) ? "Class: " . $class_name : ""; ?> <?php echo isset($section_name) ? "| Section: " . $section_name : ""; ?></h4>
             <h4><?php echo isset($full_date) ? $full_date : ""; ?></h4>
             

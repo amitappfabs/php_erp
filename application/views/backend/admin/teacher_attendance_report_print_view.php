@@ -14,23 +14,37 @@
         .header {
             text-align: center;
             margin-bottom: 20px;
+            border-bottom: 2px solid #1a237e;
+            padding-bottom: 15px;
         }
         .school-logo {
-            max-height: 80px;
-            margin-bottom: 10px;
+            width: 350px;
+            height: 120px;
+            margin: 0 auto 10px;
+            display: block;
         }
         .school-name {
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 5px;
+            color: #1a237e;
+            margin: 10px 0;
+            font-family: 'Georgia', serif;
         }
         .report-title {
             font-size: 18px;
-            margin-bottom: 5px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 8px;
+            background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
+            color: white;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .report-subtitle {
             font-size: 14px;
             margin-bottom: 20px;
+            color: #333;
         }
         table {
             width: 100%;
@@ -68,18 +82,22 @@
             @page {
                 size: landscape;
             }
+            .school-logo {
+                width: 350px;
+                height: 120px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <?php 
-        $system_name = $this->db->get_where('settings', array('type' => 'system_name'))->row()->description;
-        $system_address = $this->db->get_where('settings', array('type' => 'address'))->row()->description;
-        ?>
-        <div class="school-name"><?php echo $system_name; ?></div>
-        <div class="school-address"><?php echo $system_address; ?></div>
-        <div class="report-title"><?php echo get_phrase('Teacher Attendance Report'); ?></div>
+        <!-- JP International School Logo -->
+        <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="JP International School Logo">
+        
+        <div class="school-name">JP International</div>
+        
+        <div class="report-title">Teacher Attendance Report</div>
+        
         <div class="report-subtitle">
             <?php echo date('F', mktime(0, 0, 0, $month, 1, $year)) . ' ' . $year; ?>
         </div>

@@ -25,13 +25,37 @@ if (!isset($attendance_data) || !is_array($attendance_data)) {
         .print-header {
             text-align: center;
             margin-bottom: 20px;
+            border-bottom: 2px solid #1a237e;
+            padding-bottom: 15px;
         }
-        .print-header h2 {
-            margin: 0;
-            padding: 0;
+        .school-logo {
+            width: 350px;
+            height: 120px;
+            margin: 0 auto 10px;
+            display: block;
+        }
+        .school-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a237e;
+            margin: 10px 0;
+            font-family: 'Georgia', serif;
+        }
+        .report-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 8px;
+            background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
+            color: white;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .print-header p {
             margin: 5px 0;
+            font-size: 14px;
+            color: #333;
         }
         .attendance-table {
             width: 100%;
@@ -78,12 +102,22 @@ if (!isset($attendance_data) || !is_array($attendance_data)) {
                 margin: 0;
                 padding: 15px;
             }
+            .school-logo {
+                width: 350px;
+                height: 120px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="print-header">
-        <h2><?php echo get_phrase('student_attendance_report'); ?></h2>
+        <!-- JP International School Logo -->
+        <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="JP International School Logo">
+        
+        <div class="school-name">JP International</div>
+        
+        <div class="report-title">Student Attendance Report</div>
+        
         <p><?php echo get_phrase('class'); ?>: <?php echo $class_id; ?> | <?php echo get_phrase('section'); ?>: <?php echo $section_id; ?></p>
         <p><?php echo get_phrase('month'); ?>: <?php echo $month_name; ?> | <?php echo get_phrase('year'); ?>: <?php echo $year; ?></p>
     </div>
