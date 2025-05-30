@@ -88,7 +88,7 @@
 
                 <div class="row" style="margin-top: 20px;">
                     <div class="col-md-12 text-center">
-                        <div class="attendance-legend">
+                        <div class="attendance-legend" style="display: none;">
                             <span class="legend-item"><i class="fa fa-circle" style="color: #00a651;"></i> <?php echo get_phrase('present'); ?></span>
                             <span class="legend-item"><i class="fa fa-circle" style="color: #EE4749;"></i> <?php echo get_phrase('absent'); ?></span>
                             <span class="legend-item"><i class="fa fa-circle" style="color: #0000FF;"></i> <?php echo get_phrase('half_day'); ?></span>
