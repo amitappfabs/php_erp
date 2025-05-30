@@ -123,7 +123,7 @@
 				<div class="form-group">
 					<label class="col-md-12" for="example-text"><?php echo get_phrase('System Footer');?></label>
 					<div class="col-sm-12">
-						<input type="text" class="form-control" name="footer" value="Developed By Ruhil Future Technology ( 2025 )">
+						<input type="text" class="form-control" name="footer" value="Powered by Gyansetu.ai <br> Developed By Ruhil Future Technologies ( 2025 )">
 					</div>
 				</div>
 
