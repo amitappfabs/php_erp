@@ -53,9 +53,20 @@
             return false;
         }
 			$.ajax({
-				url: '<?php echo site_url('admin/getStudentClasswise/');?>' + class_id
+				url: '<?php echo site_url('admin/getStudentClasswise/');?>' + class_id + '/1'
 			}).done(function(response) {
 				$('#data').html(response);
+				
+				// Add event listeners for pagination links
+				$('#data').on('click', 'nav ul.pagination a', function(e) {
+					e.preventDefault();
+					var url = $(this).attr('href');
+					$.ajax({
+						url: url
+					}).done(function(response) {
+						$('#data').html(response);
+					});
+				});
 			});
 		});
 

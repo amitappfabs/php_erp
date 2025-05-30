@@ -345,6 +345,38 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
             page-break-before: always;
         }
     }
+
+    /* Hide browser validation messages */
+    input:invalid {
+        box-shadow: none !important;
+        border-color: #ddd !important;
+    }
+    
+    input:valid {
+        box-shadow: none !important;
+        border-color: #ddd !important;
+    }
+    
+    /* Hide any browser validation tooltips */
+    input::-webkit-validation-bubble,
+    input::-webkit-validation-bubble-message,
+    input::-webkit-validation-bubble-arrow {
+        display: none !important;
+    }
+    
+    /* Disable browser validation styling */
+    input[type="text"]:invalid,
+    input[type="email"]:invalid,
+    input[type="password"]:invalid,
+    input[type="tel"]:invalid,
+    input[type="number"]:invalid,
+    select:invalid {
+        border-color: #ddd !important;
+        background-color: #fff !important;
+        box-shadow: none !important;
+    }
+    
+    /* Progress indicator styling */
 </style>
 
 <div class="row">
@@ -374,7 +406,7 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
                         <ul id="error-list"></ul>
                     </div>
 
-                    <?php echo form_open(base_url() . 'admin/student/update/' . $student_id, array('class' => 'form-horizontal form-groups-bordered validate', 'enctype' => 'multipart/form-data', 'id' => 'student-edit-form', 'onsubmit' => 'return validateForm();')); ?>
+                    <?php echo form_open(base_url() . 'admin/student/update/' . $student_id, array('class' => 'form-horizontal form-groups-bordered validate', 'enctype' => 'multipart/form-data', 'id' => 'student-edit-form', 'onsubmit' => 'return validateForm();', 'novalidate' => 'novalidate')); ?>
 
                     <!-- Progress Indicator -->
                     <div class="progress-indicator">

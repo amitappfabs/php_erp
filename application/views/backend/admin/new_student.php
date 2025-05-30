@@ -400,6 +400,38 @@ $activeTab = isset($_GET['tab']) ? $_GET['tab'] : 'student';
         align-items: center;
         flex-wrap: wrap;
     }
+
+    /* Hide browser validation messages */
+    input:invalid {
+        box-shadow: none !important;
+        border-color: #ddd !important;
+    }
+    
+    input:valid {
+        box-shadow: none !important;
+        border-color: #ddd !important;
+    }
+    
+    /* Hide any browser validation tooltips */
+    input::-webkit-validation-bubble,
+    input::-webkit-validation-bubble-message,
+    input::-webkit-validation-bubble-arrow {
+        display: none !important;
+    }
+    
+    /* Disable browser validation styling */
+    input[type="text"]:invalid,
+    input[type="email"]:invalid,
+    input[type="password"]:invalid,
+    input[type="tel"]:invalid,
+    input[type="number"]:invalid,
+    select:invalid {
+        border-color: #ddd !important;
+        background-color: #fff !important;
+        box-shadow: none !important;
+    }
+    
+    /* Progress indicator styling */
 </style>
 
 <div class="row">

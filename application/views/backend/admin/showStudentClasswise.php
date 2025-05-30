@@ -14,6 +14,13 @@
             <option value="name_desc"><?php echo get_phrase('name'); ?> (Z-A)</option>
         </select>
     </div>
+    <div class="col-md-2">
+        <div class="pagination-info text-muted small">
+            <?php if(isset($total_students) && $total_students > 0): ?>
+                Showing <?php echo isset($offset) ? $offset + 1 : 1; ?> - <?php echo min(($offset ?? 0) + ($per_page ?? 10), $total_students); ?> of <?php echo $total_students; ?> students
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
 
 <table id="example" class="table display">
@@ -33,8 +40,15 @@
 					</thead>
                     <tbody>
     
-                    <?php $counter = 1; $students =  $this->db->get_where('student', array('class_id' => $class_id))->result_array();
-                    foreach($students as $key => $student):?>         
+                    <?php 
+                    $counter = isset($offset) ? $offset + 1 : 1; 
+                    // Use pagination parameters if available, otherwise show all
+                    if(isset($per_page) && isset($offset)) {
+                        $this->db->limit($per_page, $offset);
+                    }
+                    $students = $this->db->get_where('student', array('class_id' => $class_id))->result_array();
+                    foreach($students as $key => $student):
+                    ?>
                         <tr>
                             <td><?php echo $counter++;?></td>
                             <td><?php echo $student['admission_number'];?></td>
@@ -66,6 +80,17 @@
     <?php endforeach;?>
                     </tbody>
                 </table>
+
+<!-- Pagination Links -->
+<?php if(isset($pagination_links) && !empty($pagination_links)): ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-center">
+            <?php echo $pagination_links; ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 
 <script type="text/javascript">
 $(document).ready(function() {

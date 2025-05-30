@@ -1082,9 +1082,55 @@ class Admin extends CI_Controller {
 
 
     /**************************  search student function with ajax starts here   ***********************************/
-    function getStudentClasswise($class_id){
-
+    function getStudentClasswise($class_id, $page = 1){
+        // Pagination setup
+        $this->load->library('pagination');
+        
+        $per_page = 10; // 10 students per page
+        $page = max(1, (int)$page); // Ensure page is at least 1
+        $offset = ($page - 1) * $per_page;
+        
+        // Count total students in class
+        $total_students = $this->db->where('class_id', $class_id)->count_all_results('student');
+        
+        // Configure pagination
+        $config['base_url'] = base_url('admin/getStudentClasswise/' . $class_id);
+        $config['total_rows'] = $total_students;
+        $config['per_page'] = $per_page;
+        $config['use_page_numbers'] = TRUE;
+        $config['page_query_string'] = FALSE;
+        $config['num_links'] = 3;
+        
+        // Pagination styling
+        $config['full_tag_open'] = '<nav><ul class="pagination pagination-sm justify-content-center">';
+        $config['full_tag_close'] = '</ul></nav>';
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="page-item">';
+        $config['last_tag_close'] = '</li>';
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li class="page-item">';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = 'Previous';
+        $config['prev_tag_open'] = '<li class="page-item">';
+        $config['prev_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close'] = '</span></li>';
+        $config['num_tag_open'] = '<li class="page-item">';
+        $config['num_tag_close'] = '</li>';
+        $config['attributes'] = array('class' => 'page-link');
+        
+        $this->pagination->initialize($config);
+        
         $page_data['class_id'] = $class_id;
+        $page_data['current_page'] = $page;
+        $page_data['per_page'] = $per_page;
+        $page_data['offset'] = $offset;
+        $page_data['total_students'] = $total_students;
+        $page_data['pagination_links'] = $this->pagination->create_links();
+        
         $this->load->view('backend/admin/showStudentClasswise', $page_data);
     }
     /**************************  search student function with ajax ends here   ***********************************/
