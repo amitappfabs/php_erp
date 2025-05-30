@@ -218,7 +218,7 @@ function sortStudents() {
 function showStudentView(student_id) {
     // Create a modal dialog with print and close buttons
     var modal = 
-    '<div class="modal fade" id="studentViewModal" tabindex="-1" role="dialog" aria-labelledby="studentViewModalLabel">' +
+    '<div class="modal fade" id="studentViewModal" tabindex="-1" role="dialog" aria-labelledby="studentViewModalLabel" data-student-id="' + student_id + '">' +
         '<div class="modal-dialog modal-lg" role="document">' +
             '<div class="modal-content">' +
                 '<div class="modal-header">' +
@@ -235,10 +235,11 @@ function showStudentView(student_id) {
         '</div>' +
     '</div>';
     
-    // Append modal to body if it doesn't exist
-    if (!$('#studentViewModal').length) {
-        $('body').append(modal);
-    }
+    // Remove existing modal if it exists
+    $('#studentViewModal').remove();
+    
+    // Append modal to body
+    $('body').append(modal);
     
     // Show the modal
     $('#studentViewModal').modal('show');
@@ -257,31 +258,81 @@ function showStudentView(student_id) {
 }
 
 function printStudentDetails() {
-    var printContents = document.getElementById('student_details_content').innerHTML;
-    var originalContents = document.body.innerHTML;
+    // Get the student ID from the current modal content
+    var studentDetailsContent = document.getElementById('student_details_content');
     
-    // Create print window
-    document.body.innerHTML = '<div class="container">' + printContents + '</div>';
+    // Try to extract student ID from the content or use a data attribute
+    var studentId = null;
     
-    // Add print styles
-    var style = document.createElement('style');
-    style.type = 'text/css';
-    style.innerHTML = '@media print { ' +
-        'body { font-family: Arial, sans-serif; }' +
-        '.student-info-section { margin-bottom: 20px; }' +
-        '.student-info-header { background: #f5f5f5; padding: 8px; font-weight: bold; border-bottom: 2px solid #ddd; }' +
-        '.info-row { display: flex; border-bottom: 1px solid #eee; }' +
-        '.info-label { width: 40%; padding: 8px; font-weight: bold; }' +
-        '.info-value { width: 60%; padding: 8px; }' +
-        '.student-photo { text-align: center; margin-bottom: 15px; }' +
-        '.student-photo img { max-width: 150px; border: 1px solid #ddd; padding: 5px; }' +
-        '.no-print { display: none !important; }' +
-        'body { margin: 0; padding: 15px; }' +
-    '}';
-    document.head.appendChild(style);
+    // Look for student ID in the content (from hidden field or data attribute)
+    var hiddenInput = studentDetailsContent.querySelector('input[name="student_id"]');
+    if (hiddenInput) {
+        studentId = hiddenInput.value;
+    } else {
+        // Try to get from data attributes or other sources
+        var admissionNumbers = studentDetailsContent.querySelectorAll('.info-value');
+        if (admissionNumbers.length > 0) {
+            // For now, we'll need to pass student ID differently
+            // Let's try to find it from the modal data attribute
+            var modal = document.getElementById('studentViewModal');
+            if (modal.hasAttribute('data-student-id')) {
+                studentId = modal.getAttribute('data-student-id');
+            }
+        }
+    }
     
-    // Print and restore
-    window.print();
-    document.body.innerHTML = originalContents;
+    if (studentId) {
+        // Create form data to send student information to admission print view
+        var printData = {};
+        
+        // Extract student information from the view
+        var infoRows = studentDetailsContent.querySelectorAll('.info-row');
+        infoRows.forEach(function(row) {
+            var label = row.querySelector('.info-label');
+            var value = row.querySelector('.info-value');
+            if (label && value) {
+                var fieldName = label.textContent.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                printData[fieldName] = value.textContent.trim();
+            }
+        });
+        
+        // Open the admission print view with student data
+        var printUrl = '<?php echo base_url();?>admin/student_admission_print_view/' + studentId;
+        var printWindow = window.open(printUrl, '_blank', 'width=1200,height=800,scrollbars=yes');
+        
+        if (printWindow) {
+            printWindow.focus();
+        } else {
+            alert('Please allow popups for this site to use the print feature.');
+        }
+    } else {
+        // Fallback to old print method if we can't get student ID
+        var printContents = document.getElementById('student_details_content').innerHTML;
+        var originalContents = document.body.innerHTML;
+        
+        // Create print window
+        document.body.innerHTML = '<div class="container">' + printContents + '</div>';
+        
+        // Add print styles
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = '@media print { ' +
+            'body { font-family: Arial, sans-serif; }' +
+            '.student-info-section { margin-bottom: 20px; }' +
+            '.student-info-header { background: #f5f5f5; padding: 8px; font-weight: bold; border-bottom: 2px solid #ddd; }' +
+            '.info-row { display: flex; border-bottom: 1px solid #eee; }' +
+            '.info-label { width: 40%; padding: 8px; font-weight: bold; }' +
+            '.info-value { width: 60%; padding: 8px; }' +
+            '.student-photo { text-align: center; margin-bottom: 15px; }' +
+            '.student-photo img { max-width: 150px; border: 1px solid #ddd; padding: 5px; }' +
+            '.no-print { display: none !important; }' +
+            'body { margin: 0; padding: 15px; }' +
+        '}';
+        document.head.appendChild(style);
+        
+        // Print and restore
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
 }
 </script>

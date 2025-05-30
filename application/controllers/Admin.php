@@ -3457,4 +3457,40 @@ class Admin extends CI_Controller {
         echo '<p><a href="' . base_url() . 'admin/teacher" class="btn btn-primary">Go to Teacher Management</a></p>';
     }
 
+    // Display student admission form for printing
+    function student_admission_print_view($student_id = '') {
+        if (empty($student_id)) {
+            $this->session->set_flashdata('error_message', get_phrase('Invalid print request'));
+            redirect(base_url() . 'admin/showStudentClasswise', 'refresh');
+            return;
+        }
+        
+        // Get the student data from database
+        $student = $this->db->get_where('student', array('student_id' => $student_id))->row_array();
+        
+        if (empty($student)) {
+            $this->session->set_flashdata('error_message', get_phrase('Student not found'));
+            redirect(base_url() . 'admin/showStudentClasswise', 'refresh');
+            return;
+        }
+        
+        // Get class information if class_id is set
+        $class = array();
+        if (isset($student['class_id']) && !empty($student['class_id'])) {
+            $class = $this->db->get_where('class', array('class_id' => $student['class_id']))->row_array();
+            if (empty($class)) {
+                $class = array('name' => 'Not specified');
+            }
+        } else {
+            $class = array('name' => 'Not specified');
+        }
+        
+        // Prepare view data
+        $page_data['student'] = $student;
+        $page_data['class'] = $class;
+        
+        // Load the view
+        $this->load->view('backend/admin/admission_print_view', $page_data);
+    }
+
 }
