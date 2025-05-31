@@ -9,7 +9,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="invoice_search"><?php echo get_phrase('search_by_student');?></label>
-                                            <input type="text" class="form-control" id="invoice_search" placeholder="<?php echo get_phrase('enter_student_name');?>">
+                                            <input type="text" class="form-control" id="invoice_search" placeholder="<?php echo get_phrase('enter_student_name_or_admission_number');?>">
+                                            <small class="text-muted">Search by student name or admission number</small>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -50,7 +51,16 @@
                     	?>
                         <tr>
                         	<td><?php echo $count++;?></td>
-							<td><?php echo $this->crud_model->get_type_name_by_id('student', $row['student_id']);?></td>
+							<td>
+								<?php 
+								$student_info = $this->db->get_where('student', array('student_id' => $row['student_id']))->row();
+								if ($student_info) {
+									echo $student_info->name . '<br><small class="text-muted">Adm: ' . $student_info->admission_number . '</small>';
+								} else {
+									echo $this->crud_model->get_type_name_by_id('student', $row['student_id']);
+								}
+								?>
+							</td>
 							<td><?php echo $row['title'];?></td>
 							<td><?php echo $row['description'];?></td>
 							<td><?php echo $this->db->get_where('settings', array('type' => 'currency'))->row()->description; ?><?php echo number_format($row['amount'],2,".",",");?></td>
@@ -101,7 +111,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="student_search"><?php echo get_phrase('search_by_student');?></label>
-                                            <input type="text" class="form-control" id="student_search" placeholder="<?php echo get_phrase('enter_student_name');?>">
+                                            <input type="text" class="form-control" id="student_search" placeholder="<?php echo get_phrase('enter_student_name_or_admission_number');?>">
+                                            <small class="text-muted">Search by student name or admission number</small>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -141,7 +152,16 @@
 					        ?>
 					        <tr>
 					            <td><?php echo $count++;?></td>
-					            <td><?php echo $this->crud_model->get_type_name_by_id('student', $row['student_id']);?></td>
+					            <td>
+					            	<?php 
+					            	$student_info = $this->db->get_where('student', array('student_id' => $row['student_id']))->row();
+					            	if ($student_info) {
+					            		echo $student_info->name . '<br><small class="text-muted">Adm: ' . $student_info->admission_number . '</small>';
+					            	} else {
+					            		echo $this->crud_model->get_type_name_by_id('student', $row['student_id']);
+					            	}
+					            	?>
+					            </td>
 					            <td><?php echo $row['title'];?></td>
 					            <td><?php echo $row['description'];?></td>
 					            <td>

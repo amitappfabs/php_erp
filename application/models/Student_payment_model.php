@@ -234,11 +234,22 @@ class Student_payment_model extends CI_Model {
             $this->db->insert('payment', $page_data);
             $payment_id = $this->db->insert_id();
 
-            $page_data2['amount_paid'] = html_escape($this->input->post('amount'));
+            $payment_amount = html_escape($this->input->post('amount'));
+            
+            // Update the invoice amounts
             $this->db->where('invoice_id', $param2);
-            $this->db->set('amount_paid', 'amount_paid + ' . $page_data2['amount_paid'], FALSE);
-            $this->db->set('due', 'due - ' . $page_data2['amount_paid'], FALSE);
+            $this->db->set('amount_paid', 'amount_paid + ' . $payment_amount, FALSE);
+            $this->db->set('due', 'due - ' . $payment_amount, FALSE);
             $this->db->update('invoice');
+            
+            // Get the updated invoice to check if it's fully paid
+            $updated_invoice = $this->db->get_where('invoice', array('invoice_id' => $param2))->row();
+            
+            // If due amount is 0 or negative, mark as paid
+            if ($updated_invoice && $updated_invoice->due <= 0) {
+                $this->db->where('invoice_id', $param2);
+                $this->db->update('invoice', array('status' => '1', 'due' => 0));
+            }
         }
 
         function updateStudentPaymentFunction($param2){
