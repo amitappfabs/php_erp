@@ -55,7 +55,7 @@
                 <td><?php echo $this->db->get_where('teacher', array('teacher_id' => $material['teacher_id']))->row()->name;?></td>
                 <td><?php echo $material['description'];?></td>
                 <td>
-                <a href="<?php echo base_url();?>studymaterial/download/<?php echo $material['material_id'];?>"><button type="button" class="btn btn-info btn-circle btn-xs" ><i class="fa fa-download"></i></button></a>
+                <a href="<?php echo base_url();?>uploads/study_material/<?php echo $material['file_name'];?>" target="_blank"><button type="button" class="btn btn-info btn-sm" style="background: linear-gradient(45deg, #17a2b8, #117a8b); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(23,162,184,0.3); transition: all 0.3s ease;"><i class="fa fa-download"></i> Download</button></a>
 					
                    
                 </td>

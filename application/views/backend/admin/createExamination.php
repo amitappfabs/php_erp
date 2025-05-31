@@ -73,13 +73,13 @@
 							<td><?php echo $exam ['comment'];?></td>
 							<td><?php echo $exam ['timestamp'];?></td>
 							<td>
-
-                            <a onclick="showAjaxModal('<?php echo base_url();?>modal/popup/edit_exam/<?php echo $exam['exam_id'];?>')" class="btn btn-info btn-circle btn-xs"><i class="fa fa-edit"></i></a>
-                            <a href="<?php echo base_url();?>admin/createExamination/delete/<?php echo $exam['exam_id'];?>" onclick="return confirm('Are you sure want to delete?');" class="btn btn-danger btn-circle btn-xs" style="color:white"><i class="fa fa-times"></i></a>
-                            
-                            
-                            
-                            </td>
+							
+				    <a href="#" onclick="showAjaxModal('<?php echo base_url();?>modal/popup/edit_exam/<?php echo $exam['exam_id'];?>');"><button type="button" class="btn btn-success btn-sm" style="background: linear-gradient(45deg, #28a745, #1e7e34); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(40,167,69,0.3); transition: all 0.3s ease;"><i class="fa fa-edit"></i> Edit</button></a>
+					 <a href="#" onclick="confirm_modal('<?php echo base_url();?>admin/createExamination/delete/<?php echo $exam['exam_id'];?>');"><button type="button" class="btn btn-danger btn-sm" style="background: linear-gradient(45deg, #dc3545, #c82333); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(220,53,69,0.3); transition: all 0.3s ease;"><i class="fa fa-trash"></i> Delete</button></a>
+					 
+			
+                           
+        					</td>
                         </tr>
                     <?php endforeach;?>
                     </tbody>

@@ -98,41 +98,54 @@
             </div>
             <div class="panel-body" style="padding: 20px;"> <!-- Reduced from 27px -->
                 <div class="quick-actions-container">
-                    <div class="col-md-2">
-                        <a href="<?php echo base_url('admin/new_student'); ?>" class="quick-action-btn student-action">
-                            <i class="fa fa-user-plus"></i>
-                            <span><?php echo get_phrase('Add Student'); ?></span>
-                        </a>
+                    <!-- First Row - 4 buttons -->
+                    <div class="row quick-actions-row">
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?php echo base_url('admin/new_student'); ?>" class="quick-action-btn student-action">
+                                <i class="fa fa-user-plus"></i>
+                                <span><?php echo get_phrase('Add Student'); ?></span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?php echo base_url('admin/teacher'); ?>" class="quick-action-btn teacher-action">
+                                <i class="fa fa-plus-circle"></i>
+                                <span><?php echo get_phrase('Add Teacher'); ?></span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?php echo base_url('admin/manage_attendance/' . date('d/m/Y')); ?>" class="quick-action-btn attendance-action">
+                                <i class="fa fa-calendar-check-o"></i>
+                                <span><?php echo get_phrase('Mark Student Attendance'); ?></span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?php echo base_url('admin/teacher_attendance'); ?>" class="quick-action-btn teacher-attendance-action">
+                                <i class="fa fa-calendar-plus-o"></i>
+                                <span><?php echo get_phrase('Teacher Attendance'); ?></span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <a href="<?php echo base_url('admin/teacher'); ?>" class="quick-action-btn teacher-action">
-                            <i class="fa fa-plus-circle"></i>
-                            <span><?php echo get_phrase('Add Teacher'); ?></span>
-                        </a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="<?php echo base_url('admin/manage_attendance/' . date('d/m/Y')); ?>" class="quick-action-btn attendance-action">
-                            <i class="fa fa-calendar-check-o"></i>
-                            <span><?php echo get_phrase('Mark Student Attendance'); ?></span>
-                        </a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="<?php echo base_url('admin/teacher_attendance'); ?>" class="quick-action-btn teacher-attendance-action">
-                            <i class="fa fa-calendar-plus-o"></i>
-                            <span><?php echo get_phrase('Teacher Attendance'); ?></span>
-                        </a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="<?php echo base_url('admin/student_payment'); ?>" class="quick-action-btn payment-action">
-                            <i class="fa fa-money"></i>
-                            <span><?php echo get_phrase('Collect Fees'); ?></span>
-                        </a>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="<?php echo base_url('transportation/transport'); ?>" class="quick-action-btn transport-action">
-                            <i class="fa fa-car"></i>
-                            <span><?php echo get_phrase('Manage Transport'); ?></span>
-                        </a>
+                    
+                    <!-- Second Row - 3 buttons -->
+                    <div class="row quick-actions-row">
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?php echo base_url('admin/student_payment'); ?>" class="quick-action-btn payment-action">
+                                <i class="fa fa-money"></i>
+                                <span><?php echo get_phrase('Collect Fees'); ?></span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?php echo base_url('transportation/transport'); ?>" class="quick-action-btn transport-action">
+                                <i class="fa fa-car"></i>
+                                <span><?php echo get_phrase('Manage Transport'); ?></span>
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="<?php echo base_url('studymaterial/study_material'); ?>" class="quick-action-btn homework-action">
+                                <i class="fa fa-book"></i>
+                                <span><?php echo get_phrase('Send Home Work'); ?></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -280,34 +293,41 @@
 
 /* Quick Actions Styling */
 .quick-action-btn {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: #fff;
     border: 2px solid #ecf0f1;
-    border-radius: 8px; /* Reduced from 9px */
-    padding: 16px 12px; /* Reduced from 22.5px 18px */
+    border-radius: 8px;
+    padding: 20px 12px;
     text-align: center;
     text-decoration: none;
     color: #2c3e50;
     transition: all 0.3s ease;
-    margin-bottom: 15px; /* Reduced from 18px */
-    box-shadow: 0 3px 10px rgba(0,0,0,0.04); /* Reduced shadow */
+    margin-bottom: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    height: 100px;
+    min-height: 100px;
 }
 
 .quick-action-btn:hover {
     text-decoration: none;
-    transform: translateY(-3px); /* Reduced from -4.5px */
-    box-shadow: 0 6px 15px rgba(0,0,0,0.08); /* Reduced shadow */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 }
 
 .quick-action-btn i {
-    font-size: 1.5em; /* Reduced from 1.8em */
-    margin-bottom: 8px; /* Reduced from 10.8px */
+    font-size: 1.8em;
+    margin-bottom: 8px;
     display: block;
 }
 
 .quick-action-btn span {
     font-weight: 600;
-    font-size: 0.8em; /* Reduced from 0.9em */
+    font-size: 0.85em;
+    line-height: 1.2;
+    text-align: center;
 }
 
 .student-action:hover {
@@ -340,96 +360,22 @@
     color: #17a2b8;
 }
 
-/* Updated 6-column layout for quick actions */
+.homework-action:hover {
+    border-color: #6610f2;
+    color: #6610f2;
+}
+
+/* Updated quick actions container and button layout */
 .quick-actions-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -8px; /* Reduced from -9px */
+    margin: 0;
 }
 
-.quick-actions-container .col-md-2 {
-    flex: 0 0 16.666667%; /* 6 columns = 100/6 = 16.67% */
-    max-width: 16.666667%;
-    padding: 0 8px; /* Reduced from 9px */
+.quick-actions-row {
+    margin-bottom: 15px;
 }
 
-/* Responsive adjustments for 6 columns */
-@media (min-width: 1200px) {
-    .quick-actions-container .col-md-2 {
-        flex: 0 0 16.666667%;
-        max-width: 16.666667%;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .quick-actions-container .col-md-2 {
-        flex: 0 0 33.333333%; /* 3 columns on medium screens */
-        max-width: 33.333333%;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .quick-actions-container .col-md-2 {
-        flex: 0 0 50%; /* 2 columns on tablets */
-        max-width: 50%;
-    }
-}
-
-@media (max-width: 767px) {
-    .quick-actions-container .col-md-2 {
-        flex: 0 0 50%; /* 2 columns on small screens */
-        max-width: 50%;
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .quick-actions-container .col-md-2 {
-        flex: 0 0 100%; /* 1 column on very small screens */
-        max-width: 100%;
-        margin-bottom: 10px;
-    }
-    
-    .quick-action-btn {
-        padding: 14px 10px; /* Reduced padding for mobile */
-    }
-    
-    .quick-action-btn i {
-        font-size: 1.3em; /* Reduced icon size for mobile */
-    }
-    
-    /* Responsive design for stat cards */
-    .card-content {
-        flex-direction: column;
-        text-align: center;
-        padding: 15px; /* Reduced padding for mobile */
-    }
-    
-    .icon-section {
-        margin-right: 0;
-        margin-bottom: 12px; /* Reduced from 18px */
-    }
-    
-    .stats-section {
-        text-align: center;
-    }
-    
-    .stat-number {
-        font-size: 1.8em; /* Reduced from 2.25em */
-    }
-    
-    /* Compact header responsive */
-    .compact-header {
-        padding: 12px 15px;
-    }
-    
-    .compact-header h3 {
-        font-size: 1.2em;
-    }
-    
-    .compact-header p {
-        font-size: 0.8em;
-    }
+.quick-actions-container .col-md-3 {
+    padding: 0 8px;
 }
 
 /* Animation for cards */

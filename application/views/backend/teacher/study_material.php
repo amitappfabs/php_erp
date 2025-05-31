@@ -186,11 +186,9 @@
                 <td><?php echo $this->db->get_where('teacher', array('teacher_id' => $material['teacher_id']))->row()->name;?></td>
                 <td><?php echo $material['description'];?></td>
                 <td>
-                <a href="<?php echo base_url().'uploads/study_material/'. $material['file_name'];?>"><button type="button" class="btn btn-info btn-circle btn-xs" ><i class="fa fa-download"></i></button></a>
-                    <a  onclick="showAjaxModal('<?php echo base_url();?>modal/popup/edit_study_material/<?php echo $material['material_id'];?>');" ><button type="button" class="btn btn-success btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
-					 <a href="<?php echo base_url();?>studymaterial/study_material/delete/<?php echo $material['material_id'];?>" ><button type="button" class="btn btn-danger btn-circle btn-xs" onclick="return confirm('Are you sure to delete?');"><i class="fa fa-times"></i></button></a>
-					
-                   
+                <a href="<?php echo base_url();?>uploads/study_material/<?php echo $material['file_name'];?>" target="_blank"><button type="button" class="btn btn-info btn-sm" style="background: linear-gradient(45deg, #17a2b8, #117a8b); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(23,162,184,0.3); transition: all 0.3s ease;"><i class="fa fa-download"></i> Download</button></a>
+                <a href="#" onclick="showAjaxModal('<?php echo base_url();?>modal/popup/edit_study_material/<?php echo $material['material_id'];?>');"><button type="button" class="btn btn-success btn-sm" style="background: linear-gradient(45deg, #28a745, #1e7e34); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(40,167,69,0.3); transition: all 0.3s ease;"><i class="fa fa-pencil"></i> Edit</button></a>
+                <a href="#" onclick="confirm_modal('<?php echo base_url();?>studymaterial/study_material/delete/<?php echo $material['material_id'];?>');"><button type="button" class="btn btn-danger btn-sm" style="background: linear-gradient(45deg, #dc3545, #c82333); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(220,53,69,0.3); transition: all 0.3s ease;"><i class="fa fa-trash"></i> Delete</button></a>
                 </td>
             </tr>
     <?php endforeach;?>

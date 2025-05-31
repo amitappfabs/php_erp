@@ -70,12 +70,12 @@
 
 							<td>
 							<?php if ($row['due'] != 0):?>
-							<a href="#" onclick="showAjaxModal('<?php echo base_url();?>modal/popup/modal_take_payment/<?php echo $row['invoice_id'];?>');"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-credit-card"></i></button></a>
+							<a href="#" onclick="showAjaxModal('<?php echo base_url();?>modal/popup/modal_take_payment/<?php echo $row['invoice_id'];?>');"><button type="button" class="btn btn-primary btn-sm" style="background: linear-gradient(45deg, #007bff, #0056b3); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(0,123,255,0.3); transition: all 0.3s ease;"><i class="fa fa-credit-card"></i> Pay</button></a>
 							<?php endif;?>
 							 
-							<a href="<?php echo base_url();?>PrintInvoice/invoice/<?php echo $row['invoice_id'];?>" target="_blank"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-print"></i></button></a>
-							 <a href="#" onclick="showAjaxModal('<?php echo base_url();?>modal/popup/modal_edit_invoice/<?php echo $row['invoice_id'];?>');"><button type="button" class="btn btn-success btn-circle btn-xs"><i class="fa fa-edit"></i></button></a>
-							<a href="#" onclick="confirm_modal('<?php echo base_url();?>admin/student_payment/delete_invoice/<?php echo $row['invoice_id'];?>');"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-times"></i></button></a>
+							<a href="<?php echo base_url();?>PrintInvoice/invoice/<?php echo $row['invoice_id'];?>" target="_blank"><button type="button" class="btn btn-warning btn-sm" style="background: linear-gradient(45deg, #ffc107, #e0a800); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(255,193,7,0.3); transition: all 0.3s ease;"><i class="fa fa-print"></i> Print</button></a>
+							 <a href="#" onclick="showAjaxModal('<?php echo base_url();?>modal/popup/modal_edit_invoice/<?php echo $row['invoice_id'];?>');"><button type="button" class="btn btn-success btn-sm" style="background: linear-gradient(45deg, #28a745, #1e7e34); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(40,167,69,0.3); transition: all 0.3s ease;"><i class="fa fa-edit"></i> Edit</button></a>
+							<a href="#" onclick="confirm_modal('<?php echo base_url();?>admin/student_payment/delete_invoice/<?php echo $row['invoice_id'];?>');"><button type="button" class="btn btn-danger btn-sm" style="background: linear-gradient(45deg, #dc3545, #c82333); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(220,53,69,0.3); transition: all 0.3s ease;"><i class="fa fa-trash"></i> Delete</button></a>
 							
                            
         					</td>
@@ -159,7 +159,7 @@
 					            <td data-amount="<?php echo $row['amount']; ?>"><?php echo $this->db->get_where('settings', array('type' => 'currency'))->row()->description; ?><?php echo number_format($row['amount'],2,".",",");?></td>
 					            <td data-timestamp="<?php echo $row['timestamp']; ?>"><?php echo date('d M,Y', $row['timestamp']);?></td>
 					            <td >
-			                <a href="<?php echo base_url();?>PrintInvoice/invoice/<?php echo $row['invoice_id'];?>" target="_blank"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-print"></i></button></a>	            	
+			                <a href="<?php echo base_url();?>PrintInvoice/invoice/<?php echo $row['invoice_id'];?>" target="_blank"><button type="button" class="btn btn-info btn-sm" style="background: linear-gradient(45deg, #17a2b8, #117a8b); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(23,162,184,0.3); transition: all 0.3s ease;"><i class="fa fa-print"></i> Print</button></a>	            	
 					            </td>
 					        </tr>
 					        <?php endforeach;?>
@@ -244,6 +244,228 @@ function sortInvoiceHistory() {
     }
 }
 </script>
+
+<style>
+/* ===== COMPREHENSIVE VIBRANT BUTTON STYLES ===== */
+
+/* Base vibrant button styles */
+.btn.btn-sm[style*="linear-gradient"] {
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    margin: 2px !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+}
+
+/* Hover effects for all vibrant buttons */
+.btn.btn-sm[style*="linear-gradient"]:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
+}
+
+/* Primary button (Pay) hover */
+.btn.btn-primary.btn-sm[style*="linear-gradient"]:hover {
+    background: linear-gradient(45deg, #0056b3, #004085) !important;
+    box-shadow: 0 8px 16px rgba(0,123,255,0.4) !important;
+}
+
+/* Warning button (Print) hover */
+.btn.btn-warning.btn-sm[style*="linear-gradient"]:hover {
+    background: linear-gradient(45deg, #e0a800, #d39e00) !important;
+    box-shadow: 0 8px 16px rgba(255,193,7,0.4) !important;
+}
+
+/* Success button (Edit) hover */
+.btn.btn-success.btn-sm[style*="linear-gradient"]:hover {
+    background: linear-gradient(45deg, #1e7e34, #155724) !important;
+    box-shadow: 0 8px 16px rgba(40,167,69,0.4) !important;
+}
+
+/* Danger button (Delete) hover */
+.btn.btn-danger.btn-sm[style*="linear-gradient"]:hover {
+    background: linear-gradient(45deg, #c82333, #bd2130) !important;
+    box-shadow: 0 8px 16px rgba(220,53,69,0.4) !important;
+}
+
+/* Info button (Download/View) hover */
+.btn.btn-info.btn-sm[style*="linear-gradient"]:hover {
+    background: linear-gradient(45deg, #117a8b, #0c5460) !important;
+    box-shadow: 0 8px 16px rgba(23,162,184,0.4) !important;
+}
+
+/* Focus and active states */
+.btn.btn-sm[style*="linear-gradient"]:focus,
+.btn.btn-sm[style*="linear-gradient"]:active {
+    outline: none !important;
+    transform: translateY(-1px) scale(1.01) !important;
+}
+
+/* Primary focus */
+.btn.btn-primary.btn-sm[style*="linear-gradient"]:focus,
+.btn.btn-primary.btn-sm[style*="linear-gradient"]:active {
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25), 0 6px 12px rgba(0,123,255,0.3) !important;
+}
+
+/* Warning focus */
+.btn.btn-warning.btn-sm[style*="linear-gradient"]:focus,
+.btn.btn-warning.btn-sm[style*="linear-gradient"]:active {
+    box-shadow: 0 0 0 3px rgba(255,193,7,0.25), 0 6px 12px rgba(255,193,7,0.3) !important;
+}
+
+/* Success focus */
+.btn.btn-success.btn-sm[style*="linear-gradient"]:focus,
+.btn.btn-success.btn-sm[style*="linear-gradient"]:active {
+    box-shadow: 0 0 0 3px rgba(40,167,69,0.25), 0 6px 12px rgba(40,167,69,0.3) !important;
+}
+
+/* Danger focus */
+.btn.btn-danger.btn-sm[style*="linear-gradient"]:focus,
+.btn.btn-danger.btn-sm[style*="linear-gradient"]:active {
+    box-shadow: 0 0 0 3px rgba(220,53,69,0.25), 0 6px 12px rgba(220,53,69,0.3) !important;
+}
+
+/* Info focus */
+.btn.btn-info.btn-sm[style*="linear-gradient"]:focus,
+.btn.btn-info.btn-sm[style*="linear-gradient"]:active {
+    box-shadow: 0 0 0 3px rgba(23,162,184,0.25), 0 6px 12px rgba(23,162,184,0.3) !important;
+}
+
+/* Button ripple effect */
+.btn.btn-sm[style*="linear-gradient"]:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn.btn-sm[style*="linear-gradient"]:active:before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Action column styling */
+td .btn.btn-sm[style*="linear-gradient"] {
+    white-space: nowrap;
+    margin: 1px 2px;
+    display: inline-block;
+}
+
+/* Icon spacing */
+.btn.btn-sm[style*="linear-gradient"] i {
+    margin-right: 5px !important;
+}
+
+/* Responsive button styling */
+@media (max-width: 768px) {
+    .btn.btn-sm[style*="linear-gradient"] {
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+        margin: 1px !important;
+        border-radius: 6px !important;
+    }
+    
+    .btn.btn-sm[style*="linear-gradient"] i {
+        margin-right: 3px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn.btn-sm[style*="linear-gradient"] {
+        padding: 4px 6px !important;
+        font-size: 10px !important;
+        letter-spacing: 0.3px !important;
+    }
+    
+    /* Stack buttons vertically on very small screens */
+    td .btn.btn-sm[style*="linear-gradient"] {
+        display: block !important;
+        margin: 2px 0 !important;
+        width: 100% !important;
+    }
+}
+
+/* Animation keyframes */
+@keyframes buttonPulse {
+    0% { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    50% { box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+    100% { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+}
+
+/* Add pulse animation on load */
+.btn.btn-sm[style*="linear-gradient"] {
+    animation: buttonPulse 2s infinite alternate;
+}
+
+/* Stop animation on hover */
+.btn.btn-sm[style*="linear-gradient"]:hover {
+    animation: none !important;
+}
+
+/* Disabled state */
+.btn.btn-sm[style*="linear-gradient"]:disabled {
+    opacity: 0.6 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+    cursor: not-allowed !important;
+}
+
+/* Loading state */
+.btn.btn-sm[style*="linear-gradient"].loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.btn.btn-sm[style*="linear-gradient"].loading:after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn.btn-sm[style*="linear-gradient"] {
+        border: 2px solid currentColor !important;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .btn.btn-sm[style*="linear-gradient"] {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .btn.btn-sm[style*="linear-gradient"]:hover {
+        transform: none !important;
+    }
+}
+</style>
 						
 			
 </div>

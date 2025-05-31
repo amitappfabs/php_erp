@@ -1,166 +1,179 @@
 <?php
-// Add debugging
-error_log('Loading print_invoice.php with invoice_id: ' . $invoice_id);
+// Enhanced print invoice with comprehensive fee and payment details display
+// Debug mode - show errors
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+echo "<!-- Debug: Starting print invoice process for invoice_id: " . $invoice_id . " -->\n";
 
 // Get invoice data with error handling
 try {
     $invoices = $this->db->get_where('invoice', array('invoice_id' => $invoice_id))->result_array();
     
     if (empty($invoices)) {
-        error_log('No invoice found with ID: ' . $invoice_id);
         echo '<div class="alert alert-danger">No invoice found with ID: ' . $invoice_id . '</div>';
         return;
     }
     
     foreach ($invoices as $key => $row):
-        try {
-            // Get student info with error handling
-            $student_info = $this->db->get_where('student', array('student_id' => $row['student_id']))->row();
-            if (!$student_info) {
-                error_log('Student not found for invoice: ' . $invoice_id);
-                $student_info = new stdClass();
-                $student_info->name = 'N/A';
-                $student_info->admission_number = 'N/A';
-                $student_info->phone = 'N/A';
-                $student_info->father_phone = 'N/A';
-                $student_info->address = 'N/A';
-                $student_info->class_id = 0;
-                $student_info->section_id = 0;
-                $student_info->student_code = 'N/A';
-                
+        // Get student info
+        $student_info = $this->db->get_where('student', array('student_id' => $row['student_id']))->row();
+        if (!$student_info) {
+            $student_info = new stdClass();
+            $student_info->name = 'Unknown Student';
+            $student_info->admission_number = 'N/A';
+            $student_info->phone = '';
+            $student_info->father_phone = '';
+            $student_info->address = 'N/A';
+            $student_info->class_id = 0;
+            $student_info->section_id = 0;
+            $student_info->student_code = 'N/A';
+        }
+        
+        // Get class info
+        $class_info = $this->db->get_where('class', array('class_id' => $student_info->class_id))->row();
+        if (!$class_info) {
+            $class_info = new stdClass();
+            $class_info->name = 'Unknown Class';
+        }
+        
+        // Get section info
+        $section_info = null;
+        if ($student_info->section_id) {
+            $section_info = $this->db->get_where('section', array('section_id' => $student_info->section_id))->row();
+        }
+        
+        // Debug section loading
+        echo "<!-- Debug: Student section_id: " . $student_info->section_id . " -->\n";
+        if ($section_info) {
+            echo "<!-- Debug: Section found: " . $section_info->name . " -->\n";
+        } else {
+            echo "<!-- Debug: No section found for section_id: " . $student_info->section_id . " -->\n";
+        }
+        
+        // Get parent info
+        $parent_info = null;
+        if (isset($student_info->parent_id)) {
+            $parent_info = $this->db->get_where('parent', array('parent_id' => $student_info->parent_id))->row();
+        }
+        
+        // Get system info
+        $currency_result = $this->db->get_where('settings', array('type' => 'currency'))->row();
+        $currency = $currency_result ? $currency_result->description : '₹';
+        
+        // Get payment details
+        $payment_history = $this->db->get_where('payment', array('invoice_id' => $row['invoice_id']))->result_array();
+        
+        // Get fee items
+        $fee_items = $this->db->get_where('fee_items', array('invoice_id' => $row['invoice_id']))->result_array();
+        
+        echo "<!-- Debug: Found " . count($fee_items) . " fee items -->\n";
+        
+        // Payment method details
+        $payment_method = "Cash";
+        $payment_method_full = "Cash Payment";
+        $description = "";
+        
+        if (!empty($payment_history)) {
+            $latest_payment = end($payment_history);
+            $method_code = isset($latest_payment['method']) ? $latest_payment['method'] : '2';
+            switch($method_code) {
+                case '1':
+                    $payment_method = "Card";
+                    $payment_method_full = "Credit/Debit Card";
+                    break;
+                case '2':
+                    $payment_method = "Cash";
+                    $payment_method_full = "Cash Payment";
+                    break;
+                case '3':
+                    $payment_method = "Cheque";
+                    $payment_method_full = "Bank Cheque";
+                    break;
+                case 'paypal':
+                    $payment_method = "PayPal";
+                    $payment_method_full = "PayPal Online Payment";
+                    break;
             }
             
-            // Get parent info
-            $parent_info = null;
-            if (isset($student_info->parent_id)) {
-                $parent_info = $this->db->get_where('parent', array('parent_id' => $student_info->parent_id))->row();
+            if (isset($latest_payment['description'])) {
+                $description = $latest_payment['description'];
             }
-            
-            // Get class info with error handling
-            $class_info = $this->db->get_where('class', array('class_id' => $student_info->class_id))->row();
-            if (!$class_info) {
-                error_log('Class not found for student: ' . $student_info->class_id);
-                $class_info = new stdClass();
-                $class_info->name = 'N/A';
+        }
+        
+        // Calculate discount/concession
+        $discount_amount = isset($row['discount']) ? $row['discount'] : 0;
+        $discount_type = isset($row['discount_type']) ? $row['discount_type'] : '';
+        $concession = 0;
+        
+        if ($discount_amount > 0) {
+            if ($discount_amount <= 100 && $discount_type != '' && $discount_type != 'no_discount') {
+                $concession = ($row['amount'] * $discount_amount) / 100;
+            } else {
+                $concession = $discount_amount;
             }
-            
-            // Get section info with error handling
-            $section_info = null;
-            if ($student_info->section_id) {
-                $section_info = $this->db->get_where('section', array('section_id' => $student_info->section_id))->row();
-            }
-            
-            // Get system info with error handling
-            $system_name = $this->db->get_where('settings', array('type' => 'system_name'))->row()->description;
-            $system_address = $this->db->get_where('settings', array('type' => 'address'))->row()->description;
-            $system_phone = $this->db->get_where('settings', array('type' => 'phone'))->row()->description;
-            
-            // These might not exist, so use default values if not found
-            $system_email_query = $this->db->get_where('settings', array('type' => 'system_email'));
-            $system_email = $system_email_query->num_rows() > 0 ? $system_email_query->row()->description : 'N/A';
-            
-            $system_website_query = $this->db->get_where('settings', array('type' => 'website'));
-            $system_website = $system_website_query->num_rows() > 0 ? $system_website_query->row()->description : 'N/A';
-            
-            $currency = $this->db->get_where('settings', array('type' => 'currency'))->row()->description;
-            
-            // Get payment details
-            $payment_history = $this->db->get_where('payment', array('invoice_id' => $row['invoice_id']))->result_array();
-            
-            // Get fee items
-            $fee_items = $this->db->get_where('fee_items', array('invoice_id' => $row['invoice_id']))->result_array();
-            
-            // Convert amount to words
-            function numberToWords($number) {
-                $ones = array(
-                    0 => "", 1 => "One", 2 => "Two", 3 => "Three", 4 => "Four", 5 => "Five", 
-                    6 => "Six", 7 => "Seven", 8 => "Eight", 9 => "Nine", 10 => "Ten", 
-                    11 => "Eleven", 12 => "Twelve", 13 => "Thirteen", 14 => "Fourteen", 
-                    15 => "Fifteen", 16 => "Sixteen", 17 => "Seventeen", 18 => "Eighteen", 
-                    19 => "Nineteen"
+        }
+        
+        // Get description from invoice if empty
+        if (empty($description) && !empty($row['description'])) {
+            $description = $row['description'];
+        }
+        
+        // Prepare fee breakdown
+        $fee_breakdown = array();
+        
+        if (!empty($fee_items)) {
+            foreach ($fee_items as $fee_item) {
+                $fee_breakdown[] = array(
+                    'fee_type' => $fee_item['fee_type'],
+                    'amount' => $fee_item['amount']
                 );
-                $tens = array(
-                    0 => "", 2 => "Twenty", 3 => "Thirty", 4 => "Forty", 5 => "Fifty", 
-                    6 => "Sixty", 7 => "Seventy", 8 => "Eighty", 9 => "Ninety"
-                );
-                $hundreds = array(
-                    "Hundred", "Thousand", "Million", "Billion", "Trillion", "Quadrillion"
-                );
-
-                if ($number == 0) {
-                    return "Zero";
-                }
-
-                $number = number_format($number, 2, ".", ",");
-                $number_array = explode(".", $number);
-                $number = $number_array[0];
-                
-                $words = "";
-                
-                // For numbers up to 999
-                if ($number < 1000) {
-                    if ($number < 20) {
-                        $words .= $ones[$number];
-                    } elseif ($number < 100) {
-                        $words .= $tens[floor($number/10)];
-                        $remainder = $number % 10;
-                        if ($remainder != 0) {
-                            $words .= " " . $ones[$remainder];
-                        }
-                    } else {
-                        $words .= $ones[floor($number/100)] . " " . $hundreds[0];
-                        $remainder = $number % 100;
-                        if ($remainder != 0) {
-                            if ($remainder < 20) {
-                                $words .= " " . $ones[$remainder];
-                            } else {
-                                $words .= " " . $tens[floor($remainder/10)];
-                                $remainder = $remainder % 10;
-                                if ($remainder != 0) {
-                                    $words .= " " . $ones[$remainder];
-                                }
-                            }
-                        }
+            }
+        } else {
+            // Fallback to invoice data
+            $fee_types_raw = $row['fee_type'];
+            if (strpos($fee_types_raw, ',') !== false) {
+                $fee_types_array = explode(',', $fee_types_raw);
+                $amount_per_fee = $row['amount'] / count($fee_types_array);
+                foreach ($fee_types_array as $fee_type) {
+                    $fee_type = trim($fee_type);
+                    if (!empty($fee_type)) {
+                        $fee_breakdown[] = array(
+                            'fee_type' => $fee_type,
+                            'amount' => $amount_per_fee
+                        );
                     }
-                } else {
-                    $words = "Exceeds handling capacity";
                 }
-                
-                return $words;
+            } else {
+                $fee_breakdown[] = array(
+                    'fee_type' => $fee_types_raw,
+                    'amount' => $row['amount']
+                );
             }
-            
-            // Payment method logic
-            $payment_method = "Cash";
-            $bank_details = "";
-            $instrument_date = "";
-            $concession = 0;
-            $advance = 0;
-            $balance = 0;
-            
-            if (!empty($payment_history)) {
-                $latest_payment = end($payment_history);
-                if ($latest_payment['method'] == 1) $payment_method = "Cash";
-                else if ($latest_payment['method'] == 2) $payment_method = "Cheque";
-                else if ($latest_payment['method'] == 3) $payment_method = "Card";
-                else if ($latest_payment['method'] == 'paypal') $payment_method = "PayPal";
-                
-                // Get additional payment details if available
-                if (isset($latest_payment['bank_details'])) {
-                    $bank_details = $latest_payment['bank_details'];
-                }
-                if (isset($latest_payment['instrument_date'])) {
-                    $instrument_date = $latest_payment['instrument_date'];
-                }
-                if (isset($latest_payment['advance'])) {
-                    $advance = $latest_payment['advance'];
-                }
-                if (isset($latest_payment['concession'])) {
-                    $concession = $latest_payment['concession'];
-                }
-                if (isset($latest_payment['balance'])) {
-                    $balance = $latest_payment['balance'];
-                }
+        }
+        
+        echo "<!-- Debug: Prepared " . count($fee_breakdown) . " fee breakdown items -->\n";
+        
+        // Fix timestamp handling - convert string to int if needed
+        $creation_timestamp = $row['creation_timestamp'];
+        if (is_string($creation_timestamp)) {
+            // If it's a date string like '2019-11-12', convert to timestamp
+            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $creation_timestamp)) {
+                $creation_timestamp = strtotime($creation_timestamp);
+            } else if (is_numeric($creation_timestamp)) {
+                // If it's a numeric string, convert to int
+                $creation_timestamp = (int)$creation_timestamp;
+            } else {
+                // Fallback to current time if can't parse
+                $creation_timestamp = time();
             }
+        }
+        
+        // Ensure we have a valid timestamp
+        if (!$creation_timestamp || $creation_timestamp <= 0) {
+            $creation_timestamp = time();
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,7 +181,6 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fee Receipt</title>
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -194,9 +206,6 @@ try {
         }
         .school-logo {
             max-height: 80px;
-        }
-        .receipt-header {
-            text-align: center;
         }
         .receipt-title {
             border-top: 2px solid #000;
@@ -234,24 +243,35 @@ try {
             font-weight: bold;
             border-top: 2px solid #000;
         }
-        .footer-section {
-            margin-top: 15px;
+        .payment-summary-enhanced {
+            margin-top: 10px;
+            border: 1px solid #000;
         }
-        .cashier-signature {
-            text-align: right;
-            margin-top: 30px;
+        .payment-summary-enhanced th {
+            background-color: #f5f5f5;
             font-weight: bold;
+            padding: 8px;
+        }
+        .payment-summary-enhanced td {
+            padding: 8px;
+        }
+        .highlight-amount {
+            color: #d9534f;
+            font-weight: bold;
+        }
+        .discount-info {
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
     <div class="no-print" style="text-align: center; margin: 20px;">
-        <button onclick="window.print()" class="btn btn-primary">
-            <i class="fa fa-print"></i> <?php echo get_phrase('print'); ?>
-        </button>
-        <button onclick="window.close()" class="btn btn-default">
-            <i class="fa fa-times"></i> <?php echo get_phrase('close'); ?>
-        </button>
+        <button onclick="window.print()">Print</button>
+        <button onclick="window.close()">Close</button>
     </div>
 
     <div id="invoice_print">
@@ -259,13 +279,13 @@ try {
         <table border="0" width="100%">
             <tr>
                 <td width="15%" align="center">
-                    <img src="<?php echo base_url('uploads/logo.png'); ?>" class="school-logo" alt="School Logo">
+                    <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="School Logo">
                 </td>
-                <td width="85%" align="center">
-                    <h2 style="margin: 0; font-weight: bold; text-transform: uppercase;"><?php echo $system_name; ?></h2>
-                    <p style="margin: 0;"><?php echo $system_address; ?></p>
-                    <p style="margin: 0;">Contact Nos.: <?php echo $system_phone; ?></p>
-                    <p style="margin: 0;">Email: <?php echo $system_email; ?>, Website: <?php echo $system_website; ?></p>
+                <td width="85%" align="left" style="padding-left: 140px;">
+                    <h2 style="margin: 0; font-weight: bold; text-transform: uppercase; ">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JP International</h2>
+                    <p style="margin: 0;">Sector 36, Suncity Township-I, Rohtak, Haryana 124001</p>
+                    <p style="margin: 0;">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Contact Nos.: 09896346876</p>
+                    <p style="margin: 0;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Website: https://jprtk.com/</p>
                 </td>
             </tr>
         </table>
@@ -295,18 +315,9 @@ try {
                             <td class="colon-cell">:</td>
                             <td class="value-cell">
                                 <?php 
-                                    $parent_name = '';
-                                    if ($parent_info) {
-                                        if (!empty($parent_info->name)) {
-                                            $parent_name = $parent_info->name;
-                                        } else if (!empty($parent_info->father_name)) {
-                                            $parent_name = $parent_info->father_name;
-                                        }
-                                    }
-                                    
                                     echo $student_info->name;
-                                    if (!empty($parent_name)) {
-                                        echo " S/D/O " . $parent_name;
+                                    if ($parent_info && !empty($parent_info->name)) {
+                                        echo " S/D/O " . $parent_info->name;
                                     }
                                 ?>
                             </td>
@@ -317,14 +328,19 @@ try {
                             <td class="value-cell"><?php echo $student_info->admission_number; ?></td>
                         </tr>
                         <tr>
+                            <td class="label-cell">Class & Section</td>
+                            <td class="colon-cell">:</td>
+                            <td class="value-cell"><strong><?php echo $class_info->name; ?><?php if($section_info) echo ' - ' . $section_info->name; ?></strong></td>
+                        </tr>
+                        <tr>
                             <td class="label-cell">Contact No</td>
                             <td class="colon-cell">:</td>
                             <td class="value-cell">
                                 <?php 
-                                    $contact_numbers = array();
-                                    if (!empty($student_info->phone)) $contact_numbers[] = $student_info->phone;
-                                    if (!empty($student_info->father_phone)) $contact_numbers[] = $student_info->father_phone;
-                                    echo implode(', ', $contact_numbers);
+                                    $contacts = array();
+                                    if (!empty($student_info->phone)) $contacts[] = $student_info->phone;
+                                    if (!empty($student_info->father_phone)) $contacts[] = $student_info->father_phone;
+                                    echo implode(', ', $contacts);
                                 ?>
                             </td>
                         </tr>
@@ -340,22 +356,17 @@ try {
                         <tr>
                             <td class="label-cell">Date</td>
                             <td class="colon-cell">:</td>
-                            <td class="value-cell"><?php echo date('d-M-Y', $row['creation_timestamp']); ?></td>
-                        </tr>
-                        <tr>
-                            <td class="label-cell">Class</td>
-                            <td class="colon-cell">:</td>
-                            <td class="value-cell"><?php echo $class_info->name; ?> - <?php echo $section_info ? $section_info->name : 'N/A'; ?></td>
+                            <td class="value-cell"><?php echo date('d-M-Y', $creation_timestamp); ?></td>
                         </tr>
                         <tr>
                             <td class="label-cell">Fee Month</td>
                             <td class="colon-cell">:</td>
-                            <td class="value-cell"><?php echo date('F', $row['creation_timestamp']); ?></td>
+                            <td class="value-cell"><?php echo date('F Y', $creation_timestamp); ?></td>
                         </tr>
                         <tr>
-                            <td class="label-cell">Fee Book No.</td>
+                            <td class="label-cell">Payment Method</td>
                             <td class="colon-cell">:</td>
-                            <td class="value-cell"><?php echo isset($student_info->student_code) ? $student_info->student_code : 'N/A'; ?></td>
+                            <td class="value-cell"><strong><?php echo $payment_method_full; ?></strong></td>
                         </tr>
                         <tr>
                             <td class="label-cell">Payment Status</td>
@@ -374,14 +385,21 @@ try {
                                 </strong>
                             </td>
                         </tr>
+                        <?php if (!empty($description)): ?>
+                        <tr>
+                            <td class="label-cell">Description</td>
+                            <td class="colon-cell">:</td>
+                            <td class="value-cell"><?php echo htmlspecialchars($description); ?></td>
+                        </tr>
+                        <?php endif; ?>
                     </table>
                 </td>
             </tr>
         </table>
         
-        <!-- Payment Title -->
-        <div class="payment-title">
-            <h4 style="margin: 10px 0; text-align: center; background-color: #f5f5f5; padding: 5px; border: 1px solid #ddd;">PAYMENT DETAILS</h4>
+        <!-- Fee Breakdown Title -->
+        <div style="margin: 10px 0; text-align: center; background-color: #f5f5f5; padding: 5px; border: 1px solid #ddd;">
+            <h4 style="margin: 0;">DETAILED FEE BREAKDOWN</h4>
         </div>
         
         <!-- Fee Items Table -->
@@ -391,137 +409,111 @@ try {
                     <th>Fee Description</th>
                     <th>Previous Due</th>
                     <th>Previous Adv</th>
-                    <th>Fees</th>
-                    <th>To Pay</th>
-                    <th>Fee Paid</th>
+                    <th>Current Fees</th>
+                    <th>Total To Pay</th>
+                    <th>Amount Paid</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $total_amount = 0;
-                $total_paid = 0;
-                
-                if (empty($fee_items)) {
-                    // If no fee items in the new table, display the invoice's fee_type
-                    $total_amount = $row['amount'];
-                    $total_paid = $row['amount_paid'];
+                foreach ($fee_breakdown as $fee_item) {
+                    $total_amount += $fee_item['amount'];
                     ?>
                     <tr>
-                        <td><?php echo $row['fee_type']; ?></td>
+                        <td><strong><?php echo strtoupper(htmlspecialchars($fee_item['fee_type'])); ?></strong></td>
                         <td>0</td>
                         <td>0</td>
-                        <td><?php echo $currency; ?> <?php echo number_format($row['amount'],2,".",",");?></td>
-                        <td><?php echo $currency; ?> <?php echo number_format($row['amount'],2,".",",");?></td>
-                        <td><?php echo $currency; ?> <?php echo number_format($row['amount_paid'],2,".",",");?></td>
+                        <td><?php echo $currency; ?> <?php echo number_format($fee_item['amount'],2,".",",");?></td>
+                        <td><?php echo $currency; ?> <?php echo number_format($fee_item['amount'],2,".",",");?></td>
+                        <td class="highlight-amount">0</td>
                     </tr>
                 <?php
-                } else {
-                    // Show predefined fee types
-                    $fee_types = array(
-                        'A.C. CHARGES' => 0,
-                        'TUITION FEE' => 0,
-                        'COMPUTER-CUM-SMART CLASS' => 0,
-                        'ACTIVITIES' => 0
-                    );
-                    
-                    // Map fee items to predefined types where possible
-                    foreach ($fee_items as $fee_item) {
-                        $total_amount += $fee_item['amount'];
-                        $total_paid += $fee_item['amount'];
-                        
-                        $fee_type = strtoupper($fee_item['fee_type']);
-                        
-                        // Try to match to predefined types
-                        $matched = false;
-                        foreach ($fee_types as $key => $value) {
-                            if (strpos($fee_type, $key) !== false || strpos($key, $fee_type) !== false) {
-                                $fee_types[$key] = $fee_item['amount'];
-                                $matched = true;
-                                break;
-                            }
-                        }
-                        
-                        // If not matched, add as is
-                        if (!$matched) {
-                            $fee_types[$fee_type] = $fee_item['amount'];
-                        }
-                    }
-                    
-                    // Display fee types
-                    foreach ($fee_types as $fee_type => $amount) {
-                        if ($amount > 0) {
-                    ?>
-                        <tr>
-                            <td><?php echo $fee_type; ?></td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td><?php echo $currency; ?> <?php echo number_format($amount,2,".",",");?></td>
-                            <td><?php echo $currency; ?> <?php echo number_format($amount,2,".",",");?></td>
-                            <td><?php echo $currency; ?> <?php echo number_format($amount,2,".",",");?></td>
-                        </tr>
-                    <?php
-                        }
-                    }
                 }
-                
-                // If no total paid is set, use the amount
-                if ($total_paid == 0) {
-                    $total_paid = $row['amount_paid'] > 0 ? $row['amount_paid'] : $total_amount;
-                }
-                
-                // Calculate balance
-                $balance = $total_amount - $total_paid;
-                if ($balance < 0) $balance = 0;
                 ?>
                 <tr class="totals-row">
-                    <td colspan="3" style="text-align: right;">Total :</td>
-                    <td><?php echo $currency; ?> <?php echo number_format($total_amount,2,".",",");?></td>
-                    <td><?php echo $currency; ?> <?php echo number_format($total_amount,2,".",",");?></td>
-                    <td><?php echo $currency; ?> <?php echo number_format($total_paid,2,".",",");?></td>
+                    <td style="text-align: center; font-weight: bold;">GROSS TOTAL</td>
+                    <td><strong>0</strong></td>
+                    <td><strong>0</strong></td>
+                    <td><strong><?php echo $currency; ?> <?php echo number_format($total_amount,2,".",",");?></strong></td>
+                    <td><strong><?php echo $currency; ?> <?php echo number_format($total_amount,2,".",",");?></strong></td>
+                    <td class="highlight-amount"><strong>0</strong></td>
                 </tr>
             </tbody>
         </table>
         
+        <!-- Discount Information -->
+        <?php if ($concession > 0 && !empty($discount_type) && $discount_type != 'no_discount'): ?>
+        <div class="discount-info">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="70%"><strong>Concession Applied:</strong> <?php echo ucwords(str_replace('_', ' ', htmlspecialchars($discount_type))); ?></td>
+                    <td width="30%" align="right"><strong><?php echo $currency; ?> <?php echo number_format($concession,2,".",","); ?></strong></td>
+                </tr>
+            </table>
+        </div>
+        <?php endif; ?>
+        
         <!-- Payment Summary -->
-        <table class="payment-summary" border="1" style="margin-top: 10px; width: 70%; margin-left: auto; margin-right: 0;">
+        <table class="payment-summary-enhanced" border="1" style="margin-top: 10px; width: 100%;">
             <tr style="background-color: #f5f5f5;">
-                <th style="padding: 5px; text-align: left;">Total Amount</th>
-                <td style="padding: 5px; text-align: right;"><strong><?php echo $currency; ?> <?php echo number_format($total_amount,2,".",",");?></strong></td>
+                <th colspan="2" style="text-align: center; padding: 8px; font-size: 14px;">PAYMENT SUMMARY</th>
             </tr>
             <tr>
-                <th style="padding: 5px; text-align: left;">Amount Paid</th>
-                <td style="padding: 5px; text-align: right;"><strong><?php echo $currency; ?> <?php echo number_format($total_paid,2,".",",");?></strong></td>
+                <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Total Fee Amount</th>
+                <td style="padding: 8px; text-align: right; font-weight: bold;"><?php echo $currency; ?> <?php echo number_format($row['amount'],2,".",",");?></td>
+            </tr>
+            <?php if ($concession > 0): ?>
+            <tr>
+                <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Less: Concession</th>
+                <td style="padding: 8px; text-align: right; color: #d9534f; font-weight: bold;">- <?php echo $currency; ?> <?php echo number_format($concession,2,".",",");?></td>
             </tr>
             <tr>
-                <th style="padding: 5px; text-align: left;">Balance Due</th>
-                <td style="padding: 5px; text-align: right;"><strong><?php echo $currency; ?> <?php echo number_format($balance,2,".",",");?></strong></td>
+                <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Net Amount Payable</th>
+                <td style="padding: 8px; text-align: right; font-weight: bold;"><?php echo $currency; ?> <?php echo number_format($row['amount'] - $concession,2,".",",");?></td>
+            </tr>
+            <?php endif; ?>
+            <tr>
+                <th style="padding: 8px; text-align: left; background-color: #d9edf7;">Amount Paid</th>
+                <td style="padding: 8px; text-align: right; color: #5cb85c; font-weight: bold; background-color: #d9edf7;"><?php echo $currency; ?> <?php echo number_format($row['amount_paid'],2,".",",");?></td>
             </tr>
             <tr>
-                <th style="padding: 5px; text-align: left;">Payment Mode</th>
-                <td style="padding: 5px; text-align: right;"><strong><?php echo $payment_method; ?></strong></td>
+                <th style="padding: 8px; text-align: left; background-color: #f2dede;">Outstanding Balance</th>
+                <td style="padding: 8px; text-align: right; color: #d9534f; font-weight: bold; background-color: #f2dede;"><?php echo $currency; ?> <?php echo number_format($row['due'],2,".",",");?></td>
+            </tr>
+            <tr>
+                <th style="padding: 8px; text-align: left; background-color: #f5f5f5;">Payment Mode</th>
+                <td style="padding: 8px; text-align: right; font-weight: bold; background-color: #f5f5f5;"><?php echo htmlspecialchars($payment_method_full); ?></td>
             </tr>
         </table>
         
         <!-- Footer Section -->
-        <div class="footer-section">
+        <div style="margin-top: 15px;">
             <table border="0" width="100%">
                 <tr>
                     <td width="70%" valign="top">
-                        <p><strong>In Words: </strong><?php echo numberToWords($total_paid); ?></p>
-                        <p><strong>Bank: </strong><?php echo $bank_details ? $bank_details : "_________________"; ?></p>
-                        <p><strong>Cheque/CC/DB/DD & Inst. Date: </strong><?php echo $instrument_date ? $instrument_date : "_______________"; ?></p>
-                        <?php if ($advance > 0): ?>
-                        <p><strong>Advance: </strong><?php echo $currency; ?> <?php echo number_format($advance,2,".",","); ?></p>
+                        <!-- <p><strong>Amount in Words: </strong><?php 
+                        //     $outstanding_balance = (float)$row['due'];
+                        //     if ($outstanding_balance == 0) {
+                        //         echo "Zero";
+                        //     } else if ($outstanding_balance < 100) {
+                        //         echo ucfirst(number_format($outstanding_balance, 0));
+                        //     } else {
+                        //         echo "Amount as stated above";
+                        //     }
+                        // ?> Only</p> -->
+                        <?php if (!empty($row['title']) && $row['title'] != 'Fee Payment'): ?>
+                        <p><strong>Payment Title: </strong><?php echo htmlspecialchars($row['title']); ?></p>
                         <?php endif; ?>
-                        <?php if ($concession > 0): ?>
-                        <p><strong>Concession: </strong><?php echo $currency; ?> <?php echo number_format($concession,2,".",","); ?></p>
+                        <?php if (!empty($description)): ?>
+                        <p><strong>Remarks: </strong><?php echo htmlspecialchars($description); ?></p>
                         <?php endif; ?>
-                        <p>** Subject to realization of cheque.</p>
-                        <p>* Optional</p>
                     </td>
                     <td width="30%" valign="top">
-                        <div class="cashier-signature">
-                            <p>(CASHIER)</p>
+                        <div style="text-align: right; margin-top: 30px; font-weight: bold;">
+                            <p>_________________</p>
+                            <p><strong>(CASHIER)</strong></p>
+                            <p style="font-size: 10px; margin-top: 10px;">Date: <?php echo date('d-M-Y'); ?></p>
                         </div>
                     </td>
                 </tr>
@@ -534,19 +526,18 @@ try {
         window.onload = function() {
             setTimeout(function() {
                 window.print();
-            }, 500);
+            }, 1000);
         };
     </script>
 </body>
 </html>
 <?php
-        } catch (Exception $e) {
-            error_log('Error processing invoice detail: ' . $e->getMessage());
-            echo '<div class="alert alert-danger">Error processing invoice: ' . $e->getMessage() . '</div>';
-        }
     endforeach;
 } catch (Exception $e) {
-    error_log('Error retrieving invoice: ' . $e->getMessage());
-    echo '<div class="alert alert-danger">Error retrieving invoice: ' . $e->getMessage() . '</div>';
+    echo '<div style="color: red; padding: 20px;">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
+    echo '<div style="color: red;">File: ' . htmlspecialchars($e->getFile()) . '</div>';
+    echo '<div style="color: red;">Line: ' . $e->getLine() . '</div>';
 }
-?> 
+?>
+
+<!-- Debug: End of print invoice process --> 

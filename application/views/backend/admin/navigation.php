@@ -65,19 +65,21 @@
                     $page_name == 'academic_syllabus') echo 'opened active';
             ?> ">
                             
-        <li class="<?php if ($page_name == 'enquiry_category') echo 'active';?> enhanced-sub-item"> 
+        <!-- Hide Enquiry Category -->
+        <!-- <li class="<?php if ($page_name == 'enquiry_category') echo 'active';?> enhanced-sub-item"> 
             <a href="<?php echo base_url();?>admin/enquiry_category" class="enhanced-sub-link">
                 <i class="fa fa-angle-double-right p-r-10"></i>
                 <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('Equiry Category');?></span>
             </a> 
-        </li>
+        </li> -->
 
-       <li class="<?php if ($page_name == 'enquiry') echo 'active'; ?> enhanced-sub-item">
+        <!-- Hide List Enquiries -->
+        <!-- <li class="<?php if ($page_name == 'enquiry') echo 'active'; ?> enhanced-sub-item">
                 <a href="<?php echo base_url(); ?>admin/list_enquiry" class="enhanced-sub-link">
                 <i class="fa fa-angle-double-right p-r-10"></i>
                       <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('list_enquiries'); ?></span>
                 </a>
-        </li>
+        </li> -->
 
         <!-- Hide School Clubs -->
         <!-- <li class="<?php if ($page_name == 'club') echo 'active'; ?>">
@@ -87,12 +89,13 @@
                 </a>
         </li> -->
 
-        <li class="<?php if ($page_name == 'circular') echo 'active'; ?> enhanced-sub-item">
+        <!-- Hide Manage Circulars -->
+        <!-- <li class="<?php if ($page_name == 'circular') echo 'active'; ?> enhanced-sub-item">
                 <a href="<?php echo base_url(); ?>admin/circular" class="enhanced-sub-link">
                 <i class="fa fa-angle-double-right p-r-10"></i>
                  <span class="hide-menu enhanced-sub-text"> <?php echo get_phrase('manage_circular'); ?></span>
                 </a>
-        </li>
+        </li> -->
 
         <!-- Hide Syllabus -->
         <!-- <li class="<?php if ($page_name == 'academic_syllabus') echo 'active'; ?>">
@@ -266,11 +269,11 @@
     </li>
      <!---  Permission for Admin Manage Student ends here ------>
 
-    <!---  Permission for Admin Manage Attendance starts here ------>
+    <!---  Permission for Admin Student's Attendance starts here ------>
         <li class="attendance enhanced-nav-item"> 
             <a href="javascript:void(0);" class="waves-effect enhanced-nav-link">
                 <i data-icon="&#xe006;" class="fa fa-hospital-o p-r-10 enhanced-icon"></i> 
-                <span class="hide-menu enhanced-text"><?php echo get_phrase('manage_attendance');?><span class="fa arrow"></span></span>
+                <span class="hide-menu enhanced-text"><?php echo get_phrase('students_attendance');?><span class="fa arrow"></span></span>
             </a>
         
                         <ul class=" nav nav-second-level<?php
@@ -294,7 +297,7 @@
                 
                  </ul>
                 </li>
-            <!---  Permission for Admin Manage Attendance ends here ------>
+            <!---  Permission for Admin Student's Attendance ends here ------>
 
     <!---  Permission for Admin Assessment starts here (changed from Download Page) ------>
                     <li class="enhanced-nav-item"> 
@@ -319,7 +322,7 @@
         <li class="<?php if ($page_name == 'study_material') echo 'active'; ?> enhanced-sub-item">
             <a href="<?php echo base_url(); ?>studymaterial/study_material" class="enhanced-sub-link">
             <i class="fa fa-angle-double-right p-r-10"></i>
-                  <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('study_materials'); ?></span>
+                  <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('homework'); ?></span>
             </a>
         </li>
 
@@ -391,7 +394,8 @@
                  </ul>
                 </li>
                 
-                    <li class="enhanced-nav-item"> 
+                <!-- Hide Complete Expenditure Section -->
+                <!-- <li class="enhanced-nav-item"> 
                         <a href="javascript:void(0);" class="waves-effect enhanced-nav-link">
                             <i data-icon="&#xe006;" class="fa fa-credit-card p-r-10 enhanced-icon"></i> 
                             <span class="hide-menu enhanced-text"><?php echo get_phrase('expenditure');?><span class="fa arrow"></span></span>
@@ -418,7 +422,7 @@
                     </li>
      
                  </ul>
-                </li>
+                </li> -->
 
         <!-- Hide Complete Manage Messages Section -->
         <!-- <li> <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-envelope p-r-10"></i> <span class="hide-menu"> <?php echo get_phrase('manage_messages');?> <span class="fa arrow"></span></span></a>   
@@ -473,6 +477,51 @@
                  </ul>
                 </li>
 
+    <!---  Permission for Admin Manage Examinations starts here ------>
+        <li class="enhanced-nav-item"> 
+            <a href="javascript:void(0);" class="waves-effect enhanced-nav-link">
+                <i data-icon="&#xe006;" class="fa fa-trophy p-r-10 enhanced-icon"></i> 
+                <span class="hide-menu enhanced-text"><?php echo get_phrase('manage_examinations');?><span class="fa arrow"></span></span>
+            </a>
+        
+                        <ul class=" nav nav-second-level<?php
+            if ($page_name == 'createExamination' || $page_name == 'marks' || $page_name == 'examQuestion' || $page_name == 'student_marksheet_subject')
+                echo 'opened active';
+            ?>">
+                        
+                    <li class="<?php if ($page_name == 'createExamination') echo 'active'; ?> enhanced-sub-item">
+                        <a href="<?php echo base_url(); ?>admin/createExamination" class="enhanced-sub-link">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                              <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('manage_exams'); ?></span>
+                        </a>
+                    </li>
+
+                    <li class="<?php if ($page_name == 'marks') echo 'active'; ?> enhanced-sub-item">
+                        <a href="<?php echo base_url(); ?>admin/marks" class="enhanced-sub-link">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                              <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('student_marks'); ?></span>
+                        </a>
+                    </li>
+
+                    <li class="<?php if ($page_name == 'student_marksheet_subject') echo 'active'; ?> enhanced-sub-item">
+                        <a href="<?php echo base_url(); ?>admin/student_marksheet_subject" class="enhanced-sub-link">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                              <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('marks_by_subject'); ?></span>
+                        </a>
+                    </li>
+
+                    <!-- Hide Exam Questions -->
+                    <!-- <li class="<?php if ($page_name == 'examQuestion') echo 'active'; ?> enhanced-sub-item">
+                        <a href="<?php echo base_url(); ?>admin/examQuestion" class="enhanced-sub-link">
+                        <i class="fa fa-angle-double-right p-r-10"></i>
+                              <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('exam_questions'); ?></span>
+                        </a>
+                    </li> -->
+                
+                 </ul>
+                </li>
+            <!---  Permission for Admin Manage Examinations ends here ------>
+
         <li class="enhanced-nav-item"> 
             <a href="javascript:void(0);" class="waves-effect enhanced-nav-link">
                 <i data-icon="&#xe006;" class="fa fa-gears p-r-10 enhanced-icon"></i> 
@@ -494,31 +543,35 @@
                         </a>
                     </li>
 
-                    <li class="<?php if ($page_name == 'sms_settings') echo 'active'; ?> enhanced-sub-item">
+                    <!-- Hide SMS API Settings -->
+                    <!-- <li class="<?php if ($page_name == 'sms_settings') echo 'active'; ?> enhanced-sub-item">
                         <a href="<?php echo base_url(); ?>smssetting/sms_settings" class="enhanced-sub-link">
                         <i class="fa fa-angle-double-right p-r-10"></i>
                              <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('manage_sms_api'); ?></span>
                         </a>
-                    </li>
+                    </li> -->
 
-                    <li class="<?php if ($page_name == 'manage_language') echo 'active'; ?> enhanced-sub-item">
+                    <!-- Hide Language Management -->
+                    <!-- <li class="<?php if ($page_name == 'manage_language') echo 'active'; ?> enhanced-sub-item">
                         <a href="<?php echo base_url(); ?>admin/manage_language" class="enhanced-sub-link">
                         <i class="fa fa-angle-double-right p-r-10"></i>
                              <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('manage_language'); ?></span>
                         </a>
-                    </li>
+                    </li> -->
 
-                    <li class="<?php if ($page_name == 'paymentSetting') echo 'active'; ?> enhanced-sub-item">
+                    <!-- Hide Payment Settings -->
+                    <!-- <li class="<?php if ($page_name == 'paymentSetting') echo 'active'; ?> enhanced-sub-item">
                         <a href="<?php echo base_url(); ?>payment/paymentSetting" class="enhanced-sub-link">
                         <i class="fa fa-angle-double-right p-r-10"></i>
                              <span class="hide-menu enhanced-sub-text"><?php echo get_phrase('Payment Settings'); ?></span>
                         </a>
-                    </li>
+                    </li> -->
      
                  </ul>
                 </li>
                 
-        <li class="enhanced-nav-item"> 
+        <!-- Hide Complete Generate Reports Section -->
+        <!-- <li class="enhanced-nav-item"> 
             <a href="javascript:void(0);" class="waves-effect enhanced-nav-link">
                 <i data-icon="&#xe006;" class="fa fa-bar-chart-o p-r-10 enhanced-icon"></i> 
                 <span class="hide-menu enhanced-text"><?php echo get_phrase('generate_reports');?><span class="fa arrow"></span></span>
@@ -548,7 +601,7 @@
                 </li>
      
                  </ul>
-                </li>
+                </li> -->
 
         <?php $checking_level = $this->db->get_where('admin', array('admin_id' => $this->session->userdata('login_user_id')))->row()->level;?>
 

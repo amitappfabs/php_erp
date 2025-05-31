@@ -58,7 +58,7 @@
 							<td><?php echo $transport_route['description'];?></td>
 							<td>
 							
-					 <a href="#" onclick="confirm_modal('<?php echo base_url();?>transportation/transport_route/delete/<?php echo $transport_route['transport_route_id'];?>');"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-times"></i></button></a>
+					 <a href="#" onclick="confirm_modal('<?php echo base_url();?>transportation/transport_route/delete/<?php echo $transport_route['transport_route_id'];?>');"><button type="button" class="btn btn-danger btn-sm" style="background: linear-gradient(45deg, #dc3545, #c82333); border: none; border-radius: 8px; padding: 8px 12px; margin: 2px; box-shadow: 0 4px 8px rgba(220,53,69,0.3); transition: all 0.3s ease;"><i class="fa fa-trash"></i> Delete</button></a>
 					 
 			
                            
