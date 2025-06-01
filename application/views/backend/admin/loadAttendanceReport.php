@@ -487,7 +487,7 @@ function printTableArea(divId) {
     printWindow.document.write(`
         <html>
         <head>
-            <title>JP International - Student Attendance Report</title>
+            <title>National Public School - Student Attendance Report</title>
             <style>
                 @page {
                     size: A4 landscape;
@@ -656,8 +656,8 @@ function printTableArea(divId) {
         </head>
         <body>
             <div class="print-header">
-                <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="JP International School Logo">
-                <div class="school-name">JP International</div>
+                <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="National Public School Logo">
+                <div class="school-name">National Public School</div>
                 <div class="report-title">Student Attendance Report</div>
             </div>
             

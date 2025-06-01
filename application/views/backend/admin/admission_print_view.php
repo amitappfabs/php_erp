@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo get_phrase('JP International School - Admission Form'); ?></title>
+    <title><?php echo get_phrase('National Public School - Admission Form'); ?></title>
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
     <style>
@@ -342,10 +342,10 @@
         <!-- PAGE 1 CONTENT -->
         <div class="page-1">
             <div class="header">
-                <!-- JP International School Logo - Flying Free! -->
-                <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="JP International School Logo">
+                <!-- National Public School Logo - Flying Free! -->
+                <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="National Public  School Logo">
                 
-                <div class="school-name">J.P. International</div>
+                <div class="school-name">National Public School</div>
             </div>
             
             <div class="form-title">

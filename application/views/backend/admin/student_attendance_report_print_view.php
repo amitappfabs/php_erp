@@ -111,10 +111,10 @@ if (!isset($attendance_data) || !is_array($attendance_data)) {
 </head>
 <body>
     <div class="print-header">
-        <!-- JP International School Logo -->
-        <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="JP International School Logo">
+        <!-- National Public School Logo -->
+        <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="National Public School Logo">
         
-        <div class="school-name">JP International</div>
+        <div class="school-name">National Public School</div>
         
         <div class="report-title">Student Attendance Report</div>
         

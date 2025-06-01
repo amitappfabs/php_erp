@@ -91,10 +91,10 @@
 </head>
 <body>
     <div class="header">
-        <!-- JP International School Logo -->
-        <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="JP International School Logo">
+        <!-- National Public  School Logo -->
+        <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="National Public School Logo">
         
-        <div class="school-name">JP International</div>
+        <div class="school-name">National Public School</div>
         
         <div class="report-title">Teacher Attendance Report</div>
         

@@ -282,10 +282,12 @@ try {
                     <img src="<?php echo base_url('uploads/school_logo.png.png'); ?>" class="school-logo" alt="School Logo">
                 </td>
                 <td width="85%" align="left" style="padding-left: 140px;">
-                    <h2 style="margin: 0; font-weight: bold; text-transform: uppercase; ">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; JP International</h2>
-                    <p style="margin: 0;">Sector 36, Suncity Township-I, Rohtak, Haryana 124001</p>
-                    <p style="margin: 0;">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Contact Nos.: 09896346876</p>
-                    <p style="margin: 0;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Website: https://jprtk.com/</p>
+                    <h2 style="margin: 0; font-weight: bold; text-transform: uppercase; ">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; National Public School </h2>
+                    <p style="margin: 0;">MAIN SAFIABAD ROAD, NARELA, DELHI - 110040
+                    </p>
+                    <p style="margin: 0;">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Contact Nos.: 8750490890
+                    </p>
+                    <p style="margin: 0;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Website: www.nationalpublicschool.in </p>
                 </td>
             </tr>
         </table>

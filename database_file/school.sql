@@ -1227,7 +1227,7 @@ INSERT INTO `settings` (`settings_id`, `type`, `description`) VALUES
 (12, 'text_align', 'left-to-right'),
 (16, 'skin_colour', 'purple'),
 (21, 'session', '2025-26'),
-(22, 'footer', 'Powered by Gyansetu.ai <br>  ( RFT )'),
+(22, 'footer', 'Powered by Gyansetu.ai <br> Ruhil Future Technologies ( RFT )'),
 (116, 'paypal_email', 'optimumproblemsolver@gmail.com'),
 (119, 'stripe_setting', '[{"stripe_active":"1","testmode":"off","secret_key":"test secret key","public_key":"test public key","secret_live_key":"live secret key","public_live_key":"live public key"}]'),
 (122, 'paypal_setting', '[{"paypal_active":"1","paypal_mode":"sandbox","sandbox_client_id":"client id sandbox","production_client_id":"client - production"}]');
