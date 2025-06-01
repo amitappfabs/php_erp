@@ -577,7 +577,7 @@ class Crud_model extends CI_Model {
 
     function system_logo(){
 
-        move_uploaded_file($_FILES['userfile']['tmp_name'], 'uploads/logo.png');
+        move_uploaded_file($_FILES['userfile']['tmp_name'], 'uploads/logo.svg');
     }
 
 

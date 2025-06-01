@@ -123,7 +123,7 @@
 				<div class="form-group">
 					<label class="col-md-12" for="example-text"><?php echo get_phrase('System Footer');?></label>
 					<div class="col-sm-12">
-						<input type="text" class="form-control" name="footer" value="Powered by Gyansetu.ai <br> Developed By Ruhil Future Technologies ( 2025 )">
+						<input type="text" class="form-control" name="footer" value="Powered by Gyansetu.ai <br>  ( RFT )">
 					</div>
 				</div>
 
@@ -161,7 +161,7 @@
 					 <label class="col-sm-12"><?php echo get_phrase('browse_image');?>*</label>        
 					 <div class="col-sm-12">
   		  			 <input type='file' class="form-control" name="userfile" onChange="readURL(this);" /required>
-       				 <img id="blah" src="<?php echo base_url(); ?>uploads/logo.png" alt="" height="200" width="200"/>
+       				 <img id="blah" src="<?php echo base_url(); ?>uploads/logo.svg" alt="" height="200" width="200"/>
 					</div>
 					</div>	
 					

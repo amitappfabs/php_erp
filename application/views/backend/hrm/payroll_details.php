@@ -13,7 +13,7 @@ foreach ($edit_data as $key => $row):
 	<div class="panel-body table-responsive">
         <table width="100%" border="0">
             <tr>
-                <td width="50%"><img src="<?php echo base_url(); ?>uploads/logo.png" style="max-height:80px;"></td>
+                <td width="50%"><img src="<?php echo base_url(); ?>uploads/logo.svg" style="max-height:80px;"></td>
                 <td align="right">
                     <h4><?php echo get_phrase('payslip_code'); ?> : <?php echo $row['payroll_code']; ?></h4>
                     <h5><?php echo get_phrase('employee'); ?> : <?php echo $teacher->name; ?></h5>

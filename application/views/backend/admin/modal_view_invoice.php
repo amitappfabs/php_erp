@@ -75,7 +75,7 @@ try {
         <table width="100%" border="0">
             <tr>
                 <td width="15%" align="center">
-                    <img src="<?php echo base_url('uploads/logo.png'); ?>" style="max-height: 80px;" alt="School Logo">
+                    <img src="<?php echo base_url('uploads/logo.svg'); ?>" style="max-height: 80px;" alt="School Logo">
                 </td>
                 <td width="85%" align="center">
                     <h2 style="margin: 0; font-weight: bold; text-transform: uppercase;"><?php echo $system_name; ?></h2>

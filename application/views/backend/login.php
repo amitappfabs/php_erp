@@ -11,7 +11,7 @@ $system_title = $this->db->get_where('settings', array('type' => 'system_title')
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="We ddevelop creative software, eye catching software. We also train to become a creative thinker">
 <meta name="author" content="OPTIMUM LINKUP COMPUTERS">
-<link rel="icon"  sizes="16x16" href="<?php echo base_url() ?>uploads/logo.png">
+<link rel="icon"  sizes="16x16" href="<?php echo base_url() ?>uploads/logo.svg">
         <title><?php echo $system_title;?></title>
 <!-- Bootstrap Core CSS -->
 <link href="<?php echo base_url(); ?>bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

@@ -15,7 +15,7 @@ a:2:{s:6:"expire";i:1556212069;s:7:"headers";a:6:{i:0;a:2:{i:0;s:15:"HTTP/1.0 20
 		
 
         <title>OFINE SCHOOL MANAGEMENT SYSTEMS | OFINE SCHOOL MANAGEMENT SYSTEMS</title>   <!-- Bootstrap core CSS -->
-		<link rel="icon"  sizes="16x16" href="http://127.0.0.1/newschool/uploads/logo.png">
+		<link rel="icon"  sizes="16x16" href="http://127.0.0.1/newschool/uploads/logo.svg">
     <link href="http://127.0.0.1/newschool/landing/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bx-Slider StyleSheet CSS -->
     <link href="http://127.0.0.1/newschool/landing/css/jquery.bxslider.css" rel="stylesheet"> 
@@ -75,7 +75,7 @@ a:2:{s:6:"expire";i:1556212069;s:7:"headers";a:6:{i:0;a:2:{i:0;s:15:"HTTP/1.0 20
         	<div class="container">
                 <div class="logo_wrap">
   						<a href="http://127.0.0.1/newschool/" class="logo">
-                        <img src="http://127.0.0.1/newschool/uploads/logo.png" width="225" height="36" alt="" />
+                        <img src="http://127.0.0.1/newschool/uploads/logo.svg" width="225" height="36" alt="" />
                    	 	</a>                
 						</div>
                <!-- <div class="top_cart_wrap">
@@ -259,7 +259,7 @@ a:2:{s:6:"expire";i:1556212069;s:7:"headers";a:6:{i:0;a:2:{i:0;s:15:"HTTP/1.0 20
                 	<div class="col-md-3 col-sm-6">
                     	<div class="footer_col_1 widget">
 						
-                        <img src="http://127.0.0.1/newschool/uploads/logo.png" width="150" height="40" alt="" />
+                        <img src="http://127.0.0.1/newschool/uploads/logo.svg" width="150" height="40" alt="" />
                    	 	</a>
 						<p align="justify" style="color:white">						Meet our able, gallant and most competent teachers that will help your children/child to attain higher success in life. We teach to become a creative thinker and to be useful to the society.						</p>
                          <a href="http://127.0.0.1/newschool/welcome/contact/validate/" class="btn btn-success btn-rounded btn-sm" style="color:white">GET IN TOUCH</a>

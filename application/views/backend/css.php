@@ -12,7 +12,7 @@
 		$system_title	=	$this->db->get_where('settings' , array('type'=>'system_title'))->row()->description;
 		?>
 
-    <link rel="icon"  sizes="16x16" href="<?php echo base_url() ?>uploads/logo.png">
+    <link rel="icon"  sizes="16x16" href="<?php echo base_url() ?>uploads/logo.svg">
     <title><?php echo $page_title;?>&nbsp;|&nbsp;<?php echo $system_title;?></title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>optimum/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >

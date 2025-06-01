@@ -8,7 +8,7 @@
 <html>
 <head>
 	 <title>Timetable :: <?php echo $system_name;?></title>
-	<link rel="icon"  sizes="16x16" href="<?php echo base_url() ?>uploads/logo.png">
+	<link rel="icon"  sizes="16x16" href="<?php echo base_url() ?>uploads/logo.svg">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 				<div class="panel-body">
 				
 				<div align="center">
-                <img src="<?php echo base_url();?>uploads/logo.png" class="img-circle" width="80" height="80">
+                <img src="<?php echo base_url();?>uploads/logo.svg" class="img-circle" width="80" height="80">
                 </div>
 			
 	            <div align="center">
